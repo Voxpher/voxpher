@@ -1,3 +1,12 @@
+VOXPHER v3 — SIGNAL RED redesign (2026-09-29)
+------------------------------------------------
+Full reskin: red-dominant background, black display type, white cards,
+glassmorphism panels, film grain, 3D tilt cards, magnetic buttons,
+scrolling marquee dividers, dark band sections. Same pages, same copy,
+same class names — pure visual upgrade. Your Cloudinary images
+(papa.png / papan.jpg / SIgnn1.png) are now the defaults in js/site.js.
+Zero emojis — all icons are inline SVG / typographic marks.
+
 ================================================================
 VOXPHER — voxpher.com · complete website package
 Papan Sutradhar · Music · Design · Code · Visuals

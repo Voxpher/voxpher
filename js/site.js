@@ -28,9 +28,9 @@ var VOXPHER_CONFIG = {
 
   images: {
     /* ---------- HOME ---------- */
-    homeHeroBg:   "https://picsum.photos/seed/voxhero/1920/1080",   // wide 16:9 banner
-    homePhoto:    "https://picsum.photos/seed/voxpapan2/400/400",   // square portrait of you in the hero — REPLACE with your hosted image URL
-    signatureImg: "https://picsum.photos/seed/voxsign/600/160",    // your signature (wide PNG, transparent bg best) — REPLACE with your hosted image URL
+    homeHeroBg:   "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/papa.png",   // wide banner (your Cloudinary image)
+    homePhoto:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/papan.jpg",  // your portrait (Cloudinary)
+    signatureImg: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png", // your signature (Cloudinary, white-on-dark via CSS invert)
     worldMusic:   "https://picsum.photos/seed/voxmusic/800/1000",    // tall 4:5 card
     worldVisuals: "https://picsum.photos/seed/voxvisual/800/1000",  // tall 4:5 card
     worldCode:    "https://picsum.photos/seed/voxcode/800/1000",     // tall 4:5 card

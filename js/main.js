@@ -264,10 +264,47 @@ function homeMotion(){
   }
 }
 
+/* ---------- 3D tilt on cards + magnetic buttons ---------- */
+function tiltAndMagnetic(){
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = window.matchMedia("(pointer: fine)").matches;
+  if (reduce || !fine) return;
+
+  /* 3D tilt */
+  var cards = document.querySelectorAll(".work-card, .world, .music-card");
+  for (var i = 0; i < cards.length; i++){
+    (function(card){
+      card.classList.add("tilt");
+      card.addEventListener("mousemove", function(e){
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = "perspective(900px) rotateX(" + (-y * 7).toFixed(2) + "deg) rotateY(" + (x * 9).toFixed(2) + "deg) translate(-3px,-3px)";
+      });
+      card.addEventListener("mouseleave", function(){ card.style.transform = ""; });
+    })(cards[i]);
+  }
+
+  /* Magnetic buttons */
+  var btns = document.querySelectorAll(".hero .btn, .hero .btn-ghost, .nav-cta");
+  for (var j = 0; j < btns.length; j++){
+    (function(btn){
+      btn.addEventListener("mousemove", function(e){
+        var r = btn.getBoundingClientRect();
+        var x = e.clientX - (r.left + r.width / 2);
+        var y = e.clientY - (r.top + r.height / 2);
+        btn.style.transform = "translate(" + (x * 0.12).toFixed(1) + "px," + (y * 0.18).toFixed(1) + "px)";
+      });
+      btn.addEventListener("mouseleave", function(){ btn.style.transform = ""; });
+    })(btns[j]);
+  }
+}
+
 /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", function(){
     hydrateImages();
     homeMotion(); years(); socials(); menu();
+    tiltAndMagnetic();
     reveals(); filters(); accordion(); contactForm();
   });
 })();
