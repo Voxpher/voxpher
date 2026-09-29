@@ -1,11 +1,27 @@
-VOXPHER v3 — SIGNAL RED redesign (2026-09-29)
+VOXPHER v5 — FULL SITE AUDIT + FIX (2026-09-29)
 ------------------------------------------------
-Full reskin: red-dominant background, black display type, white cards,
-glassmorphism panels, film grain, 3D tilt cards, magnetic buttons,
-scrolling marquee dividers, dark band sections. Same pages, same copy,
-same class names — pure visual upgrade. Your Cloudinary images
-(papa.png / papan.jpg / SIgnn1.png) are now the defaults in js/site.js.
-Zero emojis — all icons are inline SVG / typographic marks.
+Senior front-end / QA pass across all 17 pages. What changed:
+- Home hero photo + overlay REMOVED — header and hero are now one
+  solid flat brand red (#E10600), no gradients, no vignette, no seams.
+  1px black header border kept.
+- Sharp square corners EVERYWHERE: global border-radius:0 safety net
+  plus every pill/circle/rounded rule removed individually.
+- Contrast fixed to WCAG AA: white text on red, white kickers, white
+  buttons/filters/menu links, strong focus ring.
+- Nav: hamburger below 1024px, full red menu panel, closes on link /
+  Escape / outside tap, locks body scroll, active-page highlight.
+- Spinning "Since 2018" badge: clickable (scrolls to next section),
+  keyboard accessible, hidden below 640px.
+- PORTRAIT NOTE: your Cloudinary papan.jpg returns 404 (never uploaded
+  under that name). The home + about portraits are now clean black
+  "PS / Portrait coming soon" placeholder blocks — no broken icons.
+  Send me the correct portrait URL and I'll wire it in one line.
+- Favicon now brand red, og:image points at your real papa.png banner.
+- See section 2 for the current image keys in js/site.js.
+
+------------------------------------------------
+OLDER NOTES (v3/v4) — kept for reference
+------------------------------------------------
 
 ================================================================
 VOXPHER — voxpher.com · complete website package
@@ -78,12 +94,20 @@ plain-English comment telling you the shape to keep
 (tall 3:4 portraits, wide 16:9 banners, 4:3 cards).
 
   images: {
-    homeHeroBg: "https://picsum.photos/seed/voxhero/1920/1080",
+    signatureImg: "https://res.cloudinary.com/.../SIgnn1.png",
     ...
   }
 
 Paste your image URL between the quotes, save, re-deploy. Done.
-Right now they are placeholder images — swap them before launch.
+
+PORTRAITS: the home + about portrait slots currently show a clean
+black placeholder block because the Cloudinary file
+".../papan.jpg" does not exist (returns 404). To put your real
+photo in: (1) upload it to Cloudinary/R2, (2) in about.html and
+index.html replace the <div class="ph ..."> block with
+<img data-img="portrait" ...>, (3) add  portrait: "YOUR-URL"
+to the images list in js/site.js. Or just send me the URL and
+I'll do it.
 
 ----------------------------------------------------------------
 3) SOCIAL LINKS
@@ -172,10 +196,12 @@ HOSTING YOUR OWN PHOTO + SIGNATURE (Cloudflare R2)
 4. Go back to Objects, click your photo -> copy its URL
    (https://pub-ab12cd34.r2.dev/photo.jpg). Do the same for
    the signature.
-5. Send both URLs to me and I will put them in the site.
-   OR do it yourself: open js/site.js, find the lines
-   homePhoto: and signatureImg: and paste your link between
-   the quotes. Save, re-upload/push, done.
+5. Send the photo URL to me and I will put it in the site.
+   OR do it yourself: open js/site.js, find the images list and
+   add  portrait: "YOUR-URL"  between the quotes; in about.html
+   and index.html replace the <div class="ph ..."> placeholder
+   with  <img data-img="portrait" ...>.  Save, re-upload/push, done.
+   (The signature slot is the  signatureImg:  key in js/site.js.)
 SIMPLER ALTERNATIVE (no R2 needed): put the two files in an
 images/ folder inside this website folder, push to GitHub,
 and use https://voxpher.com/images/photo.jpg as the URL.

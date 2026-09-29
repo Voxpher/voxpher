@@ -73,6 +73,9 @@
     panel.querySelectorAll("nav a").forEach(function(a){
       a.addEventListener("click", close);
     });
+    document.addEventListener("click", function(e){
+      if (panel.classList.contains("open") && !panel.contains(e.target) && !toggle.contains(e.target)) close();
+    });
   }
 
   /* ---------- Reveal on scroll ---------- */
@@ -214,7 +217,6 @@ function homeMotion(){
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var badge = document.querySelector(".spin-badge");
   var wm = document.getElementById("heroWord");
-  var heroBg = document.querySelector(".hero-bg img");
 
   /* Split the hero wordmark into 3D-animated letters */
   if (wm && !wm.querySelector(".ch") && !reduce){
@@ -247,8 +249,21 @@ function homeMotion(){
     })(last);
   }
 
-  /* Parallax: wordmark + hero background drift on scroll */
-  if (wm || heroBg){
+  /* Badge click: scroll to the next section (works with reduced motion too) */
+  if (badge){
+    var goSection = function(){
+      var hero = document.querySelector(".hero");
+      var next = hero && hero.nextElementSibling;
+      if (next) next.scrollIntoView({behavior: reduce ? "auto" : "smooth"});
+    };
+    badge.addEventListener("click", goSection);
+    badge.addEventListener("keydown", function(e){
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); goSection(); }
+    });
+  }
+
+  /* Parallax: wordmark drifts on scroll */
+  if (wm){
     var ticking = false;
     window.addEventListener("scroll", function(){
       if (ticking) return; ticking = true;
@@ -256,7 +271,6 @@ function homeMotion(){
         var y = window.scrollY;
         if (y < window.innerHeight * 1.2){
           if (wm) wm.style.transform = "translateY(" + (y * 0.22) + "px)";
-          if (heroBg) heroBg.style.transform = "translateY(" + (y * 0.12) + "px) scale(1.06)";
         }
         ticking = false;
       });
@@ -300,10 +314,27 @@ function tiltAndMagnetic(){
   }
 }
 
+  /* ---------- Active nav state (shared header, per-page highlight) ---------- */
+  function activeNav(){
+    var path = location.pathname.replace(/\/index\.html$/, "");
+    if (path.length > 1) path = path.replace(/\/$/, "");
+    if (!path) path = "/";
+    var links = document.querySelectorAll(".site-nav a, .mobile-menu nav a");
+    for (var i = 0; i < links.length; i++){
+      var href = links[i].getAttribute("href");
+      if (!href || href.charAt(0) !== "/") continue;
+      var h = href.length > 1 ? href.replace(/\/$/, "") : "/";
+      if (h === path || (h !== "/" && path.indexOf(h + "/") === 0)){
+        links[i].classList.add("active");
+        links[i].setAttribute("aria-current", "page");
+      }
+    }
+  }
+
 /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", function(){
     hydrateImages();
-    homeMotion(); years(); socials(); menu();
+    homeMotion(); years(); socials(); menu(); activeNav();
     tiltAndMagnetic();
     reveals(); filters(); accordion(); contactForm();
   });

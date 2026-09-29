@@ -28,14 +28,11 @@ var VOXPHER_CONFIG = {
 
   images: {
     /* ---------- HOME ---------- */
-    homeHeroBg:   "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/papa.png",   // wide banner (your Cloudinary image)
-    homePhoto:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/papan.jpg",  // your portrait (Cloudinary)
     signatureImg: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png", // your signature (Cloudinary, white-on-dark via CSS invert)
     worldMusic:   "https://picsum.photos/seed/voxmusic/800/1000",    // tall 4:5 card
     worldVisuals: "https://picsum.photos/seed/voxvisual/800/1000",  // tall 4:5 card
     worldCode:    "https://picsum.photos/seed/voxcode/800/1000",     // tall 4:5 card
     worldBrands:  "https://picsum.photos/seed/voxbrands/800/1000",  // tall 4:5 card
-    homeAbout:    "https://picsum.photos/seed/voxpapan/800/1000",    // tall 4:5 portrait
 
     /* ---------- WORK CARDS (wide 4:3) ---------- */
     workIndoride:   "https://picsum.photos/seed/voxindoride/800/600",
@@ -79,7 +76,6 @@ var VOXPHER_CONFIG = {
     vis9: "https://picsum.photos/seed/voxvis9/800/1000",
 
     /* ---------- ABOUT / STUDIO ---------- */
-    aboutPortrait: "https://picsum.photos/seed/voxabout/800/1000",  // tall 4:5
     studioImg:     "https://picsum.photos/seed/voxstudio/800/1000"  // tall 4:5
   }
 };
