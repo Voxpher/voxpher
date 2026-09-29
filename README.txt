@@ -1,3 +1,17 @@
+VOXPHER v5.1 — DESKTOP WIDTH + CENTERING FIX (2026-09-29 night)
+-------------------------------------------------------
+Follow-up to your screenshots of the live site. What changed:
+- Desktop is WIDER: content column 76rem -> 88rem, so header,
+  footer and every section stretch wider on big screens.
+- Header is full-width again (no narrow centered bar).
+- "HAVE AN IDEA?" heading now fits on one line at every width
+  (was getting cut off on the right on desktop).
+- CTA section content is truly centered: heading, paragraph and
+  the START A PROJECT button (the button was stuck left before).
+- The "honest note" block on music + visuals pages is centered.
+Deploy: replace site files with this package, push, then hard-
+refresh (Ctrl+Shift+R) so your browser drops the old CSS.
+
 VOXPHER v5 — FULL SITE AUDIT + FIX (2026-09-29)
 ------------------------------------------------
 Senior front-end / QA pass across all 17 pages. What changed:

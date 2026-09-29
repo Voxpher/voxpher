@@ -48,9 +48,9 @@ body::after{
 img{max-width:100%;display:block}
 a{color:inherit}
 
-.wrap{max-width:76rem;margin:0 auto;padding-inline:var(--pad)}
+.wrap{max-width:88rem;margin:0 auto;padding-inline:var(--pad)}
 .section{padding-block:var(--sp-16)}
-.ctr{text-align:center}.mid{margin-inline:auto}.right{text-align:right}
+.ctr{text-align:center}.wrap.ctr{display:flex;flex-direction:column;align-items:center}.mid{margin-inline:auto}.btn-row.mid{justify-content:center}.right{text-align:right}
 .mt12{margin-top:1.2rem}.mt20{margin-top:2rem}.mt40{margin-top:4rem}
 .is-hidden{display:none!important}
 
@@ -71,7 +71,7 @@ a{color:inherit}
   font-size:clamp(1.7rem,4.2vw,3rem);line-height:1.12;color:var(--ink);
 }
 .lede{font-size:clamp(1.02rem,1.6vw,1.2rem);line-height:1.65;color:#fff;max-width:46rem;font-weight:500}
-.lede-c{color:var(--smoke-w)}
+.lede-c{color:var(--smoke-w);margin-inline:auto}
 .lede-c0{color:#fff}
 .prose p{margin-bottom:1.1rem;line-height:1.7;color:#1d1d20;max-width:68ch}
 .accent{display:inline-block;line-height:1.15;color:#fff;background:var(--ink);padding:.06em .3em .1em;}
@@ -102,7 +102,7 @@ a{color:inherit}
 .site-head{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:.85rem max(var(--pad),calc((100vw - 76rem)/2 + var(--pad)));
+  padding:.85rem var(--pad);
   background:var(--red);
   border-bottom:1px solid var(--ink);
 }
@@ -347,7 +347,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .music-card:hover{transform:translate(-4px,-4px);box-shadow:12px 12px 0 var(--ink)}
 .music-card h3{font-family:var(--font-d);font-weight:400;font-size:1.5rem;margin-bottom:.7rem}
 .music-card p{color:var(--smoke);line-height:1.65;font-size:.95rem}
-.track-note{margin-top:1.2rem;padding-top:1.2rem;border-top:2px dashed rgba(12,12,14,.25);font-family:var(--font-m);font-size:.8rem;color:var(--ink);line-height:1.6}
+.track-note{max-width:60rem;margin-inline:auto;text-align:center;margin-top:1.2rem;padding-top:1.2rem;border-top:2px dashed rgba(12,12,14,.25);font-family:var(--font-m);font-size:.8rem;color:var(--ink);line-height:1.6}
 .wave{display:flex;align-items:flex-end;gap:4px;height:44px;margin:1.2rem 0}
 .wave i{width:6px;background:var(--red);animation:wv 1.1s ease-in-out infinite}
 .wave i:nth-child(2n){animation-delay:.15s}.wave i:nth-child(3n){animation-delay:.3s}.wave i:nth-child(4n){animation-delay:.45s}
@@ -445,7 +445,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .colophon{font-family:var(--font-m);font-size:.72rem;color:rgba(255,255,255,.45)}
 
 /* ---------- CTA wordmark ---------- */
-.wm-cta{margin:1rem 0 2rem}
+.wm-cta{margin:1rem 0 2rem;font-size:clamp(2.2rem,8vw,7.5rem)}
 
 /* ---------- Reveal & motion ---------- */
 .rv{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
