@@ -28,7 +28,6 @@ var VOXPHER_CONFIG = {
 
   images: {
     /* ---------- HOME ---------- */
-    signatureImg: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png", // your signature (Cloudinary, white-on-dark via CSS invert)
     worldMusic:   "https://picsum.photos/seed/voxmusic/800/1000",    // tall 4:5 card
     worldVisuals: "https://picsum.photos/seed/voxvisual/800/1000",  // tall 4:5 card
     worldCode:    "https://picsum.photos/seed/voxcode/800/1000",     // tall 4:5 card

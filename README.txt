@@ -1,3 +1,15 @@
+VOXPHER v5.2 — CARD GAP + HERO SIGNATURE REMOVED (2026-09-30)
+-------------------------------------------------------
+- "Proof, not promises." (home) and "Built, deployed, real."
+  (build page): the work-cards grid now has the same 2.4rem gap
+  under the title as every other card section on the site
+  (it was the only grid with zero top margin).
+- Home hero: the "Papan Sutradhar - Founder, Voxpher" signature
+  card is removed completely (HTML block, its image key in
+  js/site.js, and its CSS rules). The hero now goes straight
+  from the intro paragraph to the two buttons.
+Deploy: replace site files with this package, push, hard-refresh.
+
 VOXPHER v5.1 — DESKTOP WIDTH + CENTERING FIX (2026-09-29 night)
 -------------------------------------------------------
 Follow-up to your screenshots of the live site. What changed:
