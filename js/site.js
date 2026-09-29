@@ -19,7 +19,7 @@ var VOXPHER_CONFIG = {
   formspreeEndpoint: "", // e.g. "https://formspree.io/f/abcdwxyz"
 
   socials: {
-    instagram: "",
+    instagram: "https://www.instagram.com/voxpher/",
     youtube:   "",
     linkedin:  "",
     x:         "",
@@ -27,6 +27,8 @@ var VOXPHER_CONFIG = {
   },
 
   images: {
+    /* ---------- BRAND ---------- */
+    logoImg: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png", // website logo: header + footer signature
     /* ---------- HOME ---------- */
     worldMusic:   "https://picsum.photos/seed/voxmusic/800/1000",    // tall 4:5 card
     worldVisuals: "https://picsum.photos/seed/voxvisual/800/1000",  // tall 4:5 card

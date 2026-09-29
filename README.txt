@@ -1,3 +1,26 @@
+VOXPHER v5.3 — SIGNATURE LOGO + FAVICON + MUSICAL-ARTIST SEO (2026-09-30)
+------------------------------------------------------------
+- Header + footer: the solid "VOXPHER." text is replaced by your
+  signature image as the website logo (Cloudinary SIgnn1.png).
+  Swap it any time in js/site.js -> images -> logoImg.
+- Favicon: now your VX monogram (Cloudinary vxx.png), plus an
+  Apple touch icon. Old red "V" square is gone.
+- SEO rebuilt around your Knowledge Panel identity:
+  * Titles/descriptions on all 17 pages now lead with
+    "Voxpher - Musical Artist" (home: "Voxpher - Musical Artist
+    | Papan Sutradhar").
+  * New meta on every page: author, theme-color (#E10600),
+    og:site_name, og:locale. 404 is now noindex.
+  * JSON-LD: home is now a MusicGroup (name Voxpher, genre Hip
+    Hop/Rap, since 2018, Gangarampur WB India) with sameAs links
+    to your Instagram + ffm.bio; music + about pages upgraded.
+  * Only verified profile URLs are used - Spotify/Apple Music/
+    YouTube artist IDs were not printed anywhere, so they stay
+    out until you paste the exact links.
+- Instagram (instagram.com/voxpher) is now wired in js/site.js
+  socials, so the Instagram icon appears in the footer/contact.
+Deploy: replace site files with this package, push, hard-refresh.
+
 VOXPHER v5.2 — CARD GAP + HERO SIGNATURE REMOVED (2026-09-30)
 -------------------------------------------------------
 - "Proof, not promises." (home) and "Built, deployed, real."
