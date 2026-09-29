@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indoride — Ride-booking App Case Study · Voxpher</title>
+<meta name="description" content="Indoride: a complete ride-booking ecosystem — Flutter customer and driver apps, Node.js/Express backend, MongoDB, Google Maps, OTP auth. Designed and built solo by Papan Sutradhar.">
+<link rel="canonical" href="https://voxpher.com/work/indoride">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Indoride — Case Study · Voxpher">
+<meta property="og:description" content="A full ride-booking product: apps, backend, maps, auth. Built solo, end to end.">
+<meta property="og:url" content="https://voxpher.com/work/indoride">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23EF2D1F'/%3E%3Ctext x='32' y='44' font-family='Arial Black' font-size='36' font-weight='900' text-anchor='middle' fill='white'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CreativeWork","name":"Indoride",
+ "url":"https://voxpher.com/work/indoride","creator":{"@type":"Person","name":"Papan Sutradhar"},
+ "description":"Ride-booking platform: customer app, driver app, backend APIs, admin controls."}
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a class="brand" href="/">VOXPHER<em>.</em></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/">Home</a><a href="/about">About</a><a href="/work" aria-current="page">Work</a><a href="/services">Services</a><a href="/music">Music</a><a href="/build">Build</a><a href="/studio">Studio</a><a href="/contact" class="nav-cta">Contact</a>
+  </nav>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
+</header>
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <button class="menu-close" aria-label="Close menu">&times;</button>
+  <nav aria-label="Mobile">
+    <a href="/">Home <small>01</small></a><a href="/about">About <small>02</small></a>
+    <a href="/work" aria-current="page">Work <small>03</small></a><a href="/services">Services <small>04</small></a>
+    <a href="/music">Music <small>05</small></a><a href="/build">Build <small>06</small></a>
+    <a href="/studio">Studio <small>07</small></a><a href="/contact">Contact <small>08</small></a>
+  </nav>
+  <a class="menu-mail" href="mailto:hello@voxpher.com">hello@voxpher.com</a>
+</div>
+
+<main>
+  <section class="cs-hero">
+    <div class="wrap">
+      <p class="kicker rv">Case study · Product</p>
+      <h1 class="h-xl rv">INDORIDE</h1>
+      <p class="lede rv">A complete ride-booking ecosystem — customer app, driver app, backend infrastructure and admin controls. Designed and built end to end, by one person.</p>
+      <img class="rv" data-img="indorideHero" src="https://picsum.photos/seed/csindoride/1680/720" alt="Indoride app overview" loading="lazy">
+      <div class="cs-meta rv">
+        <div><small>Type</small><strong>Product — live app</strong></div>
+        <div><small>My role</small><strong>Design + development, solo</strong></div>
+        <div><small>Stack</small><strong>Flutter · Node.js · MongoDB</strong></div>
+        <div><small>Status</small><strong>Live on Google Play</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cs-body">
+        <div class="cs-main">
+          <h2>The problem</h2>
+          <p>People need a simple, local ride-booking experience — passengers finding drivers nearby, drivers managing their availability, and an operator keeping the whole system honest. A pretty UI alone doesn't solve that; the system behind it does.</p>
+          <h2>The approach</h2>
+          <p>Build the complete system, not a prototype. That meant three surfaces talking to one backend: a customer app for booking, a driver app for accepting rides and managing status, and admin functionality overseeing it all — with real authentication, real location data and a real database from day one.</p>
+          <h2>The product</h2>
+          <ul>
+            <li><strong>Customer experience</strong> — nearby driver discovery, ride booking, fixed and vehicle-specific pricing, booking notifications.</li>
+            <li><strong>Driver experience</strong> — profiles with vehicle information, online/offline status, incoming ride requests, location tracking.</li>
+            <li><strong>Admin functionality</strong> — oversight of users, drivers and bookings across the platform.</li>
+            <li><strong>Authentication</strong> — email OTP login with role-based access separating customers, drivers and admins.</li>
+          </ul>
+          <h2>The engineering</h2>
+          <p>The architecture is deliberately simple and honest — each layer does one job:</p>
+          <div class="arch rv">
+            <div class="arch-flow">
+              <div class="arch-node">Flutter App<small>Customer + driver · Dart</small></div><div class="arch-arrow">→</div>
+              <div class="arch-node">REST API layer<small>Endpoints for rides, users, drivers</small></div><div class="arch-arrow">→</div>
+              <div class="arch-node">Node.js / Express<small>Business logic + auth</small></div><div class="arch-arrow">→</div>
+              <div class="arch-node">MongoDB<small>Atlas · users, rides, vehicles</small></div>
+            </div>
+            <p class="arch-note">External services plug in where needed: Google Maps for location and discovery, email/OTP providers for authentication. No secrets or credentials are exposed anywhere in this write-up — or in the client.</p>
+          </div>
+          <div class="cs-gallery">
+            <img class="rv" data-img="indorideGal1" src="https://picsum.photos/seed/csindoride1/800/500" alt="Indoride customer app screens" loading="lazy">
+            <img class="rv" data-img="indorideGal2" src="https://picsum.photos/seed/csindoride2/800/500" alt="Indoride driver app screens" loading="lazy">
+          </div>
+        </div>
+        <aside class="cs-side">
+          <div class="cs-facts rv">
+            <h3>Stack</h3>
+            <div class="stack-chips">
+              <span>Flutter</span><span>Dart</span><span>Node.js</span><span>Express.js</span><span>MongoDB Atlas</span><span>Google Maps</span><span>OTP auth</span><span>Firebase</span>
+            </div>
+            <h3 class="mt16">Links</h3>
+            <dl>
+              <div><dt>Android</dt><dd><a href="https://play.google.com/store/apps/details?id=com.indoride.app" target="_blank" rel="noopener" class="rl">Google Play ↗</a></dd></div>
+            </dl>
+            <h3 class="mt16">Delivered</h3>
+            <dl>
+              <div><dt>Design</dt><dd>App UI/UX, brand system</dd></div>
+              <div><dt>Mobile</dt><dd>Customer + driver apps</dd></div>
+              <div><dt>Backend</dt><dd>APIs, auth, database</dd></div>
+              <div><dt>Deploy</dt><dd>Cloud-hosted backend</dd></div>
+            </dl>
+          </div>
+        </aside>
+      </div>
+      <nav class="cs-nav" aria-label="More case studies">
+        <a href="/work/facebengal"><small>← Previous</small><strong>FaceBengal</strong></a>
+        <a href="/work/hubator" class="right"><small>Next →</small><strong>Hubator</strong></a>
+      </nav>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><div class="foot-brand">VOXPHER<em>.</em></div><p>Papan Sutradhar<br>Music · Design · Code · Visuals</p></div>
+      <div><p class="foot-label">Explore</p><nav aria-label="Footer"><a href="/about">About</a><a href="/work">Work</a><a href="/services">Services</a><a href="/music">Music</a><a href="/build">Build</a><a href="/studio">Studio</a><a href="/contact">Contact</a></nav></div>
+      <div><p class="foot-label">Contact</p><a class="foot-mail" href="mailto:hello@voxpher.com">hello@voxpher.com</a><div class="foot-socials" data-socials aria-label="Social links"></div></div>
+    </div>
+    <div class="foot-base"><p>© <span data-year>2026</span> Voxpher — Papan Sutradhar. All rights reserved.</p><p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p></div>
+  </div>
+</footer>
+<script src="/js/site.js" defer></script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

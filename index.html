@@ -3,276 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Voxpher — Creative Studio of Papan Sutradhar</title>
-<meta name="description" content="Voxpher is the creative studio of Papan Sutradhar — brand identity, web design, motion and digital experiences that refuse to blend in.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='32' y='45' font-family='Arial Black, sans-serif' font-size='38' font-weight='900' fill='%23EF2D1F' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+<title>Voxpher — Papan Sutradhar · Music, Design, Code, Visuals</title>
+<meta name="description" content="Voxpher is Papan Sutradhar — a multidisciplinary independent creator working across music, design, code and visuals. Explore the work, the story, and the studio.">
+<link rel="canonical" href="https://voxpher.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Voxpher — Papan Sutradhar">
+<meta property="og:description" content="Music · Design · Code · Visuals. One independent creator, from idea to finished product.">
+<meta property="og:url" content="https://voxpher.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Voxpher — Papan Sutradhar">
+<meta name="twitter:description" content="Music · Design · Code · Visuals. One independent creator, from idea to finished product.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23EF2D1F'/%3E%3Ctext x='32' y='44' font-family='Arial Black' font-size='36' font-weight='900' text-anchor='middle' fill='white'%3EV%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Voxpher","url":"https://voxpher.com/",
+ "author":{"@type":"Person","name":"Papan Sutradhar","alternateName":"Voxpher",
+ "description":"Multidisciplinary independent creator: music, design, code, visuals."}}
+</script>
 </head>
 <body>
 
-<!-- Custom cursor badge (desktop only) -->
-<div id="cursor" aria-hidden="true"><span>VIEW</span></div>
-
-<!-- ============ STICKY NAV ============ -->
-<header class="nav">
-  <a href="#top" class="logo">VOXPHER</a>
-  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
-    <span class="menu-label">MENU</span>
-    <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
-  </button>
+<header class="site-head">
+  <a class="brand" href="/">VOXPHER<em>.</em></a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/" aria-current="page">Home</a>
+    <a href="/about">About</a>
+    <a href="/work">Work</a>
+    <a href="/services">Services</a>
+    <a href="/music">Music</a>
+    <a href="/build">Build</a>
+    <a href="/studio">Studio</a>
+    <a href="/contact" class="nav-cta">Contact</a>
+  </nav>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
 </header>
-
-<!-- ============ FULL-SCREEN MENU ============ -->
-<div class="menu-overlay" id="menuOverlay" aria-hidden="true">
-  <button class="menu-close" id="menuClose" aria-label="Close menu">CLOSE&nbsp;&times;</button>
-  <div class="menu-left">
-    <div class="menu-word" aria-hidden="true">VOXPHER</div>
-    <div class="menu-photos">
-      <span class="reveal"><img data-img="menu1" alt="Voxpher studio work"></span>
-      <span class="reveal"><img data-img="menu2" alt="Voxpher studio work"></span>
-    </div>
-  </div>
-  <div class="menu-right">
-    <nav class="menu-links">
-      <a href="#top" class="mlink"><span class="roll"><em>HOME</em><em aria-hidden="true">HOME</em></span></a>
-      <a href="#services" class="mlink"><span class="roll"><em>SERVICES</em><em aria-hidden="true">SERVICES</em></span></a>
-      <a href="#work" class="mlink"><span class="roll"><em>WORK</em><em aria-hidden="true">WORK</em></span></a>
-      <a href="#studio" class="mlink"><span class="roll"><em>STUDIO</em><em aria-hidden="true">STUDIO</em></span></a>
-      <a href="#contact" class="mlink"><span class="roll"><em>CONTACT</em><em aria-hidden="true">CONTACT</em></span></a>
-    </nav>
-    <a href="#contact" class="btn-block on-red menu-cta"><span class="b">LET&rsquo;S TALK NOW</span><span class="a">&nearr;</span></a>
-    <div class="menu-socials">
-      <a href="#" rel="noopener">INSTAGRAM</a>
-      <a href="#" rel="noopener">BEHANCE</a>
-      <a href="#" rel="noopener">LINKEDIN</a>
-      <a href="#" rel="noopener">X</a>
-      <a href="#" rel="noopener">YOUTUBE</a>
-    </div>
-  </div>
+<div class="mobile-menu" id="mobileMenu" hidden>
+  <button class="menu-close" aria-label="Close menu">&times;</button>
+  <nav aria-label="Mobile">
+    <a href="/" aria-current="page">Home <small>01</small></a>
+    <a href="/about">About <small>02</small></a>
+    <a href="/work">Work <small>03</small></a>
+    <a href="/services">Services <small>04</small></a>
+    <a href="/music">Music <small>05</small></a>
+    <a href="/build">Build <small>06</small></a>
+    <a href="/studio">Studio <small>07</small></a>
+    <a href="/contact">Contact <small>08</small></a>
+  </nav>
+  <a class="menu-mail" href="mailto:hello@voxpher.com">hello@voxpher.com</a>
 </div>
 
-<main id="top">
-
-  <!-- ============ HERO ============ -->
+<main>
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-top">
-      <span class="hero-photo reveal"><img data-img="hero" alt="Papan Sutradhar — founder of Voxpher"></span>
-      <div class="hero-meta">
-        <span>CREATIVE STUDIO &mdash; WORLDWIDE</span>
-        <span>DESIGN &middot; MOTION &middot; CODE</span>
+    <div class="hero-bg"><img data-img="homeHeroBg" src="https://picsum.photos/seed/voxhero/1920/1080" alt="" fetchpriority="high"></div>
+    <div class="wrap">
+      <h1 class="wordmark rv">VOXPHER</h1>
+      <p class="hero-sub rv"><span>Papan Sutradhar</span><span class="dot">·</span><span>Music</span><span class="dot">·</span><span>Design</span><span class="dot">·</span><span>Code</span><span class="dot">·</span><span>Visuals</span></p>
+      <p class="hero-tag rv">I'm an independent creator. I started with rap and beat-making, taught myself design and filmmaking, then learned to build software — and now I turn ideas into real products, alone, end to end.</p>
+      <div class="btn-row rv">
+        <a class="btn" href="/work">Explore my work</a>
+        <a class="btn-ghost" href="/contact">Let's work together</a>
       </div>
-    </div>
-    <h1 class="hero-title fade">WE BUILD<br>BRANDS THAT<br>REFUSE TO<br>BLEND IN.</h1>
-    <a href="#contact" class="btn-pill fade">LET&rsquo;S TALK NOW <i>&nearr;</i></a>
-    <div class="hero-word" aria-hidden="true">VOXPHER</div>
-    <p class="hero-tag">ELEVATING BRANDS THROUGH BOLD DIGITAL DESIGN.</p>
-  </section>
-
-  <!-- ============ ABOUT / STUDIO ============ -->
-  <section class="about" id="studio">
-    <div class="about-left">
-      <div class="stat fade"><strong>40+</strong><span>PROJECTS<br>SHIPPED</span></div>
-      <div class="about-word" aria-hidden="true">VOXPHER</div>
-    </div>
-    <div class="about-right">
-      <p class="label fade">ABOUT US</p>
-      <h2 class="fade">A ONE-MAN CREATIVE STUDIO WITH AGENCY-GRADE OUTPUT.</h2>
-      <p class="body fade">I&rsquo;m <strong>Papan Sutradhar</strong> &mdash; the designer and builder behind Voxpher. From the 11-page creative blueprint of the <strong>NAMASTE</strong> animated film to designing and building the <strong>Indoride</strong> ride-booking app end to end, I take projects from raw idea to shipped product &mdash; strategy, design, motion and code, all under one roof.</p>
-      <a href="#work" class="btn-block on-black fade"><span class="b">SEE THE WORK</span><span class="a">&nearr;</span></a>
-    </div>
-  </section>
-
-  <!-- ============ SERVICES ============ -->
-  <section class="services" id="services">
-    <p class="label fade">WHAT WE DO</p>
-    <div class="services-head">
-      <h2 class="fade">SIX PRACTICES,<br>ONE CREATIVE<br>ENGINE.</h2>
-      <p class="body fade">Every project runs through the same engine &mdash; sharp strategy, louder visuals, and engineering that holds up in the real world. Tap a practice to see what&rsquo;s inside.</p>
-    </div>
-    <div class="services-grid">
-      <span class="services-photo reveal"><img data-img="services" alt="Voxpher design work"></span>
-      <div class="service-list">
-        <button class="service active" aria-expanded="true">
-          <span class="s-top"><span class="s-name">BRAND IDENTITY</span><span class="s-num">(01)</span></span>
-          <span class="s-desc">Logos, visual systems and guidelines that make brands impossible to ignore &mdash; and impossible to forget.</span>
-        </button>
-        <button class="service" aria-expanded="false">
-          <span class="s-top"><span class="s-name">WEB DESIGN &amp; DEVELOPMENT</span><span class="s-num">(02)</span></span>
-          <span class="s-desc">High-impact websites and web apps &mdash; designed, hand-built and shipped fast, with no template feel.</span>
-        </button>
-        <button class="service" aria-expanded="false">
-          <span class="s-top"><span class="s-name">MOTION &amp; ANIMATION</span><span class="s-num">(03)</span></span>
-          <span class="s-desc">Beat-synced films, kinetic typography and scroll-driven stories that move people &mdash; literally.</span>
-        </button>
-        <button class="service" aria-expanded="false">
-          <span class="s-top"><span class="s-name">PRODUCT UI/UX</span><span class="s-num">(04)</span></span>
-          <span class="s-desc">App and dashboard interfaces engineered around real users &mdash; clean, fast and conversion-minded.</span>
-        </button>
-        <button class="service" aria-expanded="false">
-          <span class="s-top"><span class="s-name">CREATIVE DIRECTION</span><span class="s-num">(05)</span></span>
-          <span class="s-desc">Concept, story and art direction from first spark to final shipped pixel &mdash; one clear vision throughout.</span>
-        </button>
-        <button class="service" aria-expanded="false">
-          <span class="s-top"><span class="s-name">3D &amp; VISUAL DESIGN</span><span class="s-num">(06)</span></span>
-          <span class="s-desc">Stills, scenes and visual worlds with a bold graphic edge &mdash; built for campaigns, films and the web.</span>
-        </button>
+      <div class="hero-meta rv">
+        <div><small>Who</small><strong>One person, many crafts</strong></div>
+        <div><small>Since</small><strong>Creating since 2018</strong></div>
+        <div><small>Mode</small><strong>Independent — no agency</strong></div>
       </div>
     </div>
   </section>
 
-  <!-- ============ SELECTED WORK ============ -->
-  <section class="work" id="work">
-    <div class="work-head">
-      <div>
-        <p class="label fade">SELECTED WORK</p>
-        <h2 class="fade">WORK THAT<br>SPEAKS LOUDER.</h2>
-      </div>
-      <a href="#contact" class="btn-block on-red fade"><span class="b">START A PROJECT</span><span class="a">&nearr;</span></a>
+  <!-- INTRO -->
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker rv">The short version</p>
+      <h2 class="h-xl rv">I make things — songs, visuals, interfaces, websites, apps, and ideas that become real products.</h2>
+      <p class="lede rv">Music taught me the <strong>creative</strong> side. Technology taught me the <strong>building</strong> side. Everything on this site is something I learned by doing, not by job title.</p>
     </div>
-    <div class="hwrap" id="hwrap">
-      <div class="hsticky">
-        <div class="htrack" id="htrack">
+  </section>
 
-          <article class="work-card">
-            <span class="wc-img reveal"><img data-img="work1" alt="Indoride ride-booking app"></span>
-            <h3>INDORIDE</h3>
-            <p>RIDE-BOOKING APP &mdash; DESIGNED &amp; BUILT END TO END: RIDER, DRIVER &amp; ADMIN.</p>
-            <a href="#contact" class="btn-block on-red sm"><span class="b">VIEW CASE</span><span class="a">&nearr;</span></a>
-          </article>
+  <!-- CREATIVE WORLDS -->
+  <section class="section flush">
+    <div class="wrap">
+      <p class="kicker rv">Creative worlds</p>
+      <h2 class="h-lg rv">Four directions. One person.</h2>
+      <div class="worlds">
+        <a class="world rv" href="/music">
+          <img data-img="worldMusic" src="https://picsum.photos/seed/voxmusic/800/1000" alt="Voxpher music artwork" loading="lazy">
+          <span class="world-go" aria-hidden="true">→</span>
+          <div class="world-body"><small>01</small><h3>Music</h3><p>Rap, songwriting and beat-making — where it all started in 2018.</p></div>
+        </a>
+        <a class="world rv" href="/visuals">
+          <img data-img="worldVisuals" src="https://picsum.photos/seed/voxvisual/800/1000" alt="Photography and video work" loading="lazy">
+          <span class="world-go" aria-hidden="true">→</span>
+          <div class="world-body"><small>02</small><h3>Visuals</h3><p>Photography, videography, editing and motion — stories in frames.</p></div>
+        </a>
+        <a class="world rv" href="/build">
+          <img data-img="worldCode" src="https://picsum.photos/seed/voxcode/800/1000" alt="Software and app development" loading="lazy">
+          <span class="world-go" aria-hidden="true">→</span>
+          <div class="world-body"><small>03</small><h3>Code</h3><p>Flutter apps, backends, websites — products that actually ship.</p></div>
+        </a>
+        <a class="world rv" href="/work">
+          <img data-img="worldBrands" src="https://picsum.photos/seed/voxbrands/800/1000" alt="Brands and digital products" loading="lazy">
+          <span class="world-go" aria-hidden="true">→</span>
+          <div class="world-body"><small>04</small><h3>Brands</h3><p>Indoride, Hubator, Deepex FF — digital products with a point of view.</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-          <article class="work-card">
-            <span class="wc-img reveal"><img data-img="work2" alt="Namaste animated film"></span>
-            <h3>NAMASTE</h3>
-            <p>BEAT-SYNCED ANIMATED FILM &mdash; STORY, STRUCTURE &amp; FULL CREATIVE BLUEPRINT.</p>
-            <a href="#contact" class="btn-block on-red sm"><span class="b">VIEW CASE</span><span class="a">&nearr;</span></a>
-          </article>
+  <!-- FEATURED WORK -->
+  <section class="section flush">
+    <div class="wrap">
+      <p class="kicker rv">Featured work</p>
+      <h2 class="h-lg rv">Proof, not promises.</h2>
+      <div class="work-grid">
+        <a class="work-card rv" href="/work/indoride">
+          <div class="work-thumb"><img data-img="workIndoride" src="https://picsum.photos/seed/voxindoride/800/600" alt="Indoride ride-booking app" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Product</span><span class="tag dim">App</span></div><h3>Indoride</h3><p>A complete ride-booking ecosystem — customer app, driver app, backend and admin. Designed and built end to end.</p><span class="work-more">Case study →</span></div>
+        </a>
+        <a class="work-card rv" href="/work/hubator">
+          <div class="work-thumb"><img data-img="workHubator" src="https://picsum.photos/seed/voxhubator/800/600" alt="Hubator e-commerce brand" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Product</span><span class="tag dim">E-commerce</span></div><h3>Hubator</h3><p>An online retail and print-on-demand brand — storefront, products, payments, orders, the full loop.</p><span class="work-more">Case study →</span></div>
+        </a>
+        <a class="work-card rv" href="/work/namaste">
+          <div class="work-thumb"><img data-img="workNamaste" src="https://picsum.photos/seed/voxnamaste/800/600" alt="NAMASTE animated film artwork" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Personal</span><span class="tag dim">Motion</span></div><h3>NAMASTE</h3><p>A beat-synced animated film built from an 11-page creative blueprint — concept to final cut.</p><span class="work-more">Case study →</span></div>
+        </a>
+        <a class="work-card rv" href="/work/deepex-ff">
+          <div class="work-thumb"><img data-img="workDeepex" src="https://picsum.photos/seed/voxdeepex/800/600" alt="Deepex FF gaming content" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Personal</span><span class="tag dim">Video</span></div><h3>Deepex FF</h3><p>A Free Fire gaming and content brand — cinematic edits, visual identity, social content.</p><span class="work-more">View project →</span></div>
+        </a>
+        <a class="work-card rv" href="/work/facebengal">
+          <div class="work-thumb"><img data-img="workFacebengal" src="https://picsum.photos/seed/voxface/800/600" alt="FaceBengal concept" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Concept</span><span class="tag dim">Platform</span></div><h3>FaceBengal</h3><p>A social and digital platform concept — early-stage, being shaped one idea at a time.</p><span class="work-more">View project →</span></div>
+        </a>
+        <a class="work-card rv" href="/visuals">
+          <div class="work-thumb"><img data-img="workPhoto" src="https://picsum.photos/seed/voxphoto/800/600" alt="Photography portfolio" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Personal</span><span class="tag dim">Photography</span></div><h3>Visual archive</h3><p>Photography, videography and edits — the ongoing visual diary behind everything else.</p><span class="work-more">Open gallery →</span></div>
+        </a>
+      </div>
+      <div class="btn-row rv"><a class="btn-ghost" href="/work">See all work</a></div>
+    </div>
+  </section>
 
-          <article class="work-card">
-            <span class="wc-img reveal"><img data-img="work3" alt="Lumen Audio brand and website"></span>
-            <h3>LUMEN AUDIO</h3>
-            <p>BRAND IDENTITY &amp; WEB EXPERIENCE FOR A PREMIUM AUDIO LABEL.</p>
-            <a href="#contact" class="btn-block on-red sm"><span class="b">VIEW CASE</span><span class="a">&nearr;</span></a>
-          </article>
-
-          <article class="work-card">
-            <span class="wc-img reveal"><img data-img="work4" alt="Apex Motors digital launch"></span>
-            <h3>APEX MOTORS</h3>
-            <p>DIGITAL LAUNCH CAMPAIGN WITH BOLD EDITORIAL VISUALS.</p>
-            <a href="#contact" class="btn-block on-red sm"><span class="b">VIEW CASE</span><span class="a">&nearr;</span></a>
-          </article>
-
-          <article class="work-card">
-            <span class="wc-img reveal"><img data-img="work5" alt="Prism 3D visual system"></span>
-            <h3>PRISM 3D</h3>
-            <p>ABSTRACT 3D VISUAL SYSTEM FOR A DIGITAL-FIRST BRAND.</p>
-            <a href="#contact" class="btn-block on-red sm"><span class="b">VIEW CASE</span><span class="a">&nearr;</span></a>
-          </article>
-
-          <article class="work-card end-card">
-            <h3>YOUR PROJECT<br>HERE.</h3>
-            <p>ONE SLOT LEFT THIS QUARTER.</p>
-            <a href="#contact" class="btn-block on-red sm"><span class="b">CLAIM IT</span><span class="a">&nearr;</span></a>
-          </article>
-
+  <!-- ABOUT TEASER -->
+  <section class="section flush">
+    <div class="wrap">
+      <div class="split">
+        <img class="rv" data-img="homeAbout" src="https://picsum.photos/seed/voxpapan/800/1000" alt="Portrait of Papan Sutradhar" loading="lazy">
+        <div>
+          <p class="kicker rv">About</p>
+          <h2 class="h-lg rv">I'm Papan Sutradhar — the person behind Voxpher.</h2>
+          <p class="lede rv">Not an agency. Not a team. One person who got curious about rap in 2018 and never stopped learning — design, cameras, code, products.</p>
+          <ul class="check-list rv">
+            <li>Music first — rap, writing, beats on FL Studio mobile</li>
+            <li>Then visuals — photography, video, editing, motion</li>
+            <li>Then code — apps, backends, websites that ship</li>
+          </ul>
+          <div class="btn-row rv"><a class="btn-ghost" href="/about">Read the full story</a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ WORDMARK DIVIDER ============ -->
-  <section class="divider" aria-hidden="true">
-    <div class="divider-word">VOXPHER</div>
-    <span class="divider-photo reveal"><img data-img="divider" alt=""></span>
-  </section>
-
-  <!-- ============ PROCESS ============ -->
-  <section class="process">
-    <p class="label fade">OUR PROCESS</p>
-    <h2 class="fade">FROM SPARK<br>TO SHIPPED.</h2>
-    <div class="timeline">
-      <div class="step fade">
-        <span class="dot"></span>
-        <h3>DISCOVER</h3>
-        <p>We dig into your brand, your audience and your goals &mdash; and find the angle nobody else saw.</p>
+  <!-- TIMELINE TEASER -->
+  <section class="section flush">
+    <div class="wrap">
+      <p class="kicker rv">The journey</p>
+      <h2 class="h-lg rv">From beats to products.</h2>
+      <div class="timeline">
+        <div class="tl-item rv"><p class="tl-era">2018 — The start</p><h3>Rap, writing, beats</h3><p>Picked up FL Studio on mobile and started making music — writing, sound, and how it all looks and feels.</p></div>
+        <div class="tl-item rv"><p class="tl-era">Exploration</p><h3>Cameras and frames</h3><p>Photography, videography and editing — learning to tell stories visually, one frame at a time.</p></div>
+        <div class="tl-item rv"><p class="tl-era">Expansion</p><h3>Design and motion</h3><p>Graphic design, video editing, animation experiments — including the creative blueprint behind NAMASTE.</p></div>
+        <div class="tl-item rv"><p class="tl-era">Building</p><h3>Code and products</h3><p>Flutter, Node.js, databases, deployments — real software. Indoride: a full ride-booking product, designed and built solo.</p></div>
       </div>
-      <div class="step fade">
-        <span class="dot"></span>
-        <h3>DEFINE</h3>
-        <p>Strategy, mood and structure get locked in. No vague briefs, no surprises later.</p>
-      </div>
-      <div class="step fade">
-        <span class="dot"></span>
-        <h3>CREATE</h3>
-        <p>Design, motion and build &mdash; loud visuals, engineered properly, iterated fast.</p>
-      </div>
-      <div class="step fade">
-        <span class="dot"></span>
-        <h3>LAUNCH</h3>
-        <p>We ship, measure and refine until it performs as good as it looks.</p>
-      </div>
+      <div class="btn-row rv"><a class="btn-ghost" href="/about">Full timeline</a></div>
     </div>
   </section>
 
-  <!-- ============ CONTACT ============ -->
-  <section class="contact" id="contact">
-    <p class="label fade">CONTACT US</p>
-    <h2 class="fade">READY TO BUILD<br>SOMETHING LOUD?</h2>
-    <p class="body fade">Tell me about your project &mdash; I reply to every serious enquiry within 24 hours.</p>
-    <a href="mailto:hello@voxpher.com" class="btn-block on-black fade"><span class="b">LET&rsquo;S TALK NOW</span><span class="a">&nearr;</span></a>
-    <div class="tilt-row">
-      <span class="reveal t1"><img data-img="contact1" alt="Voxpher project still"></span>
-      <span class="reveal t2"><img data-img="contact2" alt="Voxpher project still"></span>
-      <span class="reveal t3"><img data-img="contact3" alt="Voxpher project still"></span>
+  <!-- FINAL CTA -->
+  <section class="section flush">
+    <div class="wrap ctr">
+      <h2 class="wordmark rv wm-cta">HAVE AN <span class="stroke">IDEA?</span></h2>
+      <p class="lede rv lede-c">Let's build it — a song, a brand, a website, an app, or something nobody's named yet.</p>
+      <div class="btn-row rv mid"><a class="btn" href="/contact">Start a project</a></div>
     </div>
   </section>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="footer">
-    <form class="cform" id="contactForm" novalidate>
-      <div class="field">
-        <label for="fName">YOUR NAME</label>
-        <input id="fName" name="name" type="text" placeholder="Jane Doe" required>
-      </div>
-      <div class="field">
-        <label for="fMail">YOUR MAIL</label>
-        <input id="fMail" name="email" type="email" placeholder="jane@studio.com" required>
-      </div>
-      <div class="field">
-        <label for="fMsg">YOUR MESSAGE</label>
-        <textarea id="fMsg" name="message" rows="1" placeholder="Tell me about your project&hellip;" required></textarea>
-      </div>
-      <button class="btn-block on-red form-btn" type="submit"><span class="b">SUBMIT</span><span class="a">&nearr;</span></button>
-      <p class="form-note" id="formNote" role="status"></p>
-    </form>
-
-    <div class="footer-bottom">
-      <div class="fb-left">
-        <div class="footer-word" aria-hidden="true">VOXPHER</div>
-        <p class="copy">&copy; 2026 VOXPHER &mdash; ALL RIGHTS RESERVED.</p>
-      </div>
-      <div class="fb-right">
-        <h3>LET&rsquo;S BUILD SOMETHING LOUD.</h3>
-        <a class="fmail" href="mailto:hello@voxpher.com">HELLO@VOXPHER.COM</a>
-        <a class="fmail" href="mailto:work@voxpher.com">WORK@VOXPHER.COM</a>
-        <p class="faddr">AVAILABLE WORLDWIDE &mdash; WORKING REMOTELY.</p>
-      </div>
-    </div>
-
-    <div class="footer-socials">
-      <a href="#" rel="noopener">INSTAGRAM</a>
-      <a href="#" rel="noopener">BEHANCE</a>
-      <a href="#" rel="noopener">LINKEDIN</a>
-      <a href="#" rel="noopener">X</a>
-      <a href="#" rel="noopener">YOUTUBE</a>
-    </div>
-  </footer>
-
 </main>
 
-<script src="js/images.js"></script>
-<script src="js/main.js"></script>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">VOXPHER<em>.</em></div>
+        <p>Papan Sutradhar<br>Music · Design · Code · Visuals</p>
+      </div>
+      <div>
+        <p class="foot-label">Explore</p>
+        <nav aria-label="Footer">
+          <a href="/about">About</a><a href="/work">Work</a><a href="/services">Services</a>
+          <a href="/music">Music</a><a href="/build">Build</a><a href="/studio">Studio</a><a href="/contact">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <p class="foot-label">Contact</p>
+        <a class="foot-mail" href="mailto:hello@voxpher.com">hello@voxpher.com</a>
+        <div class="foot-socials" data-socials aria-label="Social links"></div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <p>© <span data-year>2026</span> Voxpher — Papan Sutradhar. All rights reserved.</p>
+      <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/site.js" defer></script>
+<script src="/js/main.js" defer></script>
 </body>
 </html>
