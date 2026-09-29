@@ -1,4 +1,4 @@
-/* VOXPHER — site behavior. No inline handlers; no frameworks. */
+/* VOXPHER site behavior. No inline handlers; no frameworks. */
 (function(){
   "use strict";
   var CFG = window.VOXPHER_CONFIG || {};
@@ -171,13 +171,13 @@
       var endpoint = CFG.formspreeEndpoint;
       if (!endpoint){
         // No backend configured yet: hand off to the visitor's email app.
-        var subject = encodeURIComponent("[Voxpher] " + type + " — " + name);
+        var subject = encodeURIComponent("[Voxpher] " + type + ": " + name);
         var body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\nProject type: " + type +
-          "\nBudget: " + (document.getElementById("fBudget").value || "—") +
+          "\nBudget: " + (document.getElementById("fBudget").value || "not specified") +
           "\n\n" + msg);
         window.location.href = "mailto:" + CFG.email + "?subject=" + subject + "&body=" + body;
         status.className = "form-status ok";
-        status.textContent = "Opening your email app — your message is addressed to " + CFG.email + ".";
+        status.textContent = "Opening your email app. Your message is addressed to " + CFG.email + ".";
         return;
       }
       status.className = "form-status";
@@ -191,7 +191,7 @@
       }).then(function(r){
         if (r.ok){
           status.className = "form-status ok";
-          status.textContent = "Message sent. I read everything personally — thank you.";
+          status.textContent = "Message sent. I read everything personally. Thank you.";
           form.reset();
         } else {
           status.className = "form-status bad";

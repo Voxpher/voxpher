@@ -1,5 +1,5 @@
 /* ============================================================
-   VOXPHER — site configuration
+   VOXPHER site configuration
    EDIT THIS FILE to change images, email, socials, form.
    ------------------------------------------------------------
    IMAGES: replace any picsum URL with your own image URL.

@@ -1,3 +1,12 @@
+VOXPHER v5.4 — HUMANIZED COPY: removed all unnecessary em dashes (2026-09-30)
+- 200+ " — " instances across all 17 pages rewritten with commas, periods, colons and parentheses.
+- Page titles now use ":" (e.g. "NAMASTE: Beat-Synced Animated Film | Voxpher").
+- Meta/OG/Twitter descriptions rewritten without dashes; JSON-LD kept in sync.
+- Contact form messages (email subject, status texts) humanized too.
+- En dashes kept ONLY for the two price ranges (₹25k – ₹75k), which is correct usage.
+- Also fixed: studio colophon now correctly says "Archivo Black + Space Mono".
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v5.3 — SIGNATURE LOGO + FAVICON + MUSICAL-ARTIST SEO (2026-09-30)
 ------------------------------------------------------------
 - Header + footer: the solid "VOXPHER." text is replaced by your

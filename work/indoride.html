@@ -7,12 +7,12 @@
 <meta name="theme-color" content="#E10600">
 <meta property="og:site_name" content="Voxpher">
 <meta property="og:locale" content="en_IN">
-<title>Indoride — Ride-booking App Case Study | Voxpher</title>
-<meta name="description" content="Indoride: a complete ride-booking ecosystem — Flutter customer and driver apps, Node.js/Express backend, MongoDB, Google Maps, OTP auth. Designed and built solo by Papan Sutradhar.">
+<title>Indoride: Ride-Booking App | Voxpher</title>
+<meta name="description" content="Indoride: a complete ride-booking ecosystem. Flutter customer and driver apps, Node.js/Express backend, MongoDB, Google Maps, OTP auth. Designed and built solo by Papan Sutradhar.">
 <link rel="canonical" href="https://voxpher.com/work/indoride">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Indoride — Ride-booking App Case Study | Voxpher">
-<meta property="og:description" content="Indoride: a complete ride-booking ecosystem — Flutter customer and driver apps, Node.js/Express backend, MongoDB, Google Maps, OTP auth. Designed and built solo by Papan Sutradhar.">
+<meta property="og:title" content="Indoride: Ride-Booking App | Voxpher">
+<meta property="og:description" content="Indoride: a complete ride-booking ecosystem. Flutter customer and driver apps, Node.js/Express backend, MongoDB, Google Maps, OTP auth. Designed and built solo by Papan Sutradhar.">
 <meta property="og:url" content="https://voxpher.com/work/indoride">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/papa.png">
@@ -32,7 +32,7 @@
 <body>
 
 <header class="site-head">
-  <a class="brand" href="/" aria-label="Voxpher — home"><img class="brand-logo" data-img="logoImg" src="https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png" alt="Voxpher"></a>
+  <a class="brand" href="/" aria-label="Voxpher home page"><img class="brand-logo" data-img="logoImg" src="https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png" alt="Voxpher"></a>
   <nav class="site-nav" aria-label="Primary">
     <a href="/">Home</a><a href="/about">About</a><a href="/work" aria-current="page">Work</a><a href="/services">Services</a><a href="/music">Music</a><a href="/build">Build</a><a href="/studio">Studio</a><a href="/contact" class="nav-cta">Contact</a>
   </nav>
@@ -54,10 +54,10 @@
     <div class="wrap">
       <p class="kicker rv">Case study · Product</p>
       <h1 class="h-xl rv">INDORIDE</h1>
-      <p class="lede rv">A complete ride-booking ecosystem — customer app, driver app, backend infrastructure and admin controls. Designed and built end to end, by one person.</p>
+      <p class="lede rv">A complete ride-booking ecosystem: customer app, driver app, backend infrastructure and admin controls. Designed and built end to end, by one person.</p>
       <img class="rv" data-img="indorideHero" src="https://picsum.photos/seed/csindoride/1680/720" alt="Indoride app overview" loading="lazy">
       <div class="cs-meta rv">
-        <div><small>Type</small><strong>Product — live app</strong></div>
+        <div><small>Type</small><strong>Product · live app</strong></div>
         <div><small>My role</small><strong>Design + development, solo</strong></div>
         <div><small>Stack</small><strong>Flutter · Node.js · MongoDB</strong></div>
         <div><small>Status</small><strong>Live on Google Play</strong></div>
@@ -70,18 +70,18 @@
       <div class="cs-body">
         <div class="cs-main">
           <h2>The problem</h2>
-          <p>People need a simple, local ride-booking experience — passengers finding drivers nearby, drivers managing their availability, and an operator keeping the whole system honest. A pretty UI alone doesn't solve that; the system behind it does.</p>
+          <p>People need a simple, local ride-booking experience: passengers finding drivers nearby, drivers managing their availability, and an operator keeping the whole system honest. A pretty UI alone doesn't solve that; the system behind it does.</p>
           <h2>The approach</h2>
-          <p>Build the complete system, not a prototype. That meant three surfaces talking to one backend: a customer app for booking, a driver app for accepting rides and managing status, and admin functionality overseeing it all — with real authentication, real location data and a real database from day one.</p>
+          <p>Build the complete system, not a prototype. That meant three surfaces talking to one backend: a customer app for booking, a driver app for accepting rides and managing status, and admin functionality overseeing it all, with real authentication, real location data and a real database from day one.</p>
           <h2>The product</h2>
           <ul>
-            <li><strong>Customer experience</strong> — nearby driver discovery, ride booking, fixed and vehicle-specific pricing, booking notifications.</li>
-            <li><strong>Driver experience</strong> — profiles with vehicle information, online/offline status, incoming ride requests, location tracking.</li>
-            <li><strong>Admin functionality</strong> — oversight of users, drivers and bookings across the platform.</li>
-            <li><strong>Authentication</strong> — email OTP login with role-based access separating customers, drivers and admins.</li>
+            <li><strong>Customer experience</strong>: nearby driver discovery, ride booking, fixed and vehicle-specific pricing, booking notifications.</li>
+            <li><strong>Driver experience</strong>: profiles with vehicle information, online/offline status, incoming ride requests, location tracking.</li>
+            <li><strong>Admin functionality</strong>: oversight of users, drivers and bookings across the platform.</li>
+            <li><strong>Authentication</strong>: email OTP login with role-based access separating customers, drivers and admins.</li>
           </ul>
           <h2>The engineering</h2>
-          <p>The architecture is deliberately simple and honest — each layer does one job:</p>
+          <p>The architecture is deliberately simple and honest: each layer does one job:</p>
           <div class="arch rv">
             <div class="arch-flow">
               <div class="arch-node">Flutter App<small>Customer + driver · Dart</small></div><div class="arch-arrow">→</div>
@@ -89,7 +89,7 @@
               <div class="arch-node">Node.js / Express<small>Business logic + auth</small></div><div class="arch-arrow">→</div>
               <div class="arch-node">MongoDB<small>Atlas · users, rides, vehicles</small></div>
             </div>
-            <p class="arch-note">External services plug in where needed: Google Maps for location and discovery, email/OTP providers for authentication. No secrets or credentials are exposed anywhere in this write-up — or in the client.</p>
+            <p class="arch-note">External services plug in where needed: Google Maps for location and discovery, email/OTP providers for authentication. No secrets or credentials are exposed anywhere in this write-up, or in the client.</p>
           </div>
           <div class="cs-gallery">
             <img class="rv" data-img="indorideGal1" src="https://picsum.photos/seed/csindoride1/800/500" alt="Indoride customer app screens" loading="lazy">
@@ -131,7 +131,7 @@
       <div><p class="foot-label">Explore</p><nav aria-label="Footer"><a href="/about">About</a><a href="/work">Work</a><a href="/services">Services</a><a href="/music">Music</a><a href="/build">Build</a><a href="/studio">Studio</a><a href="/contact">Contact</a></nav></div>
       <div><p class="foot-label">Contact</p><a class="foot-mail" href="mailto:hello@voxpher.com">hello@voxpher.com</a><div class="foot-socials" data-socials aria-label="Social links"></div></div>
     </div>
-    <div class="foot-base"><p>© <span data-year>2026</span> Voxpher — Papan Sutradhar. All rights reserved.</p><p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p></div>
+    <div class="foot-base"><p>© <span data-year>2026</span> Voxpher · Papan Sutradhar. All rights reserved.</p><p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p></div>
   </div>
 </footer>
 <script src="/js/site.js" defer></script>
