@@ -146,3 +146,27 @@ rewrite it, save, re-deploy. That's the whole CMS.
 - First-person voice throughout: "I build. I design. I make music."
 
 Made by D for Papan Sutradhar — September 2026.
+
+----------------------------------------------------------------
+HOSTING YOUR OWN PHOTO + SIGNATURE (Cloudflare R2)
+----------------------------------------------------------------
+1. Go to dash.cloudflare.com -> R2 Object Storage (left menu)
+   -> "Create bucket" -> name it voxpher-media -> Create.
+2. Open the bucket -> Upload -> choose your photo and your
+   signature file -> Upload.
+   Tips: no spaces in file names (photo.jpg, signature.png).
+   Photo = JPG. Signature = PNG with transparent background
+   if possible (looks cleanest on the dark site).
+3. In the bucket, go to Settings -> Public access ->
+   "Allow public access" -> confirm. You will see a public
+   bucket URL like https://pub-ab12cd34.r2.dev
+4. Go back to Objects, click your photo -> copy its URL
+   (https://pub-ab12cd34.r2.dev/photo.jpg). Do the same for
+   the signature.
+5. Send both URLs to me and I will put them in the site.
+   OR do it yourself: open js/site.js, find the lines
+   homePhoto: and signatureImg: and paste your link between
+   the quotes. Save, re-upload/push, done.
+SIMPLER ALTERNATIVE (no R2 needed): put the two files in an
+images/ folder inside this website folder, push to GitHub,
+and use https://voxpher.com/images/photo.jpg as the URL.

@@ -59,10 +59,24 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"><img data-img="homeHeroBg" src="https://picsum.photos/seed/voxhero/1920/1080" alt="" fetchpriority="high"></div>
+    <div class="spin-badge" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <defs><path id="badge-circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+        <text><textPath href="#badge-circle">VOXPHER • PAPAN SUTRADHAR • SINCE 2018 • </textPath></text>
+      </svg>
+      <span class="spin-center">↓</span>
+    </div>
     <div class="wrap">
-      <h1 class="wordmark rv">VOXPHER</h1>
+      <h1 class="wordmark" id="heroWord">VOXPHER</h1>
       <p class="hero-sub rv"><span>Papan Sutradhar</span><span class="dot">·</span><span>Music</span><span class="dot">·</span><span>Design</span><span class="dot">·</span><span>Code</span><span class="dot">·</span><span>Visuals</span></p>
       <p class="hero-tag rv">I'm an independent creator. I started with rap and beat-making, taught myself design and filmmaking, then learned to build software — and now I turn ideas into real products, alone, end to end.</p>
+      <div class="hero-id rv">
+        <img class="hero-photo" data-img="homePhoto" src="https://picsum.photos/seed/voxpapan2/400/400" alt="Papan Sutradhar">
+        <div>
+          <img class="hero-sign" data-img="signatureImg" src="https://picsum.photos/seed/voxsign/600/160" alt="Signature of Papan Sutradhar">
+          <p>Papan Sutradhar · Founder, Voxpher</p>
+        </div>
+      </div>
       <div class="btn-row rv">
         <a class="btn" href="/work">Explore my work</a>
         <a class="btn-ghost" href="/contact">Let's work together</a>
@@ -79,7 +93,7 @@
   <section class="section">
     <div class="wrap">
       <p class="kicker rv">The short version</p>
-      <h2 class="h-xl rv">I make things — songs, visuals, interfaces, websites, apps, and ideas that become real products.</h2>
+      <h2 class="h-xl rv flip">I make things — songs, visuals, interfaces, websites, apps, and ideas that become real products.</h2>
       <p class="lede rv">Music taught me the <strong>creative</strong> side. Technology taught me the <strong>building</strong> side. Everything on this site is something I learned by doing, not by job title.</p>
     </div>
   </section>
@@ -88,7 +102,7 @@
   <section class="section flush">
     <div class="wrap">
       <p class="kicker rv">Creative worlds</p>
-      <h2 class="h-lg rv">Four directions. One person.</h2>
+      <h2 class="h-lg rv flip">Four directions. One person.</h2>
       <div class="worlds">
         <a class="world rv" href="/music">
           <img data-img="worldMusic" src="https://picsum.photos/seed/voxmusic/800/1000" alt="Voxpher music artwork" loading="lazy">
@@ -118,7 +132,7 @@
   <section class="section flush">
     <div class="wrap">
       <p class="kicker rv">Featured work</p>
-      <h2 class="h-lg rv">Proof, not promises.</h2>
+      <h2 class="h-lg rv flip">Proof, not promises.</h2>
       <div class="work-grid">
         <a class="work-card rv" href="/work/indoride">
           <div class="work-thumb"><img data-img="workIndoride" src="https://picsum.photos/seed/voxindoride/800/600" alt="Indoride ride-booking app" loading="lazy"></div>
@@ -156,7 +170,7 @@
         <img class="rv" data-img="homeAbout" src="https://picsum.photos/seed/voxpapan/800/1000" alt="Portrait of Papan Sutradhar" loading="lazy">
         <div>
           <p class="kicker rv">About</p>
-          <h2 class="h-lg rv">I'm Papan Sutradhar — the person behind Voxpher.</h2>
+          <h2 class="h-lg rv flip">I'm Papan Sutradhar — the person behind Voxpher.</h2>
           <p class="lede rv">Not an agency. Not a team. One person who got curious about rap in 2018 and never stopped learning — design, cameras, code, products.</p>
           <ul class="check-list rv">
             <li>Music first — rap, writing, beats on FL Studio mobile</li>
@@ -173,7 +187,7 @@
   <section class="section flush">
     <div class="wrap">
       <p class="kicker rv">The journey</p>
-      <h2 class="h-lg rv">From beats to products.</h2>
+      <h2 class="h-lg rv flip">From beats to products.</h2>
       <div class="timeline">
         <div class="tl-item rv"><p class="tl-era">2018 — The start</p><h3>Rap, writing, beats</h3><p>Picked up FL Studio on mobile and started making music — writing, sound, and how it all looks and feels.</p></div>
         <div class="tl-item rv"><p class="tl-era">Exploration</p><h3>Cameras and frames</h3><p>Photography, videography and editing — learning to tell stories visually, one frame at a time.</p></div>

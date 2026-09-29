@@ -464,3 +464,46 @@ body.locked{overflow:hidden}
   .rv{opacity:1;transform:none}
   .wave span{animation:none;height:40%}
 }
+
+/* ---------- Home motion pack (v2.1) ---------- */
+/* Rotating scroll badge */
+.spin-badge{position:absolute;top:7rem;right:var(--pad);width:8.5rem;height:8.5rem;z-index:2;will-change:transform;pointer-events:none}
+.spin-badge svg{width:100%;height:100%;overflow:visible;display:block;will-change:transform}
+.spin-badge text{fill:var(--muted);font:700 .8rem var(--font-b);letter-spacing:.34em;text-transform:uppercase}
+.spin-center{position:absolute;inset:0;display:grid;place-items:center;color:var(--red);font-size:1.7rem}
+
+/* Hero identity: photo + signature */
+.hero-id{display:flex;align-items:center;gap:1.3rem;margin-top:2.1rem}
+.hero-photo{width:5.4rem;height:5.4rem;object-fit:cover;border-radius:1.2rem;border:1px solid var(--line);flex-shrink:0}
+.hero-sign{height:2.5rem;width:auto;max-width:14rem;object-fit:contain;filter:invert(1);opacity:.94;display:block}
+.hero-id p{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:.35rem}
+
+/* 3D letter-split hero wordmark */
+.ch-wrap{display:inline-block;overflow:hidden;vertical-align:top}
+.ch{display:inline-block;transform:translateY(112%) rotateX(-48deg);transform-origin:50% 100%;transition:transform .85s var(--ease);will-change:transform}
+body.hero-anim .ch{transform:translateY(0) rotateX(0)}
+
+/* 3D flip reveal for home section titles */
+.rv.flip{transform:perspective(900px) rotateX(38deg);transform-origin:50% 100%}
+.rv.flip.in{transform:none}
+
+/* Mobile menu links: 3D staggered entrance, one by one */
+.mobile-menu nav a{opacity:0;transform:perspective(700px) rotateX(-52deg) translateY(26px);transform-origin:50% 0;will-change:transform,opacity}
+.mobile-menu.open nav a{opacity:1;transform:none;transition:opacity .45s var(--ease),transform .62s var(--ease)}
+.mobile-menu.open nav a:nth-child(1){transition-delay:.07s}
+.mobile-menu.open nav a:nth-child(2){transition-delay:.13s}
+.mobile-menu.open nav a:nth-child(3){transition-delay:.19s}
+.mobile-menu.open nav a:nth-child(4){transition-delay:.25s}
+.mobile-menu.open nav a:nth-child(5){transition-delay:.31s}
+.mobile-menu.open nav a:nth-child(6){transition-delay:.37s}
+.mobile-menu.open nav a:nth-child(7){transition-delay:.43s}
+.mobile-menu.open nav a:nth-child(8){transition-delay:.49s}
+.mobile-menu.open .menu-mail{transition-delay:.55s}
+
+@media(max-width:640px){
+  .spin-badge{width:5.6rem;height:5.6rem;top:5.6rem}
+  .spin-badge text{font-size:1.05rem}
+  .hero-id{gap:1rem}
+  .hero-photo{width:4.2rem;height:4.2rem;border-radius:.9rem}
+  .hero-sign{height:1.9rem}
+}

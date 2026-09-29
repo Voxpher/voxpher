@@ -209,9 +209,65 @@
     });
   }
 
-  /* ---------- Boot ---------- */
+  /* ---------- Home motion: 3D hero letters, scroll badge, parallax ---------- */
+function homeMotion(){
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var badge = document.querySelector(".spin-badge");
+  var wm = document.getElementById("heroWord");
+  var heroBg = document.querySelector(".hero-bg img");
+
+  /* Split the hero wordmark into 3D-animated letters */
+  if (wm && !wm.querySelector(".ch") && !reduce){
+    var text = wm.textContent; wm.textContent = "";
+    for (var i = 0; i < text.length; i++){
+      var wrap = document.createElement("span"); wrap.className = "ch-wrap";
+      var ch = document.createElement("span"); ch.className = "ch";
+      ch.textContent = text[i];
+      ch.style.transitionDelay = (i * 0.045) + "s";
+      wrap.appendChild(ch); wm.appendChild(wrap);
+    }
+  }
+  /* Trigger the letter animation on the next frame so the
+     transition runs from the initial 3D state */
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){ document.body.classList.add("hero-anim"); });
+  });
+
+  if (reduce) return;
+
+  /* Rotating badge: the text ring spins with scroll + gentle idle spin (arrow stays still) */
+  if (badge){
+    var ring = badge.querySelector("svg");
+    var angle = 0, last = performance.now();
+    (function loop(t){
+      var dt = Math.min(60, t - last); last = t;
+      angle += dt * 0.018;                       /* idle spin */
+      ring.style.transform = "rotate(" + (angle + window.scrollY * 0.28) + "deg)";
+      requestAnimationFrame(loop);
+    })(last);
+  }
+
+  /* Parallax: wordmark + hero background drift on scroll */
+  if (wm || heroBg){
+    var ticking = false;
+    window.addEventListener("scroll", function(){
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function(){
+        var y = window.scrollY;
+        if (y < window.innerHeight * 1.2){
+          if (wm) wm.style.transform = "translateY(" + (y * 0.22) + "px)";
+          if (heroBg) heroBg.style.transform = "translateY(" + (y * 0.12) + "px) scale(1.06)";
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+}
+
+/* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", function(){
-    hydrateImages(); years(); socials(); menu();
+    hydrateImages();
+    homeMotion(); years(); socials(); menu();
     reveals(); filters(); accordion(); contactForm();
   });
 })();
