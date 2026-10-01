@@ -20,7 +20,7 @@ var VOXPHER_CONFIG = {
 
   socials: {
     instagram: "https://www.instagram.com/voxpher/",
-    youtube:   "",
+    youtube:   "https://www.youtube.com/@VoxpherOfficial",
     linkedin:  "",
     x:         "",
     behance:   ""

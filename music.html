@@ -8,11 +8,11 @@
 <meta property="og:site_name" content="Voxpher">
 <meta property="og:locale" content="en_IN">
 <title>Voxpher Music | Musical Artist</title>
-<meta name="description" content="Voxpher the musical artist: rap, songwriting and beat-making since 2018. Streaming on Spotify, Apple Music, JioSaavn and YouTube Music.">
+<meta name="description" content="Voxpher the musical artist: rap, songwriting and beat-making since 2018. Press play on 22 tracks, watch every video on YouTube. Kaan Khol streaming on Spotify, Apple Music, Amazon Music, Gaana and Wynk.">
 <link rel="canonical" href="https://voxpher.com/music">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Voxpher Music | Musical Artist">
-<meta property="og:description" content="Voxpher the musical artist: rap, songwriting and beat-making since 2018. Streaming on Spotify, Apple Music, JioSaavn and YouTube Music.">
+<meta property="og:description" content="Voxpher the musical artist: rap, songwriting and beat-making since 2018. Press play on 22 tracks, watch every video on YouTube.">
 <meta property="og:url" content="https://voxpher.com/music">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/papa.png">
@@ -27,7 +27,7 @@
 {"@context":"https://schema.org","@type":"MusicGroup","name":"Voxpher","alternateName":"Papan Sutradhar",
  "url":"https://voxpher.com/music","genre":["Hip Hop","Rap"],"foundingDate":"2018",
  "description":"Rap artist, songwriter and beat-maker. Active since 2018.",
- "sameAs":["https://www.instagram.com/voxpher/","https://ffm.bio/voxpher"]}
+ "sameAs":["https://www.instagram.com/voxpher/","https://ffm.bio/voxpher","https://www.youtube.com/@VoxpherOfficial"]}
 </script>
 </head>
 <body>
@@ -65,11 +65,212 @@
       <p class="kicker rv">Music</p>
       <h1 class="h-xl rv">VOXPHER<br>the <span class="accent">artist</span>.</h1>
       <p class="lede rv">Before the design, before the code, there was rap. Voxpher is my artist identity: writing, beats, and the visuals wrapped around them.</p>
-      <div class="wave rv" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <p class="hero-sub rv hero-count">22 tracks · press play below</p>
+      <div class="wave lite rv" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <section class="section flush" id="listen">
+    <div class="wrap">
+      <p class="kicker rv">Press play</p>
+      <h2 class="h-lg rv">The listening room.</h2>
+      <div class="player rv">
+        <canvas id="viz" aria-hidden="true"></canvas>
+        <div class="p-controls">
+          <button id="prevBtn" class="p-btn" aria-label="Previous track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h3v16H6zM20 4L9 12l11 8z"/></svg></button>
+          <button id="ppBtn" class="p-btn p-main" aria-label="Play"><svg id="ppIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></button>
+          <button id="nextBtn" class="p-btn" aria-label="Next track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3v16h-3zM4 4l11 8-11 8z"/></svg></button>
+          <div class="p-meta"><p id="npTitle">Pick a track below</p><p id="npMeta">22 tracks · MP3s play right here once added</p></div>
+        </div>
+        <div class="p-prog" id="prog" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><div id="progFill"></div></div>
+        <div class="p-times"><span id="tCur">0:00</span><span id="tDur">0:00</span></div>
+      </div>
+      <!-- TO ADD YOUR MP3s: drop the .mp3 files into the /audio/ folder, then set data-src="audio/your-file.mp3" on the matching track row below and remove its "no-src" class. -->
+      <div class="track-list" id="trackList">
+      <div class="track rv no-src" data-src="" data-title="Mai or 180">
+        <button class="t-play" aria-label="Play Mai or 180"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/nHiFiM7ZI0U/hq720.jpg" alt="Mai or 180 artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">01</span>Mai or 180</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=nHiFiM7ZI0U" target="_blank" rel="noopener" aria-label="Mai or 180 on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Nashe Main Kaun">
+        <button class="t-play" aria-label="Play Nashe Main Kaun"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/fi7Q9ISMvbY/hq720.jpg" alt="Nashe Main Kaun artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">02</span>Nashe Main Kaun</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=fi7Q9ISMvbY" target="_blank" rel="noopener" aria-label="Nashe Main Kaun on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Flow Less">
+        <button class="t-play" aria-label="Play Flow Less"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/ZNXZ3PkkQ08/hq720.jpg" alt="Flow Less artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">03</span>Flow Less</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=ZNXZ3PkkQ08" target="_blank" rel="noopener" aria-label="Flow Less on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Contactless">
+        <button class="t-play" aria-label="Play Contactless"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/V22jEy7CJ4s/hq720.jpg" alt="Contactless artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">04</span>Contactless</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=V22jEy7CJ4s" target="_blank" rel="noopener" aria-label="Contactless on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Avidya">
+        <button class="t-play" aria-label="Play Avidya"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/imPFbyaGTwo/hq720.jpg" alt="Avidya artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">05</span>Avidya</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=imPFbyaGTwo" target="_blank" rel="noopener" aria-label="Avidya on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Taka (Money)">
+        <button class="t-play" aria-label="Play Taka (Money)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/ZlrBy3Xg4B0/hq720.jpg" alt="Taka (Money) artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">06</span>Taka (Money)</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=ZlrBy3Xg4B0" target="_blank" rel="noopener" aria-label="Taka (Money) on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Fake">
+        <button class="t-play" aria-label="Play Fake"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/8q8P-vpPNKE/hq720.jpg" alt="Fake artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">07</span>Fake</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=8q8P-vpPNKE" target="_blank" rel="noopener" aria-label="Fake on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Last Day">
+        <button class="t-play" aria-label="Play Last Day"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/zPoJXPph5YU/hq720.jpg" alt="Last Day artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">08</span>Last Day</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=zPoJXPph5YU" target="_blank" rel="noopener" aria-label="Last Day on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Kaan Khol">
+        <button class="t-play" aria-label="Play Kaan Khol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/nDztbJvVDhA/hq720.jpg" alt="Kaan Khol artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">09</span>Kaan Khol</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=nDztbJvVDhA" target="_blank" rel="noopener" aria-label="Kaan Khol on YouTube (opens in new tab)">YouTube</a><a href="https://bit.ly/41O5z7G" target="_blank" rel="noopener" aria-label="Kaan Khol on Spotify (opens in new tab)">Spotify</a><a href="https://bit.ly/3MgoOku" target="_blank" rel="noopener" aria-label="Kaan Khol on Apple Music (opens in new tab)">Apple Music</a><a href="https://amzn.to/421MBL2" target="_blank" rel="noopener" aria-label="Kaan Khol on Amazon Music (opens in new tab)">Amazon Music</a><a href="https://bit.ly/41SlOR8" target="_blank" rel="noopener" aria-label="Kaan Khol on Gaana (opens in new tab)">Gaana</a><a href="https://bit.ly/42Ud2U7" target="_blank" rel="noopener" aria-label="Kaan Khol on Wynk (opens in new tab)">Wynk</a><a href="https://ffm.to/voxpher-kaankhol" target="_blank" rel="noopener" aria-label="Kaan Khol smart link, every platform (opens in new tab)">All platforms</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Basanta Utsav">
+        <button class="t-play" aria-label="Play Basanta Utsav"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/4TipiXAkY_Y/hq720.jpg" alt="Basanta Utsav artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">10</span>Basanta Utsav</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=4TipiXAkY_Y" target="_blank" rel="noopener" aria-label="Basanta Utsav on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="G-Town 2.0">
+        <button class="t-play" aria-label="Play G-Town 2.0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/2hzX-f_aLZw/hq720.jpg" alt="G-Town 2.0 artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">11</span>G-Town 2.0</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=2hzX-f_aLZw" target="_blank" rel="noopener" aria-label="G-Town 2.0 on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Main Villain">
+        <button class="t-play" aria-label="Play Main Villain"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/EG26Oy7d0nA/hq720.jpg" alt="Main Villain artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">12</span>Main Villain</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=EG26Oy7d0nA" target="_blank" rel="noopener" aria-label="Main Villain on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="30 April (Recap)">
+        <button class="t-play" aria-label="Play 30 April (Recap)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/hcgsZJ-riwE/hq720.jpg" alt="30 April (Recap) artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">13</span>30 April (Recap)</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=hcgsZJ-riwE" target="_blank" rel="noopener" aria-label="30 April (Recap) on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="D">
+        <button class="t-play" aria-label="Play D"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/cmTsSNCFGPs/hq720.jpg" alt="D artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">14</span>D</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=cmTsSNCFGPs" target="_blank" rel="noopener" aria-label="D on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="G Town Se Mai">
+        <button class="t-play" aria-label="Play G Town Se Mai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/PXqt4trhuUw/hq720.jpg" alt="G Town Se Mai artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">15</span>G Town Se Mai</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=PXqt4trhuUw" target="_blank" rel="noopener" aria-label="G Town Se Mai on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Koshish">
+        <button class="t-play" aria-label="Play Koshish"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/yO2nchDyzMA/hq720.jpg" alt="Koshish artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">16</span>Koshish</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=yO2nchDyzMA" target="_blank" rel="noopener" aria-label="Koshish on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Chapri Dil">
+        <button class="t-play" aria-label="Play Chapri Dil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/sPLigMzoRjY/hq720.jpg" alt="Chapri Dil artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">17</span>Chapri Dil</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=sPLigMzoRjY" target="_blank" rel="noopener" aria-label="Chapri Dil on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Pehchan">
+        <button class="t-play" aria-label="Play Pehchan"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/J3GxNNcfDS0/hq720.jpg" alt="Pehchan artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">18</span>Pehchan</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=J3GxNNcfDS0" target="_blank" rel="noopener" aria-label="Pehchan on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Shrap">
+        <button class="t-play" aria-label="Play Shrap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/6EGH8Dwu24I/hq720.jpg" alt="Shrap artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">19</span>Shrap</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=6EGH8Dwu24I" target="_blank" rel="noopener" aria-label="Shrap on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Frustration">
+        <button class="t-play" aria-label="Play Frustration"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/8KDiLJi7sTg/hq720.jpg" alt="Frustration artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">20</span>Frustration</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=8KDiLJi7sTg" target="_blank" rel="noopener" aria-label="Frustration on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Lockdown">
+        <button class="t-play" aria-label="Play Lockdown"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/P-bLcalIM8c/hq720.jpg" alt="Lockdown artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">21</span>Lockdown</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=P-bLcalIM8c" target="_blank" rel="noopener" aria-label="Lockdown on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      <div class="track rv no-src" data-src="" data-title="Trail Mix">
+        <button class="t-play" aria-label="Play Trail Mix"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg><span class="t-soon">MP3 soon</span></button>
+        <img class="t-art" src="https://i.ytimg.com/vi/dzVFZL7YiCE/hq720.jpg" alt="Trail Mix artwork" loading="lazy">
+        <div class="t-info"><h3><span class="t-num">22</span>Trail Mix</h3><p class="t-sub">Voxpher · YouTube</p></div>
+        <div class="t-links"><a href="https://www.youtube.com/watch?v=dzVFZL7YiCE" target="_blank" rel="noopener" aria-label="Trail Mix on YouTube (opens in new tab)">YouTube</a></div>
+      </div>
+      </div>
+      <p class="mp3-note rv">MP3s are being added one by one. Until then, every track plays on YouTube through the links on each row.</p>
+    </div>
+  </section>
+
+  <section class="section flush">
+    <div class="wrap">
+      <p class="kicker rv">Streaming</p>
+      <h2 class="h-lg rv">Kaan Khol is everywhere.</h2>
+      <div class="plat-grid">
+        <a class="plat rv" href="https://bit.ly/41O5z7G" target="_blank" rel="noopener"><strong>Spotify</strong><span>Listen →</span></a>
+        <a class="plat rv" href="https://bit.ly/3MgoOku" target="_blank" rel="noopener"><strong>Apple Music</strong><span>Listen →</span></a>
+        <a class="plat rv" href="https://amzn.to/421MBL2" target="_blank" rel="noopener"><strong>Amazon Music</strong><span>Listen →</span></a>
+        <a class="plat rv" href="https://bit.ly/41SlOR8" target="_blank" rel="noopener"><strong>Gaana</strong><span>Listen →</span></a>
+        <a class="plat rv" href="https://bit.ly/42Ud2U7" target="_blank" rel="noopener"><strong>Wynk</strong><span>Listen →</span></a>
+        <a class="plat rv" href="https://ffm.to/voxpher-kaankhol" target="_blank" rel="noopener"><strong>Smart link</strong><span>Every platform →</span></a>
+      </div>
+      <div class="btn-row rv"><a class="btn" href="https://www.youtube.com/@VoxpherOfficial" target="_blank" rel="noopener">All 22 videos on YouTube</a><a class="btn-ghost" href="https://ffm.bio/voxpher" target="_blank" rel="noopener">ffm.bio/voxpher</a></div>
+    </div>
+  </section>
+
+  <section class="section flush">
+    <div class="wrap">
+      <p class="kicker rv">The artwork</p>
+      <h2 class="h-lg rv">Every track has a face.</h2>
+      <div class="art-grid">
+      <a class="art rv" href="https://www.youtube.com/watch?v=nHiFiM7ZI0U" target="_blank" rel="noopener" aria-label="Mai or 180 on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/nHiFiM7ZI0U/hq720.jpg" alt="Mai or 180 artwork" loading="lazy"><span class="art-title">Mai or 180</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=fi7Q9ISMvbY" target="_blank" rel="noopener" aria-label="Nashe Main Kaun on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/fi7Q9ISMvbY/hq720.jpg" alt="Nashe Main Kaun artwork" loading="lazy"><span class="art-title">Nashe Main Kaun</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=ZNXZ3PkkQ08" target="_blank" rel="noopener" aria-label="Flow Less on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/ZNXZ3PkkQ08/hq720.jpg" alt="Flow Less artwork" loading="lazy"><span class="art-title">Flow Less</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=V22jEy7CJ4s" target="_blank" rel="noopener" aria-label="Contactless on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/V22jEy7CJ4s/hq720.jpg" alt="Contactless artwork" loading="lazy"><span class="art-title">Contactless</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=imPFbyaGTwo" target="_blank" rel="noopener" aria-label="Avidya on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/imPFbyaGTwo/hq720.jpg" alt="Avidya artwork" loading="lazy"><span class="art-title">Avidya</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=ZlrBy3Xg4B0" target="_blank" rel="noopener" aria-label="Taka (Money) on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/ZlrBy3Xg4B0/hq720.jpg" alt="Taka (Money) artwork" loading="lazy"><span class="art-title">Taka (Money)</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=8q8P-vpPNKE" target="_blank" rel="noopener" aria-label="Fake on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/8q8P-vpPNKE/hq720.jpg" alt="Fake artwork" loading="lazy"><span class="art-title">Fake</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=zPoJXPph5YU" target="_blank" rel="noopener" aria-label="Last Day on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/zPoJXPph5YU/hq720.jpg" alt="Last Day artwork" loading="lazy"><span class="art-title">Last Day</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=nDztbJvVDhA" target="_blank" rel="noopener" aria-label="Kaan Khol on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/nDztbJvVDhA/hq720.jpg" alt="Kaan Khol artwork" loading="lazy"><span class="art-title">Kaan Khol</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=4TipiXAkY_Y" target="_blank" rel="noopener" aria-label="Basanta Utsav on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/4TipiXAkY_Y/hq720.jpg" alt="Basanta Utsav artwork" loading="lazy"><span class="art-title">Basanta Utsav</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=2hzX-f_aLZw" target="_blank" rel="noopener" aria-label="G-Town 2.0 on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/2hzX-f_aLZw/hq720.jpg" alt="G-Town 2.0 artwork" loading="lazy"><span class="art-title">G-Town 2.0</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=EG26Oy7d0nA" target="_blank" rel="noopener" aria-label="Main Villain on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/EG26Oy7d0nA/hq720.jpg" alt="Main Villain artwork" loading="lazy"><span class="art-title">Main Villain</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=hcgsZJ-riwE" target="_blank" rel="noopener" aria-label="30 April (Recap) on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/hcgsZJ-riwE/hq720.jpg" alt="30 April (Recap) artwork" loading="lazy"><span class="art-title">30 April (Recap)</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=cmTsSNCFGPs" target="_blank" rel="noopener" aria-label="D on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/cmTsSNCFGPs/hq720.jpg" alt="D artwork" loading="lazy"><span class="art-title">D</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=PXqt4trhuUw" target="_blank" rel="noopener" aria-label="G Town Se Mai on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/PXqt4trhuUw/hq720.jpg" alt="G Town Se Mai artwork" loading="lazy"><span class="art-title">G Town Se Mai</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=yO2nchDyzMA" target="_blank" rel="noopener" aria-label="Koshish on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/yO2nchDyzMA/hq720.jpg" alt="Koshish artwork" loading="lazy"><span class="art-title">Koshish</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=sPLigMzoRjY" target="_blank" rel="noopener" aria-label="Chapri Dil on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/sPLigMzoRjY/hq720.jpg" alt="Chapri Dil artwork" loading="lazy"><span class="art-title">Chapri Dil</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=J3GxNNcfDS0" target="_blank" rel="noopener" aria-label="Pehchan on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/J3GxNNcfDS0/hq720.jpg" alt="Pehchan artwork" loading="lazy"><span class="art-title">Pehchan</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=6EGH8Dwu24I" target="_blank" rel="noopener" aria-label="Shrap on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/6EGH8Dwu24I/hq720.jpg" alt="Shrap artwork" loading="lazy"><span class="art-title">Shrap</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=8KDiLJi7sTg" target="_blank" rel="noopener" aria-label="Frustration on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/8KDiLJi7sTg/hq720.jpg" alt="Frustration artwork" loading="lazy"><span class="art-title">Frustration</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=P-bLcalIM8c" target="_blank" rel="noopener" aria-label="Lockdown on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/P-bLcalIM8c/hq720.jpg" alt="Lockdown artwork" loading="lazy"><span class="art-title">Lockdown</span></a>
+      <a class="art rv" href="https://www.youtube.com/watch?v=dzVFZL7YiCE" target="_blank" rel="noopener" aria-label="Trail Mix on YouTube (opens in new tab)"><img src="https://i.ytimg.com/vi/dzVFZL7YiCE/hq720.jpg" alt="Trail Mix artwork" loading="lazy"><span class="art-title">Trail Mix</span></a>
       </div>
     </div>
   </section>
+
 
   <section class="section flush">
     <div class="wrap">
@@ -96,7 +297,7 @@
         <div class="music-card rv"><p class="n">03</p><h3>Visual identity</h3><p>Artwork, videos and the aesthetic around the music. A song isn't finished until its world exists.</p></div>
       </div>
       <div class="track-note rv">
-        <strong class="tx">An honest note.</strong> This page is the story behind the music, not a discography page with inflated numbers. Releases live on the platforms they're released on; what matters here is the craft and where it led: into design, film, and building products.
+        <strong class="tx">An honest note.</strong> No inflated numbers here: what you see above is every public track, each linked to the platforms it's actually on. The story below is where it all started and what the craft became.
       </div>
     </div>
   </section>
@@ -122,5 +323,6 @@
 </footer>
 <script src="/js/site.js" defer></script>
 <script src="/js/main.js" defer></script>
+<script src="/js/player.js" defer></script>
 </body>
 </html>
