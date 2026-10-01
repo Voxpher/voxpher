@@ -426,8 +426,9 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 /* ---------- Footer ---------- */
 .site-foot{background:var(--ink);color:#fff;border-top:3px solid #000;padding:4.5rem 0 0;margin-top:2rem;position:relative;overflow:hidden}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2.5rem;padding:0 var(--pad);max-width:76rem;margin:0 auto}
-.foot-brand{line-height:1;color:#fff;display:block}
+.foot-brand{line-height:1;color:#fff;display:block;margin-bottom:1.25rem}
 .foot-brand .brand-logo{height:clamp(3.5rem,6vw,3.8rem);width:auto}
+.foot-name{font-family:var(--font-m);font-size:.95rem;letter-spacing:.08em;color:#fff;margin:0}
 .foot-brand small{display:block;font-family:var(--font-m);font-size:.74rem;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:1rem}
 .foot-label{font-family:var(--font-m);font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:1.1rem;display:block}
 .site-foot nav{display:flex;flex-direction:column;gap:.65rem}
@@ -437,6 +438,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .foot-socials{display:flex;gap:.8rem;margin-top:1.2rem}
 .foot-socials a{width:2.7rem;height:2.7rem;border:2px solid rgba(255,255,255,.35);display:grid;place-items:center;transition:border .25s,background .25s,transform .3s var(--ease)}
 .foot-socials a:hover{border-color:#fff;background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.foot-socials a.soon{opacity:.38}
 .foot-socials svg{width:1.15rem;height:1.15rem;fill:#fff}
 .foot-base{
   display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;

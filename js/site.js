@@ -19,11 +19,12 @@ var VOXPHER_CONFIG = {
   formspreeEndpoint: "", // e.g. "https://formspree.io/f/abcdwxyz"
 
   socials: {
+    facebook:  "", // <-- paste your Facebook profile URL between the quotes
     instagram: "https://www.instagram.com/voxpher/",
+    x:         "", // <-- paste your X profile URL between the quotes
     youtube:   "https://www.youtube.com/@VoxpherOfficial",
-    linkedin:  "",
-    x:         "",
-    behance:   ""
+    github:    "", // <-- paste your GitHub profile URL between the quotes
+    linkedin:  ""  // <-- paste your LinkedIn profile URL between the quotes
   },
 
   images: {
