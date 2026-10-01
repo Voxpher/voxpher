@@ -39,11 +39,8 @@ var VOXPHER_CONFIG = {
     /* ---------- WORK CARDS (wide 4:3) ---------- */
     workIndoride:   "https://picsum.photos/seed/voxindoride/800/600",
     workHubator:    "https://picsum.photos/seed/voxhubator/800/600",
-    workNamaste:    "https://picsum.photos/seed/voxnamaste/800/600",
-    workDeepex:     "https://picsum.photos/seed/voxdeepex/800/600",
     workFacebengal: "https://picsum.photos/seed/voxface/800/600",
     workPhoto:      "https://picsum.photos/seed/voxphoto/800/600",
-    workSite:       "https://picsum.photos/seed/voxsite/800/600",
 
     /* ---------- CASE STUDIES ---------- */
     indorideHero:    "https://picsum.photos/seed/csindoride/1680/720",  // wide 21:9

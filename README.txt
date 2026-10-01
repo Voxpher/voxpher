@@ -1,3 +1,13 @@
+VOXPHER v5.5 — REMOVED UNFINISHED PROJECTS (2026-10-01)
+Base: your uploaded voxpher-sitee.zip code.
+- Home "Proof, not promises." grid: removed NAMASTE, Deepex FF, Visual archive cards. Kept: Indoride, Hubator, FaceBengal. ("02 Visuals" world card untouched.)
+- Work page: removed NAMASTE, Deepex FF, voxpher.com cards. Kept: Indoride, Hubator, FaceBengal, Visual archive, Voxpher the artist.
+- Removed the Motion filter button (it would show zero results). Photography/Video filters stay (Visual archive uses them).
+- Deleted work/namaste.html and work/deepex-ff.html. visuals.html KEPT (you're working on it later).
+- Case-study prev/next pagers rewired: Indoride -> Hubator -> FaceBengal -> Indoride.
+- sitemap.xml: removed the 2 deleted page URLs. js/site.js: removed unused image keys (workNamaste, workDeepex, workSite).
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v5.4 — HUMANIZED COPY: removed all unnecessary em dashes (2026-09-30)
 - 200+ " — " instances across all 17 pages rewritten with commas, periods, colons and parentheses.
 - Page titles now use ":" (e.g. "NAMASTE: Beat-Synced Animated Film | Voxpher").
