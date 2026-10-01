@@ -1,3 +1,10 @@
+VOXPHER v6.1 — WORK + BUILD MERGED (2026-10-01)
+- DELETED work.html. The Build page now holds everything: hero, 9-box toolbox, honesty note, then the full Selected-work grid (5 cards, working filters, empty-state) + CTA.
+- Nav is now 7 items on every page: Home, About, Services, Music, Build, Education, Contact (mobile menu renumbered 01-07, footer cleaned, sitemap dropped /work).
+- Case study pages (/work/indoride, /work/hubator, /work/facebengal) unchanged and still linked; their nav highlights Build.
+- Home/404/about/music/visuals content links retargeted /work -> /build; home Brands world card now points to /build and its copy fixed (Deepex FF -> FaceBengal).
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v6.0 — BUILD TOOLBOX UPGRADE (2026-10-01)
 - build.html: removed the "How it started / From curiosity to production." section.
 - Toolbox now 9 boxes: AI split into 4 named boxes (AI chat & research, AI image & video, AI voice & music, AI coding) with real model/site names; Media & motion expanded with Premiere Pro, Photoshop, Illustrator, Blender (from his resume).

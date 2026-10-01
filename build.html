@@ -29,7 +29,7 @@
 <header class="site-head">
   <a class="brand" href="/" aria-label="Voxpher home page"><img class="brand-logo" data-img="logoImg" src="https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png" alt="Voxpher"></a>
   <nav class="site-nav" aria-label="Primary">
-    <a href="/">Home</a><a href="/about">About</a><a href="/work">Work</a><a href="/services">Services</a><a href="/music">Music</a><a href="/build" aria-current="page">Build</a><a href="/education">Education</a><a href="/contact" class="nav-cta">Contact</a>
+    <a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/music">Music</a><a href="/build" aria-current="page">Build</a><a href="/education">Education</a><a href="/contact" class="nav-cta">Contact</a>
   </nav>
   <button class="nav-toggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
 </header>
@@ -37,9 +37,9 @@
   <button class="menu-close" aria-label="Close menu">&times;</button>
   <nav aria-label="Mobile">
     <a href="/">Home <small>01</small></a><a href="/about">About <small>02</small></a>
-    <a href="/work">Work <small>03</small></a><a href="/services">Services <small>04</small></a>
-    <a href="/music">Music <small>05</small></a><a href="/build" aria-current="page">Build <small>06</small></a>
-    <a href="/education">Education <small>07</small></a><a href="/contact">Contact <small>08</small></a>
+    <a href="/services">Services <small>03</small></a>
+    <a href="/music">Music <small>04</small></a><a href="/build" aria-current="page">Build <small>05</small></a>
+    <a href="/education">Education <small>06</small></a><a href="/contact">Contact <small>07</small></a>
   </nav>
   <a class="menu-mail" href="mailto:hello@voxpher.com">hello@voxpher.com</a>
 </div>
@@ -74,22 +74,42 @@
 
   <section class="section flush">
     <div class="wrap">
-      <p class="kicker rv">Proof</p>
+      <p class="kicker rv">Selected work</p>
       <h2 class="h-lg rv">Built, deployed, real.</h2>
+      <div class="filters rv" data-filters role="group" aria-label="Filter projects">
+        <button class="filter" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter" data-filter="music" aria-pressed="false">Music</button>
+        <button class="filter" data-filter="development" aria-pressed="false">Development</button>
+        <button class="filter" data-filter="apps" aria-pressed="false">Apps</button>
+        <button class="filter" data-filter="websites" aria-pressed="false">Websites</button>
+        <button class="filter" data-filter="branding" aria-pressed="false">Branding</button>
+        <button class="filter" data-filter="photography" aria-pressed="false">Photography</button>
+        <button class="filter" data-filter="video" aria-pressed="false">Video</button>
+        <button class="filter" data-filter="experiments" aria-pressed="false">Experiments</button>
+      </div>
       <div class="work-grid">
-        <a class="work-card rv" href="/work/indoride">
-          <div class="work-thumb"><img data-img="workIndoride" src="https://picsum.photos/seed/voxindoride/800/600" alt="Indoride app" loading="lazy"></div>
-          <div class="work-body"><div class="work-tags"><span class="tag">Product</span></div><h3>Indoride</h3><p>Flutter app + Express backend + MongoDB + Maps + OTP auth. The full stack, solo.</p><span class="work-more">Case study →</span></div>
+        <a class="work-card rv" href="/work/indoride" data-cats="development apps">
+          <div class="work-thumb"><img data-img="workIndoride" src="https://picsum.photos/seed/voxindoride/800/600" alt="Indoride ride-booking app" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Product</span><span class="tag dim">App · Backend</span></div><h3>Indoride</h3><p>Ride-booking ecosystem: customer app, driver app, Node.js backend, MongoDB, maps, OTP auth. Designed and built solo.</p><span class="work-more">Case study →</span></div>
         </a>
-        <a class="work-card rv" href="/work/hubator">
-          <div class="work-thumb"><img data-img="workHubator" src="https://picsum.photos/seed/voxhubator/800/600" alt="Hubator e-commerce" loading="lazy"></div>
-          <div class="work-body"><div class="work-tags"><span class="tag">Product</span></div><h3>Hubator</h3><p>E-commerce ecosystem: storefront, products, payments, orders.</p><span class="work-more">Case study →</span></div>
+        <a class="work-card rv" href="/work/hubator" data-cats="development websites branding">
+          <div class="work-thumb"><img data-img="workHubator" src="https://picsum.photos/seed/voxhubator/800/600" alt="Hubator e-commerce brand" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Product</span><span class="tag dim">E-commerce</span></div><h3>Hubator</h3><p>Online retail and print-on-demand brand: storefront, product management, payments, orders, fulfillment thinking.</p><span class="work-more">Case study →</span></div>
         </a>
-        <a class="work-card rv" href="/work/facebengal">
-          <div class="work-thumb"><img data-img="workFacebengal" src="https://picsum.photos/seed/voxface/800/600" alt="FaceBengal concept" loading="lazy"></div>
-          <div class="work-body"><div class="work-tags"><span class="tag">Concept</span></div><h3>FaceBengal</h3><p>A social platform concept. Architecture thinking in progress.</p><span class="work-more">View project →</span></div>
+        <a class="work-card rv" href="/work/facebengal" data-cats="development experiments">
+          <div class="work-thumb"><img data-img="workFacebengal" src="https://picsum.photos/seed/voxface/800/600" alt="FaceBengal platform concept" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Concept</span><span class="tag dim">Platform</span></div><h3>FaceBengal</h3><p>A social and digital platform concept. Early stage, being shaped one decision at a time.</p><span class="work-more">View project →</span></div>
+        </a>
+        <a class="work-card rv" href="/visuals" data-cats="photography video">
+          <div class="work-thumb"><img data-img="workPhoto" src="https://picsum.photos/seed/voxphoto/800/600" alt="Photography and videography gallery" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Personal</span><span class="tag dim">Photo · Video</span></div><h3>Visual archive</h3><p>Photography, videography and edits. The ongoing visual diary behind everything else I make.</p><span class="work-more">Open gallery →</span></div>
+        </a>
+        <a class="work-card rv" href="/music" data-cats="music">
+          <div class="work-thumb"><img data-img="worldMusic" src="https://picsum.photos/seed/voxmusic/800/600" alt="Voxpher music" loading="lazy"></div>
+          <div class="work-body"><div class="work-tags"><span class="tag">Personal</span><span class="tag dim">Music</span></div><h3>Voxpher, the artist</h3><p>Rap, songwriting and beat-making since 2018. The craft where all of this started.</p><span class="work-more">Enter →</span></div>
         </a>
       </div>
+      <div class="work-empty is-hidden mt12" data-empty>Nothing here yet under this filter. Check back soon.</div>
       <div class="btn-row rv"><a class="btn" href="/contact">Build with me</a></div>
     </div>
   </section>
@@ -99,7 +119,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div><div class="foot-brand"><img class="brand-logo foot-logo" data-img="logoImg" src="https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png" alt="Voxpher"></div><p>Papan Sutradhar<br>Music · Design · Code · Visuals</p></div>
-      <div><p class="foot-label">Explore</p><nav aria-label="Footer"><a href="/about">About</a><a href="/work">Work</a><a href="/services">Services</a><a href="/music">Music</a><a href="/build">Build</a><a href="/education">Education</a><a href="/contact">Contact</a></nav></div>
+      <div><p class="foot-label">Explore</p><nav aria-label="Footer"><a href="/about">About</a><a href="/services">Services</a><a href="/music">Music</a><a href="/build">Build</a><a href="/education">Education</a><a href="/contact">Contact</a></nav></div>
       <div><p class="foot-label">Contact</p><a class="foot-mail" href="mailto:hello@voxpher.com">hello@voxpher.com</a><div class="foot-socials" data-socials aria-label="Social links"></div></div>
     </div>
     <div class="foot-base"><p>© <span data-year>2026</span> Voxpher · Papan Sutradhar. All rights reserved.</p><p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p></div>
