@@ -305,8 +305,9 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .page-hero .lede{margin-top:1.4rem}
 
 /* ---------- Case study ---------- */
-.cs-hero{margin:2rem 0 3rem}
-.cs-hero img{width:100%;aspect-ratio:21/9;object-fit:cover;border:2px solid var(--ink);box-shadow:var(--shadow)}
+.cs-hero{margin:0 0 3rem;padding:9.5rem 0 0}
+.cs-hero .lede{margin-top:1.4rem}
+.cs-hero img{width:100%;aspect-ratio:21/9;object-fit:cover;border:2px solid var(--ink);box-shadow:var(--shadow);margin-top:2.2rem}
 .cs-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;margin-top:2.2rem;padding:1.5rem 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
 .cs-meta small{display:block;font-family:var(--font-m);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke);margin-bottom:.45rem}
 .cs-meta strong{color:var(--ink);font-size:1rem;line-height:1.45}
@@ -491,6 +492,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   .tl-item::before{left:-2.6rem}
   .btn-row .btn,.btn-row .btn-ghost{flex:1 1 100%;justify-content:center}
   .page-hero{padding:7.5rem 0 2.5rem}
+  .cs-hero{padding:7.5rem 0 0}
   .section{padding-block:3.4rem}
   .section.flush{padding-block:var(--sp-12)}
   .cs-meta{grid-template-columns:1fr 1fr;gap:1.1rem}
