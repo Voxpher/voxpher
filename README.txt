@@ -1,3 +1,9 @@
+VOXPHER v5.8 — EDUCATION PAGE + AI WOVEN IN (2026-10-01)
+- NEW education.html: formal education (Mechanical Engg diploma, BA, WBBSE/WBCHSE), experience (Reliance Jio, Agarwala Machinery Stores), 9 certificates, skills & tools. No phone/DOB (privacy).
+- DELETED studio.html. Studio removed from nav, mobile menu, footer, sitemap, js/site.js. Studio's media tools (FL Studio, VN, After Effects) moved into a new "Media & motion" group on the Build page.
+- AI now appears honestly on the site: one line in the home hero ("AI is in the toolkit; a human is in charge"), a full "AI in the workflow" block on the Build page (ChatGPT, Claude, Meta AI, Gemini, text-to-video, video-to-text, vibe coding, prompt engineering), one clause in the services lede.
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v5.7 — HUBATOR REAL STACK + SITE LINKS (2026-10-01)
 - work/hubator.html rewritten to the REAL stack (was WooCommerce/WordPress per the old brief): hand-coded HTML/CSS/JS storefront (GitHub Pages + Cloudflare), Next.js + React dashboard, Node.js + MongoDB backend, Razorpay payments, Cloudinary media, Vercel. No template, no page builder, no WordPress.
 - Hubator sidebar now matches the Indoride pattern: Stack chips (real tech) + Links (hubator.com) + Delivered.

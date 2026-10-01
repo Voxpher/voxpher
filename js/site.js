@@ -74,7 +74,6 @@ var VOXPHER_CONFIG = {
     vis8: "https://picsum.photos/seed/voxvis8/800/750",
     vis9: "https://picsum.photos/seed/voxvis9/800/1000",
 
-    /* ---------- ABOUT / STUDIO ---------- */
-    studioImg:     "https://picsum.photos/seed/voxstudio/800/1000"  // tall 4:5
+    /* ---------- ABOUT ---------- */
   }
 };
