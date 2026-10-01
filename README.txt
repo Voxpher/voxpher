@@ -1,3 +1,8 @@
+VOXPHER v5.9 — AI TOOLBOX BOX + EDUCATION TRIM (2026-10-01)
+- build.html: new "AI tools" box in the toolbox grid (ChatGPT, Claude, Meta AI, Gemini, text-to-video, video-to-text, vibe coding, prompt engineering); the separate "AI in the workflow" section was removed.
+- education.html: removed the "Skills & tools / What I know." section; page now ends with education, experience, certificates + contact CTA.
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v5.8 — EDUCATION PAGE + AI WOVEN IN (2026-10-01)
 - NEW education.html: formal education (Mechanical Engg diploma, BA, WBBSE/WBCHSE), experience (Reliance Jio, Agarwala Machinery Stores), 9 certificates, skills & tools. No phone/DOB (privacy).
 - DELETED studio.html. Studio removed from nav, mobile menu, footer, sitemap, js/site.js. Studio's media tools (FL Studio, VN, After Effects) moved into a new "Media & motion" group on the Build page.
