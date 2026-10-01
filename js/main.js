@@ -43,7 +43,7 @@
         var url = s[k];
         var a = document.createElement("a");
         if (url){ a.href = url; a.target = "_blank"; a.rel = "noopener"; }
-        else { a.href = "#"; a.className = "soon"; a.title = "Paste your " + k + " URL in js/site.js"; }
+        else { a.href = "#"; a.title = "Paste your " + k + " URL in js/site.js"; }
         a.innerHTML = SOCIAL_ICONS[k];
         var label = k === "x" ? "X" : k.charAt(0).toUpperCase() + k.slice(1);
         a.setAttribute("aria-label", label + (url ? " (opens in new tab)" : " (link not set yet)"));

@@ -438,7 +438,6 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .foot-socials{display:flex;gap:.8rem;margin-top:1.2rem}
 .foot-socials a{width:2.7rem;height:2.7rem;border:2px solid rgba(255,255,255,.35);display:grid;place-items:center;transition:border .25s,background .25s,transform .3s var(--ease)}
 .foot-socials a:hover{border-color:#fff;background:rgba(255,255,255,.1);transform:translateY(-3px)}
-.foot-socials a.soon{opacity:.38}
 .foot-socials svg{width:1.15rem;height:1.15rem;fill:#fff}
 .foot-base{
   display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
