@@ -1,3 +1,8 @@
+VOXPHER v6.0 — BUILD TOOLBOX UPGRADE (2026-10-01)
+- build.html: removed the "How it started / From curiosity to production." section.
+- Toolbox now 9 boxes: AI split into 4 named boxes (AI chat & research, AI image & video, AI voice & music, AI coding) with real model/site names; Media & motion expanded with Premiere Pro, Photoshop, Illustrator, Blender (from his resume).
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v5.9 — AI TOOLBOX BOX + EDUCATION TRIM (2026-10-01)
 - build.html: new "AI tools" box in the toolbox grid (ChatGPT, Claude, Meta AI, Gemini, text-to-video, video-to-text, vibe coding, prompt engineering); the separate "AI in the workflow" section was removed.
 - education.html: removed the "Skills & tools / What I know." section; page now ends with education, experience, certificates + contact CTA.
