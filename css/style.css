@@ -307,18 +307,29 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 /* ---------- Case study ---------- */
 .cs-hero{margin:2rem 0 3rem}
 .cs-hero img{width:100%;aspect-ratio:21/9;object-fit:cover;border:2px solid var(--ink);box-shadow:var(--shadow)}
-.cs-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-bottom:3rem}
-.cs-facts>div{background:#fff;border:2px solid var(--ink);padding:1.1rem 1.3rem;box-shadow:var(--shadow-sm)}
-.cs-facts small{display:block;font-family:var(--font-m);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke);margin-bottom:.35rem}
-.cs-facts strong{color:var(--ink);font-size:1rem}
+.cs-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;margin-top:2.2rem;padding:1.5rem 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.cs-meta small{display:block;font-family:var(--font-m);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke);margin-bottom:.45rem}
+.cs-meta strong{color:var(--ink);font-size:1rem;line-height:1.45}
+.cs-facts{background:var(--paper);border:2px solid var(--ink);box-shadow:var(--shadow);padding:1.5rem}
+.cs-facts h3{font-family:var(--font-d);font-weight:400;font-size:1.15rem;margin:0 0 1rem}
+.cs-facts h3.mt16{margin-top:1.7rem;padding-top:1.5rem;border-top:2px solid var(--ink)}
+.stack-chips span{background:#fff;border:2px solid var(--ink);padding:.35rem .7rem;font-size:.8rem;font-weight:700;box-shadow:3px 3px 0 var(--ink)}
+.cs-facts dl{margin:0;display:flex;flex-direction:column;gap:.75rem}
+.cs-facts dl>div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.cs-facts dt{font-weight:700;font-size:.85rem;flex-shrink:0}
+.cs-facts dd{margin:0;font-size:.85rem;text-align:right;line-height:1.5}
 .cs-body{display:grid;grid-template-columns:1fr 22rem;gap:3rem;align-items:start}
 .cs-main .prose{background:var(--paper);border:2px solid var(--ink);box-shadow:var(--shadow);padding:clamp(1.5rem,3vw,2.6rem);margin-bottom:2rem}
-.cs-main h2{font-family:var(--font-d);font-weight:400;font-size:1.7rem;margin:0 0 1rem}
+.cs-main h2{font-family:var(--font-d);font-weight:400;font-size:1.7rem;margin:2.8rem 0 1.1rem;padding-top:1.7rem;border-top:2px solid var(--ink)}
+.cs-main h2:first-child{margin-top:0;padding-top:0;border-top:0}
+.cs-main>p{margin:0 0 1.15rem;line-height:1.7}
+.cs-main>ul{margin:0 0 1.5rem}
 .cs-side{position:sticky;top:6.5rem;display:flex;flex-direction:column;gap:1.2rem}
-.arch{background:var(--paper);border:2px solid var(--ink);box-shadow:var(--shadow-sm);padding:1.5rem}
+.arch{background:var(--paper);border:2px solid var(--ink);box-shadow:var(--shadow-sm);padding:1.5rem;margin-top:2.2rem}
 .arch h3{font-family:var(--font-d);font-weight:400;font-size:1.2rem;margin-bottom:1rem}
 .arch-flow{display:flex;flex-direction:column;gap:.6rem}
 .arch-node{background:#fff;border:2px solid var(--ink);padding:.8rem 1rem;font-weight:600;font-size:.92rem}
+.arch-node small{display:block;font-weight:400;font-size:.8rem;color:var(--smoke);margin-top:.3rem}
 .arch-arrow{text-align:center;font-weight:700;color:var(--ink)}
 .arch-note{font-size:.85rem;color:var(--smoke);margin-top:.8rem;line-height:1.55}
 .code-note{font-family:var(--font-m);font-size:.82rem;background:var(--ink);color:#fff;padding:1rem 1.2rem;margin-top:1rem;line-height:1.6}
@@ -461,7 +472,6 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   .music-grid{grid-template-columns:1fr}
   .tech-groups{grid-template-columns:1fr}
   .hero-meta{grid-template-columns:1fr;max-width:26rem}
-  .cs-facts{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
   .work-grid{grid-template-columns:1fr}
@@ -483,7 +493,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   .page-hero{padding:7.5rem 0 2.5rem}
   .section{padding-block:3.4rem}
   .section.flush{padding-block:var(--sp-12)}
-  .cs-facts{grid-template-columns:1fr}
+  .cs-meta{grid-template-columns:1fr 1fr;gap:1.1rem}
   .foot-base{flex-direction:column;align-items:flex-start;gap:.6rem}
   .tl-item{padding:1.25rem 1.25rem}
   .svc-btn{font-size:1.02rem;padding:1.15rem 1.2rem;gap:.85rem}
@@ -497,7 +507,6 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   .spin-badge{display:none}
 }
 @media(max-width:400px){
-  .cs-facts{grid-template-columns:1fr}
   .masonry{columns:1}
   .hero-sub{letter-spacing:.2em}
 }

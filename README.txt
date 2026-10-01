@@ -1,3 +1,13 @@
+VOXPHER v5.6 — CASE STUDY LAYOUT FIX (2026-10-01)
+- Fixed the "meshy" look on all 3 case study pages (work/indoride, work/hubator, work/facebengal) with CSS only; no HTML changed.
+- Root cause found: the sidebar panel (.cs-facts) had a leftover 4-column grid rule from old markup, scattering the sidebar into a broken grid; the hero facts strip (.cs-meta) had no styles at all.
+- Hero facts (Type / My role / Stack / Status): now a proper 4-column strip with thin black divider lines above and below.
+- Sidebar: now a proper bordered boxy panel; Stack / Links / Delivered groups separated by thin black divider lines; stack chips are bordered boxes.
+- Every content section (The problem, The approach, ...) now starts with a thin black divider line and real breathing room above it.
+- Fixed mashed text: architecture diagram labels ("Flutter App / Customer + driver") now stack on two lines.
+- Mobile: hero facts go 2-up; sidebar stacks full width as before.
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v5.5 — REMOVED UNFINISHED PROJECTS (2026-10-01)
 Base: your uploaded voxpher-sitee.zip code.
 - Home "Proof, not promises." grid: removed NAMASTE, Deepex FF, Visual archive cards. Kept: Indoride, Hubator, FaceBengal. ("02 Visuals" world card untouched.)
