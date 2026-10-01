@@ -27,6 +27,7 @@
 
   var audio = new Audio();
   audio.preload = "metadata";
+  audio.crossOrigin = "anonymous";   // Cloudinary sends CORS headers; keeps the visualizer fed without muting the track
   var current = -1;          // index into tracks
   var actx = null, analyser = null, freqData = null, wired = false;
   var rafId = null, lastT = 0;
@@ -159,6 +160,11 @@
     tCur.textContent = fmt(c); tDur.textContent = fmt(d);
   });
   audio.addEventListener("loadedmetadata", function(){ tDur.textContent = fmt(audio.duration); });
+  audio.addEventListener("error", function(){
+    npTitle.textContent = "Couldn't load this track";
+    npMeta.textContent = "Check your connection and try again";
+    setIcon(PATH_PLAY); ppBtn.setAttribute("aria-label","Play");
+  });
   audio.addEventListener("ended", function(){ setIcon(PATH_PLAY); step(1); });
   audio.addEventListener("pause", function(){ if(!audio.ended){ setIcon(PATH_PLAY); ppBtn.setAttribute("aria-label","Play"); } kick(); });
   audio.addEventListener("play", function(){ setIcon(PATH_PAUSE); ppBtn.setAttribute("aria-label","Pause"); kick(); });
