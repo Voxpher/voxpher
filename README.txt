@@ -1,3 +1,11 @@
+VOXPHER v5.7 — HUBATOR REAL STACK + SITE LINKS (2026-10-01)
+- work/hubator.html rewritten to the REAL stack (was WooCommerce/WordPress per the old brief): hand-coded HTML/CSS/JS storefront (GitHub Pages + Cloudflare), Next.js + React dashboard, Node.js + MongoDB backend, Razorpay payments, Cloudinary media, Vercel. No template, no page builder, no WordPress.
+- Hubator sidebar now matches the Indoride pattern: Stack chips (real tech) + Links (hubator.com) + Delivered.
+- Honest note added: fully hand-coded today; Shopify and WooCommerce integrations planned for the future (his words).
+- work/facebengal.html: added Links section with facebengal.in.
+- WordPress/WooCommerce/PHP/MySQL mentions kept on about/build/services/studio pages: those describe his learning journey and services, all still true.
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v5.6 — CASE STUDY LAYOUT FIX (2026-10-01)
 - Fixed the "meshy" look on all 3 case study pages (work/indoride, work/hubator, work/facebengal) with CSS only; no HTML changed.
 - Root cause found: the sidebar panel (.cs-facts) had a leftover 4-column grid rule from old markup, scattering the sidebar into a broken grid; the hero facts strip (.cs-meta) had no styles at all.
