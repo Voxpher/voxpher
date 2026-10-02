@@ -1,3 +1,12 @@
+VOXPHER v8.5 — ANTS HUNT WORDS + FEAST (2026-10-02)
+- Ants now HUNT real words: header nav links (Home, Build...), footer menu links, headings,
+  buttons. They walk to the word, EAT it for 4-5 seconds, then wander on.
+- While eating, "D" letters pop out in the same Space Mono bold uppercase style as the
+  header menus (white/black/red with contrasting outlines), plus dust particle puffs.
+  The ant nibbles (shuffles back and forth, legs stepping) while the feast fountains.
+- Movement fully randomized: 55% hunt a word, 45% roam a random zone — header bar, footer
+  bar, four corners, middle. Never stuck in the center.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v8.4 — REDESIGNED ANTS, PHYSICS-DRIVEN LEGS (2026-10-02)
 - Ant REDESIGNED from real ant anatomy: teardrop gaster with segmentation, petiole waist
   nodes, narrow segmented mesosoma, head with mandibles, elbowed antennae, 6 thin

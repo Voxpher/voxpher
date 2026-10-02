@@ -647,6 +647,14 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   filter:drop-shadow(0 0 2px rgba(255,255,255,.7))}
 @media(prefers-reduced-motion:reduce){.ant{display:none}}
 
+/* ---------- Ant feast: D letters + dust (header-menu type style) ---------- */
+#antFx{position:fixed;inset:0;z-index:1490;pointer-events:none;overflow:hidden}
+.feast-d{position:absolute;font-family:'Space Mono',ui-monospace,monospace;
+  font-weight:700;font-size:22px;letter-spacing:.14em;text-transform:uppercase;
+  line-height:1;will-change:transform,opacity}
+.feast-dust{position:absolute;border-radius:50%;will-change:transform,opacity}
+@media(prefers-reduced-motion:reduce){#antFx{display:none}}
+
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
 body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor .t-play, body.has-cursor .track{cursor:none}
 body.has-cursor input, body.has-cursor textarea, body.has-cursor select{cursor:auto}
