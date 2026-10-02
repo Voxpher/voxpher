@@ -1,3 +1,27 @@
+VOXPHER v8.0 — WEB-SHOOTER SPIDER REPLACES THE OCTOPUS (2026-10-02)
+- Removed: js/lottie.min.js, js/octo-swim.json (deleted), all #octo/#octoFx/#octoStrings/.octo-hug CSS,
+  and every line of octopus code in js/ambient.js. Zero references to lottie or octo remain (grep-verified).
+- New: ONE realistic web-shooter spider, built in code as inline SVG (no libraries, no images, no network).
+  Anatomy: separate cephalothorax + abdomen, 8 jointed legs with 2-segment analytic IK (tapering femur/tibia,
+  bristle hint), pedipalps, chelicerae, rear spinnerets, 8 tiny specular eye dots (no cartoon face), and a
+  metallic web-shooter gadget on the front leg with a red LED that flashes when it fires.
+- Colours strictly from the site palette: gloss-black body (#0C0C0E→#1B1B20) with a subtle #F5301B hourglass
+  accent, 1px white rim light so it reads on black bands, soft contact shadow when crawling, off-white silk
+  with a dark hairline shadow so it reads on red, white and black.
+- Physics (real, not tweened): fixed 120Hz timestep accumulator; verlet silk rope (tension, sag, slack);
+  pendulum swing with momentum transfer on release; ballistic arcs; landing squash spring; procedural legs
+  (tucked in flight, tripod gait crawling, dangling when hanging, spread on zip).
+- Brain: ENTER (rappels from top) -> AIM -> SHOOT (0.2s line + muzzle flash) -> SWING / ZIP / CLIMB / RAPPEL
+  -> LAND/CLING -> CRAWL (tripod gait along element edges) / HANG (dangle + spin) -> SPRAY -> next target.
+  Targets span header/nav/main/footer; avoids last 3; follows words while scrolling; detaches off-screen.
+- D spray from the spinnerets (rear): physics-baked WAAPI keyframes (velocity cone 380-720px/s, drag,
+  gravity → 500-700px range), jittered bursts (not identical waves), 1/3 outline-only, soft glow, slight
+  blur on trailers, small dark puff + abdomen recoil. Guarantees kept: opacity:0 base, fill:forwards,
+  timer + sweeper cleanup, capped at 60 desktop / 25 mobile with element pooling.
+- Persists across seamless nav (nav:complete re-targets, guarded single init); z-60/61/59 (below mini
+  player z-120, header z-1000, cursor z-2000); pointer-events:none everywhere; prefers-reduced-motion
+  hides everything; 38KB total.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v7.9 — MUSIC FIRST-TAP FIX + GRAB-AND-SWING OCTOPUS (2026-10-02)
 MUSIC BUG — ROOT CAUSE FOUND AND FIXED:
 - Tapping a song after reaching the music page via the menu did nothing; reload fixed it.
