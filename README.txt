@@ -1,3 +1,12 @@
+VOXPHER v7.8 — NAV + MUSIC CLICK HARDENING (2026-10-02)
+- Menus: seamless navigation now aborts any in-flight page fetch when you tap another menu (a slow earlier fetch
+  can no longer resolve late and clobber the page with stale content), plus a 10s fetch timeout that falls back to a
+  normal page load instead of hanging. Live-tested: all 7 menu links navigate correctly, first tap, every time.
+- Music page: the track-list binding guard is now set only AFTER every handler is attached. If anything ever
+  interrupts the binding, the next visit retries instead of leaving the buttons permanently dead (which is what made
+  the first tap do nothing until a reload). Verified: navigate via menu -> tap track -> plays, mini player shows.
+- The live site already runs this code (verified byte-identical on voxpher.com); this package keeps your repo in sync.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v7.7 — EYES REMOVED + SPRAY REAPPEARANCE BUG FIXED (2026-10-02)
 - Eyes removed entirely per Akash: the octopus swims as a clean black silhouette, as in the animation he picked.
 - FIXED the real bug behind "D letters reappearing where the spray happened": when a letter's flight animation

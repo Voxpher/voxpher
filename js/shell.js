@@ -222,11 +222,30 @@ window.__voxpherShellActive = true;
     if (window.VoxpherInitContent) window.VoxpherInitContent();
     initMusicPage();
   }
+  var navCtl = null;   /* in-flight seamless navigation, aborted when superseded */
   function navigate(url, isPop){
     var path = url.pathname + url.search;
-    fetch(path, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+    /* Abort any in-flight navigation first: without this, a slow earlier
+       fetch can resolve AFTER a newer one and clobber the page with stale
+       content, which feels like "the menu didn't work". */
+    if (navCtl){ try { navCtl.abort(); } catch (e){} navCtl = null; }
+    var timedOut = false, timer = 0;
+    var signal = null;
+    if ("AbortController" in window){
+      navCtl = new AbortController();
+      signal = navCtl.signal;
+      timer = setTimeout(function(){
+        timedOut = true;
+        if (navCtl){ try { navCtl.abort(); } catch (e){} navCtl = null; }
+      }, 10000);   /* hung fetch: give up and do a normal navigation */
+    }
+    var opts = { headers: { "X-Requested-With": "XMLHttpRequest" } };
+    if (signal) opts.signal = signal;
+    fetch(path, opts)
       .then(function(r){ if (!r.ok) throw new Error("http " + r.status); return r.text(); })
       .then(function(html){
+        if (timer) clearTimeout(timer);
+        navCtl = null;
         var doc = new DOMParser().parseFromString(html, "text/html");
         var fresh = doc.querySelector("main");
         var current = document.querySelector("main");
@@ -240,7 +259,13 @@ window.__voxpherShellActive = true;
         else history.pushState({}, "", path + url.hash);
         afterSwap();
       })
-      .catch(function(){ location.href = url.href; });   /* any failure: normal navigation */
+      .catch(function(err){
+        if (timer) clearTimeout(timer);
+        /* aborted because a NEWER navigation superseded this one: stay quiet,
+           the newer navigation owns the page now. */
+        if (err && err.name === "AbortError" && !timedOut) return;
+        location.href = url.href;   /* any real failure: normal navigation */
+      });
   }
   function initMusicPage(){
     if (document.getElementById("trackList") && window.VoxpherInitMusicPage){

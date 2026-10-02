@@ -10,7 +10,9 @@ window.VoxpherInitMusicPage = function(){
   var list = document.getElementById("trackList");
   if (!list || !shell) return;
   if (list.dataset.mpBound) return;          /* already bound for this DOM */
-  list.dataset.mpBound = "1";
+  /* NOTE: the mpBound guard is set at the END of this function, after every
+     handler is attached. If anything throws mid-bind, the guard stays unset
+     and the next call retries instead of leaving the list permanently dead. */
 
   var tracks = shell.tracks;
   var audio = shell.audio;
@@ -147,4 +149,5 @@ window.VoxpherInitMusicPage = function(){
 
   sync();
   kick();
+  list.dataset.mpBound = "1";                /* bound successfully */
 };
