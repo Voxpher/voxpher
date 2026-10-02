@@ -621,13 +621,14 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   #toTop{right:10px;bottom:10px;width:44px;height:44px}
 }
 
-/* ---------- Mini player close button ---------- */
-.mp-btn.mp-x{width:30px;height:30px;border-color:transparent;color:#8b8b93}
-.mp-btn.mp-x svg{width:13px;height:13px}
-.mp-btn.mp-x:hover{background:transparent;border-color:#fff;color:#fff}
+/* ---------- Mini player close button (corner badge) ---------- */
+.mp-btn.mp-x{position:absolute;top:-14px;right:-14px;width:28px;height:28px;background:var(--red);
+  border:2px solid #0d0d0f;color:#fff;padding:0}
+.mp-btn.mp-x svg{width:12px;height:12px}
+.mp-btn.mp-x:hover{background:#0d0d0f;border-color:var(--red);color:#fff}
 
 /* ---------- Ambient octopus: drifts across every page ---------- */
-#octo{position:fixed;left:0;top:0;width:118px;z-index:60;pointer-events:none;opacity:.9;
+#octo{position:fixed;left:0;top:0;width:182px;z-index:60;pointer-events:none;opacity:.9;
   animation:octoSwim 78s ease-in-out infinite}
 #octo svg{display:block;width:100%;height:auto;animation:octoBob 5.2s ease-in-out infinite alternate}
 #octo .arm{transform-box:fill-box;transform-origin:50% 0%;animation:armWave 3.4s ease-in-out infinite alternate}
@@ -644,16 +645,16 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 }
 @keyframes octoBob{from{transform:translateY(-9px)}to{transform:translateY(9px)}}
 @keyframes armWave{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
-@media(max-width:640px){#octo{width:82px}}
+@media(max-width:640px){#octo{width:122px}}
 @media(prefers-reduced-motion:reduce){#octo{display:none}}
 
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
 html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor .t-play{cursor:none}
 html.has-cursor input, html.has-cursor textarea, html.has-cursor select{cursor:auto}
 #cursorDot,#cursorRing{position:fixed;left:0;top:0;pointer-events:none;z-index:2000;transform:translate(-50%,-50%)}
-#cursorDot{width:8px;height:8px;background:var(--red)}
-#cursorRing{width:34px;height:34px;border:2px solid var(--red);transition:width .18s,height .18s,background-color .18s,opacity .18s}
-#cursorRing.big{width:54px;height:54px;background:rgba(225,6,0,.14)}
+#cursorDot{width:8px;height:8px;background:#fff;border:2px solid #111}
+#cursorRing{width:34px;height:34px;border:2px solid #111;transition:width .18s,height .18s,background-color .18s,opacity .18s}
+#cursorRing.big{width:54px;height:54px;background:rgba(0,0,0,.14)}
 #cursorDot.hide,#cursorRing.hide{opacity:0}
 @media(pointer:coarse){#cursorDot,#cursorRing{display:none}}
 @media(prefers-reduced-motion:reduce){#cursorDot,#cursorRing{display:none}}

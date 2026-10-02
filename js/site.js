@@ -14,7 +14,7 @@
    ============================================================ */
 var VOXPHER_CONFIG = {
 
-  email: "hello@voxpher.com",
+  email: "contact@voxpher.com",
 
   formspreeEndpoint: "", // e.g. "https://formspree.io/f/abcdwxyz"
 

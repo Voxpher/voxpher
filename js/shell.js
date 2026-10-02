@@ -131,8 +131,8 @@ window.__voxpherShellActive = true;
       '<button class="mp-btn" id="mpPrev" aria-label="Previous track">' + SVG_PREV + "</button>" +
       '<button class="mp-btn mp-main" id="mpPlay" aria-label="Play">' + SVG_PLAY + "</button>" +
       '<button class="mp-btn" id="mpNext" aria-label="Next track">' + SVG_NEXT + "</button>" +
-      '<button class="mp-btn mp-x" id="mpClose" aria-label="Close player">' + SVG_X + "</button>" +
-      "</div>";
+      "</div>" +
+      '<button class="mp-btn mp-x" id="mpClose" aria-label="Close player">' + SVG_X + "</button>";
     document.body.appendChild(mp);
     mpArt = mp.querySelector("#mpArt");
     mpTitle = mp.querySelector("#mpTitle");

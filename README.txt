@@ -231,7 +231,7 @@ Never invent usernames — the site hides unconfigured platforms.
 ----------------------------------------------------------------
 4) EMAIL
 ----------------------------------------------------------------
-In js/site.js:  email: "hello@voxpher.com"
+In js/site.js:  email: "contact@voxpher.com"
 Change it once and it updates the contact page + footers.
 
 ----------------------------------------------------------------
