@@ -1,3 +1,15 @@
+VOXPHER v8.4 — REDESIGNED ANTS, PHYSICS-DRIVEN LEGS (2026-10-02)
+- Ant REDESIGNED from real ant anatomy: teardrop gaster with segmentation, petiole waist
+  nodes, narrow segmented mesosoma, head with mandibles, elbowed antennae, 6 thin
+  3-segment legs. Solid black, top-down.
+- LEG PHYSICS: legs are phase-driven by DISTANCE TRAVELED — one step cycle per stride
+  length — so legs always step exactly in sync with walking speed. Never too fast, never
+  gliding. Real alternating tripod gait.
+- They barely stop now: steady normal base speed, brief pauses only 35% of arrivals.
+- Full-page spread: 6 roam zones (header, 4 content corners, footer) — ants start spread
+  across zones and pick a new random zone every trip, waypoints kept far apart so they
+  travel instead of jittering in the center.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v8.3 — PROPER BLACK ANTS, LEGS THAT WALK (2026-10-02)
 - 5 solid-black top-down ants with REAL walking legs. Each ant is drawn as inline SVG
   (no image, no library): 6 articulated 2-segment legs driven in an alternating tripod gait —

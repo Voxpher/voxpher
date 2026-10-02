@@ -54,16 +54,20 @@
 
 
   /* ---------------- Walking ants: proper black, top-down ----------------
-     5 solid-black top-view ants roam the ENTIRE page in ANY direction —
-     header, content, footer. Each ant is drawn as inline SVG (no image,
-     no library) with 6 articulated 2-segment legs driven in a REAL
-     alternating tripod gait — the way actual ants walk — plus waving
-     antennae. Each ant is independent: own waypoints, speed, size,
-     gait phase and rhythm. */
+     5 solid-black top-view ants roam the ENTIRE page — header, footer,
+     four corners, middle — never clustering. Each ant is drawn as inline
+     SVG from real ant anatomy: teardrop gaster, petiole waist nodes,
+     segmented mesosoma, head with mandibles, elbowed antennae, and 6
+     thin 3-segment legs.
+     PHYSICS: legs are phase-driven by DISTANCE TRAVELED — one full leg
+     cycle per stride length — so legs always step exactly in sync with
+     how fast the ant walks (never too fast, never gliding). Alternating
+     tripod gait like real ants. Rare short pauses; steady base speed. */
   var ANT_COUNT = 5;
   var ants = [];
   var SVGNS = "http://www.w3.org/2000/svg";
   var ANT_BLACK = "#0B0B0D";
+  var STRIDE = 15; /* px traveled per full leg cycle */
 
   function svgEl(tag, attrs, parent) {
     var el = document.createElementNS(SVGNS, tag);
@@ -72,70 +76,106 @@
     return el;
   }
 
-  /* Build one top-down ant (faces +X). Returns {svg, legs[], antennae[]}.
-     Legs: 3 per side, each a <g> hinged at the hip so it can swing.
-     Tripod gait phases: L [0, PI, 0], R [PI, 0, PI]. */
+  /* Top-down ant, faces +X. Proportions from real worker-ant anatomy. */
   function buildAnt() {
     var svg = document.createElementNS(SVGNS, "svg");
-    svg.setAttribute("viewBox", "-62 -42 124 84");
+    svg.setAttribute("viewBox", "-64 -44 128 88");
     svg.setAttribute("class", "antSvg");
     var legs = [];
 
-    /* legs first (under body) */
+    /* 6 thin 3-segment legs (coxa->femur->tibia->tarsus), hinged at hip */
     var hips = [
-      { x: 2, y: -6, fx: 20, fy: -27, side: -1, ph: 0 },           /* L1 */
-      { x: -5, y: -7, fx: -5, fy: -31, side: -1, ph: Math.PI },     /* L2 */
-      { x: -12, y: -6, fx: -32, fy: -25, side: -1, ph: 0 },        /* L3 */
-      { x: 2, y: 6, fx: 20, fy: 27, side: 1, ph: Math.PI },        /* R1 */
-      { x: -5, y: 7, fx: -5, fy: 31, side: 1, ph: 0 },             /* R2 */
-      { x: -12, y: 6, fx: -32, fy: 25, side: 1, ph: Math.PI }      /* R3 */
+      { x: 8,  y: -5, kx: 20, ky: -18, fx: 31, fy: -30, ph: 0 },          /* L1 */
+      { x: 0,  y: -6, kx: 2,  ky: -24, fx: 2,  fy: -39, ph: Math.PI },     /* L2 */
+      { x: -8, y: -5, kx: -21, ky: -16, fx: -31, fy: -27, ph: 0 },        /* L3 */
+      { x: 8,  y: 5,  kx: 20, ky: 18,  fx: 31, fy: 30,  ph: Math.PI },     /* R1 */
+      { x: 0,  y: 6,  kx: 2,  ky: 24,  fx: 2,  fy: 39,  ph: 0 },           /* R2 */
+      { x: -8, y: 5,  kx: -21, ky: 16,  fx: -31, fy: 27,  ph: Math.PI }    /* R3 */
     ];
     for (var i = 0; i < hips.length; i++) {
       (function (h) {
         var g = svgEl("g", {}, svg);
-        /* knee: midpoint pushed outward for a jointed look */
-        var kx = (h.x + h.fx) / 2 + (h.fx - h.x) * 0.12;
-        var ky = (h.y + h.fy) / 2 + h.side * 4;
-        var d = "M" + h.x + "," + h.y + " L" + kx.toFixed(1) + "," + ky.toFixed(1) +
-                " L" + h.fx + "," + h.fy;
+        /* femur: hip->knee (thicker), tibia: knee->foot (thinner) */
         svgEl("path", {
-          d: d, fill: "none", stroke: ANT_BLACK, "stroke-width": "3.4",
-          "stroke-linecap": "round", "stroke-linejoin": "round"
+          d: "M" + h.x + "," + h.y + " L" + h.kx + "," + h.ky,
+          fill: "none", stroke: ANT_BLACK, "stroke-width": "2.6",
+          "stroke-linecap": "round"
         }, g);
-        /* tarsus tip */
-        svgEl("circle", { cx: h.fx, cy: h.fy, r: "1.6", fill: ANT_BLACK }, g);
+        svgEl("path", {
+          d: "M" + h.kx + "," + h.ky + " L" + h.fx + "," + h.fy,
+          fill: "none", stroke: ANT_BLACK, "stroke-width": "1.7",
+          "stroke-linecap": "round"
+        }, g);
+        svgEl("circle", { cx: h.kx, cy: h.ky, r: "1.7", fill: ANT_BLACK }, g);
         g._hip = h; g._phase = h.ph;
         legs.push(g);
       })(hips[i]);
     }
 
-    /* body: abdomen, thorax, head — solid black */
-    svgEl("ellipse", { cx: "-30", cy: "0", rx: "23", ry: "14.5", fill: ANT_BLACK }, svg);
-    svgEl("ellipse", { cx: "-4", cy: "0", rx: "12", ry: "8", fill: ANT_BLACK }, svg);
-    svgEl("ellipse", { cx: "15", cy: "0", rx: "10.5", ry: "8", fill: ANT_BLACK }, svg);
+    /* gaster (abdomen): teardrop, pointed at rear */
+    svgEl("path", {
+      d: "M-14,0 C-20,-9 -30,-13 -40,-12 C-50,-11 -56,-6 -56,0 C-56,6 -50,11 -40,12 C-30,13 -20,9 -14,0 Z",
+      fill: ANT_BLACK
+    }, svg);
+    /* gaster segmentation hint */
+    svgEl("path", {
+      d: "M-30,-11 C-32,-4 -32,4 -30,11 M-40,-12 C-42,-4 -42,4 -40,11",
+      fill: "none", stroke: "rgba(255,255,255,.16)", "stroke-width": "1"
+    }, svg);
+    /* petiole waist nodes */
+    svgEl("circle", { cx: "-11", cy: "0", r: "3.1", fill: ANT_BLACK }, svg);
+    svgEl("circle", { cx: "-6.5", cy: "0", r: "2.4", fill: ANT_BLACK }, svg);
+    /* mesosoma (thorax): narrow, segmented */
+    svgEl("ellipse", { cx: "5", cy: "0", rx: "11", ry: "6.4", fill: ANT_BLACK }, svg);
+    svgEl("path", {
+      d: "M1,-6 C2,-2 2,2 1,6 M7,-6.4 C8,-2 8,2 7,6.4",
+      fill: "none", stroke: "rgba(255,255,255,.14)", "stroke-width": "0.9"
+    }, svg);
+    /* head */
+    svgEl("ellipse", { cx: "22", cy: "0", rx: "10", ry: "8.2", fill: ANT_BLACK }, svg);
     /* mandibles */
-    svgEl("path", { d: "M24,-4 L31,-8 L29,-2 Z", fill: ANT_BLACK }, svg);
-    svgEl("path", { d: "M24,4 L31,8 L29,2 Z", fill: ANT_BLACK }, svg);
-
-    /* antennae (waved by JS) */
-    var ant1 = svgEl("path", {
-      d: "M22,-4 C28,-10 34,-13 40,-14", fill: "none",
-      stroke: ANT_BLACK, "stroke-width": "2.2", "stroke-linecap": "round"
+    svgEl("path", { d: "M30,-3.5 C34,-6 37,-7 39,-6 C37,-4 34,-2.5 30,-1 Z", fill: ANT_BLACK }, svg);
+    svgEl("path", { d: "M30,3.5 C34,6 37,7 39,6 C37,4 34,2.5 30,1 Z", fill: ANT_BLACK }, svg);
+    /* elbowed antennae */
+    var a1 = svgEl("path", {
+      d: "M27,-4 L35,-11 L46,-13", fill: "none",
+      stroke: ANT_BLACK, "stroke-width": "1.8", "stroke-linecap": "round",
+      "stroke-linejoin": "round"
     }, svg);
-    var ant2 = svgEl("path", {
-      d: "M22,4 C28,10 34,13 40,14", fill: "none",
-      stroke: ANT_BLACK, "stroke-width": "2.2", "stroke-linecap": "round"
+    var a2 = svgEl("path", {
+      d: "M27,4 L35,11 L46,13", fill: "none",
+      stroke: ANT_BLACK, "stroke-width": "1.8", "stroke-linecap": "round",
+      "stroke-linejoin": "round"
     }, svg);
 
-    return { svg: svg, legs: legs, antennae: [ant1, ant2] };
+    return { svg: svg, legs: legs, antennae: [a1, a2] };
   }
 
   function bootAnts() {
     if (reduceMotion) return;
-    if (document.querySelector(".ant")) return; /* already roaming */
+    if (document.querySelector(".ant")) return;
 
     var isMobile = window.innerWidth <= 640;
     var n = isMobile ? 3 : ANT_COUNT;
+
+    /* 6 roam zones: header, 4 content quadrants, footer */
+    function zones() {
+      var w = window.innerWidth, h = window.innerHeight;
+      return [
+        { x0: 40, x1: w - 40, y0: 58, y1: 132 },            /* header */
+        { x0: 30, x1: w / 2, y0: 140, y1: h * 0.48 },       /* top-left */
+        { x0: w / 2, x1: w - 30, y0: 140, y1: h * 0.48 },   /* top-right */
+        { x0: 30, x1: w / 2, y0: h * 0.52, y1: h - 130 },   /* bottom-left */
+        { x0: w / 2, x1: w - 30, y0: h * 0.52, y1: h - 130 },/* bottom-right */
+        { x0: 40, x1: w - 40, y0: h - 150, y1: h - 56 }      /* footer */
+      ];
+    }
+    function pointIn(z) {
+      return {
+        x: z.x0 + Math.random() * Math.max(10, z.x1 - z.x0),
+        y: z.y0 + Math.random() * Math.max(10, z.y1 - z.y0)
+      };
+    }
 
     for (var i = 0; i < n; i++) {
       var el = document.createElement("div");
@@ -145,7 +185,7 @@
       el.appendChild(built.svg);
       document.body.appendChild(el);
 
-      var size = isMobile ? 34 + Math.random() * 12 : 46 + Math.random() * 26;
+      var size = isMobile ? 36 + Math.random() * 12 : 48 + Math.random() * 26;
       el.style.width = size.toFixed(0) + "px";
 
       var a = {
@@ -153,31 +193,33 @@
         x: 0, y: 0, tx: 0, ty: 0,
         angle: Math.random() * Math.PI * 2,
         speed: 0,
-        baseSpeed: 65 + Math.random() * 50,
-        pause: Math.random() * 1.2,
+        baseSpeed: 55 + Math.random() * 35, /* steady normal pace */
+        pause: 0,
         t: Math.random() * 10,
-        gait: 9 + Math.random() * 3,      /* leg-cycle Hz */
+        phase: Math.random() * Math.PI * 2, /* leg-cycle phase: driven by distance */
         wob: Math.random() * Math.PI * 2,
         size: size
       };
-      pickWaypoint(a, true);
+      /* start spread: each ant begins in a different zone */
+      var zs = zones();
+      var start = pointIn(zs[i % zs.length]);
+      a.x = start.x; a.y = start.y;
+      pickWaypoint(a);
       ants.push(a);
     }
 
-    function vw() { return window.innerWidth; }
-    function vh() { return window.innerHeight; }
-
-    function pickWaypoint(a, first) {
-      var m = a.size;
-      a.tx = m * 0.5 + Math.random() * (vw() - m);
-      a.ty = 56 + Math.random() * (vh() - 112);
-      if (first) {
-        a.x = a.tx; a.y = a.ty;
-        pickWaypoint(a, false);
-        a.angle = Math.atan2(a.ty - a.y, a.tx - a.x);
+    function pickWaypoint(a) {
+      /* random zone every time — never a fixed area, always somewhere new */
+      var zs = zones();
+      var p = pointIn(zs[(Math.random() * zs.length) | 0]);
+      /* keep waypoints a decent walk apart so ants travel, not jitter */
+      var tries = 0;
+      while (Math.hypot(p.x - a.x, p.y - a.y) < 220 && tries++ < 6) {
+        p = pointIn(zs[(Math.random() * zs.length) | 0]);
       }
+      a.tx = p.x; a.ty = p.y;
       a.pause = 0;
-      a.speed = a.baseSpeed * (0.85 + Math.random() * 0.3);
+      a.speed = a.baseSpeed * (0.9 + Math.random() * 0.2);
     }
 
     function turnTo(a, target, k) {
@@ -196,44 +238,50 @@
         a.t += dt;
         var moving = a.pause <= 0;
 
-        /* ---- legs: alternating tripod gait ---- */
-        var swing = moving ? 17 : 4; /* degrees */
-        for (var l = 0; l < a.legs.length; l++) {
-          var leg = a.legs[l];
-          var h = leg._hip;
-          var rot = Math.sin(a.t * Math.PI * 2 * a.gait + leg._phase + a.wob) * swing;
-          leg.setAttribute("transform",
-            "rotate(" + rot.toFixed(2) + " " + h.x + " " + h.y + ")");
-        }
-        /* ---- antennae wave ---- */
-        var aw = Math.sin(a.t * 6 + a.wob) * (moving ? 3 : 1.5);
-        a.antennae[0].setAttribute("d", "M22,-4 C28,-10 34,-13 " + (40 + aw).toFixed(1) + "," + (-14 + aw * 0.6).toFixed(1));
-        a.antennae[1].setAttribute("d", "M22,4 C28,10 34,13 " + (40 + aw).toFixed(1) + "," + (14 - aw * 0.6).toFixed(1));
-
         if (!moving) {
           a.pause -= dt;
-          var idleWob = Math.sin(a.t * 3 + a.wob) * 2;
+          /* legs settle when stopped */
+          for (var l = 0; l < a.legs.length; l++) {
+            var leg0 = a.legs[l], h0 = leg0._hip;
+            var settle = Math.sin(a.phase + leg0._phase) * 3;
+            leg0.setAttribute("transform", "rotate(" + settle.toFixed(2) + " " + h0.x + " " + h0.y + ")");
+          }
+          var idleWob = Math.sin(a.t * 2.4 + a.wob) * 1.6;
           a.el.style.transform =
             "translate3d(" + a.x.toFixed(1) + "px," + a.y.toFixed(1) + "px,0)" +
             " rotate(" + (a.angle * 180 / Math.PI + idleWob).toFixed(2) + "deg)";
-          if (a.pause <= 0) pickWaypoint(a, false);
+          if (a.pause <= 0) pickWaypoint(a);
           continue;
         }
 
         var dx = a.tx - a.x, dy = a.ty - a.y;
         var dist = Math.hypot(dx, dy);
-        if (dist < 8) {
-          a.pause = 0.3 + Math.random() * 1.8;
+        if (dist < 10) {
+          /* brief stop — rarely; usually keep walking */
+          if (Math.random() < 0.35) a.pause = 0.25 + Math.random() * 0.6;
+          else pickWaypoint(a);
           continue;
         }
-        turnTo(a, Math.atan2(dy, dx), dt * 6);
+        turnTo(a, Math.atan2(dy, dx), dt * 5);
 
-        /* scurry burst-pause gait */
-        var burst = 0.55 + 0.45 * Math.sin(a.t * 8 + a.wob);
-        burst = burst * burst;
-        var step = a.speed * (0.25 + 0.75 * burst) * dt;
+        /* steady scurry with gentle speed variation */
+        var pace = 0.8 + 0.2 * Math.sin(a.t * 2.2 + a.wob);
+        var step = a.speed * pace * dt;
         a.x += (dx / dist) * step;
         a.y += (dy / dist) * step;
+
+        /* LEG PHYSICS: phase advances with distance traveled —
+           one full step cycle per STRIDE px, so legs always match pace */
+        a.phase += (step / STRIDE) * Math.PI * 2;
+        for (var m = 0; m < a.legs.length; m++) {
+          var leg = a.legs[m], h = leg._hip;
+          var rot = Math.sin(a.phase + leg._phase) * 16;
+          leg.setAttribute("transform", "rotate(" + rot.toFixed(2) + " " + h.x + " " + h.y + ")");
+        }
+        /* antennae sway */
+        var aw = Math.sin(a.t * 5 + a.wob) * 2.4;
+        a.antennae[0].setAttribute("d", "M27,-4 L35,-11 " + (46 + aw).toFixed(1) + "," + (-13 + aw * 0.5).toFixed(1));
+        a.antennae[1].setAttribute("d", "M27,4 L35,11 " + (46 + aw).toFixed(1) + "," + (13 - aw * 0.5).toFixed(1));
 
         var deg = a.angle * 180 / Math.PI;
         a.el.style.transform =
@@ -244,18 +292,13 @@
     }
 
     document.addEventListener("nav:complete", function () {
-      for (var i = 0; i < ants.length; i++) {
-        var a = ants[i];
-        a.x = Math.min(Math.max(0, a.x), vw() - a.size);
-        a.y = Math.min(Math.max(50, a.y), vh() - 50);
-        pickWaypoint(a, false);
-      }
+      for (var i = 0; i < ants.length; i++) pickWaypoint(ants[i]);
     });
     window.addEventListener("resize", function () {
       for (var i = 0; i < ants.length; i++) {
         var a = ants[i];
-        a.x = Math.min(Math.max(0, a.x), vw() - a.size);
-        a.y = Math.min(Math.max(50, a.y), vh() - 50);
+        a.x = Math.min(Math.max(0, a.x), window.innerWidth - a.size);
+        a.y = Math.min(Math.max(50, a.y), window.innerHeight - 50);
       }
     });
 
