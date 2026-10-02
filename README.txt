@@ -1,3 +1,13 @@
+VOXPHER v8.2 — ANT COLONY, TOP-DOWN (2026-10-02)
+- 5 black ants (top-down view, the one you picked) roam the ENTIRE website in ANY direction —
+  header, content, footer, anywhere. Each ant is independent: own waypoints, speed, size, rhythm.
+- Top-down art rotates smoothly to face its travel direction, so movement in any direction looks
+  natural. Scurry burst-pause gait, subtle wobble while walking, idle tremble on pauses.
+- Real ant image (images/ant-top.png, local, transparent) — no libraries, no network. Subtle white
+  outline so they stay visible on black sections. 3 ants on mobile.
+- Never block clicks, above header but below cursor, hidden under prefers-reduced-motion, no
+  duplicates across seamless page changes.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v8.1 — WALKING ANT REPLACES THE SPIDER (2026-10-02)
 - Removed: the entire web-shooter spider (all spider JS, silk, D spray, #spider/#silk/#spiderFx CSS).
   Zero spider/silk/lottie/octo references remain (grep-verified).
