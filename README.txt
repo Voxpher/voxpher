@@ -1,3 +1,13 @@
+VOXPHER v8.3 — PROPER BLACK ANTS, LEGS THAT WALK (2026-10-02)
+- 5 solid-black top-down ants with REAL walking legs. Each ant is drawn as inline SVG
+  (no image, no library): 6 articulated 2-segment legs driven in an alternating tripod gait —
+  the actual gait real ants use — plus waving antennae. Legs visibly step as they walk.
+- They roam the ENTIRE website in ANY direction — header, content, footer. Top-down art
+  rotates smoothly to face travel direction. Each ant independent: own waypoints, speed,
+  size, gait phase. Scurry burst-pause movement, idle tremble on pauses.
+- Never block clicks, visible on black sections, hidden under prefers-reduced-motion,
+  3 ants on mobile, no duplicates across page changes.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v8.2 — ANT COLONY, TOP-DOWN (2026-10-02)
 - 5 black ants (top-down view, the one you picked) roam the ENTIRE website in ANY direction —
   header, content, footer, anywhere. Each ant is independent: own waypoints, speed, size, rhythm.

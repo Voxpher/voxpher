@@ -640,11 +640,11 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   #toTop{right:10px;bottom:10px;width:44px;height:44px}
 }
 
-/* ---------- Ambient walking ants: top-down colony (local image) ---------- */
+/* ---------- Ambient walking ants: proper black, top-down (inline SVG) ---------- */
 .ant{position:fixed;left:0;top:0;z-index:1500;
   pointer-events:none;will-change:transform}
-.ant img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none;
-  filter:drop-shadow(0 0 2px rgba(255,255,255,.7));will-change:transform}
+.antSvg{display:block;width:100%;height:auto;overflow:visible;
+  filter:drop-shadow(0 0 2px rgba(255,255,255,.7))}
 @media(prefers-reduced-motion:reduce){.ant{display:none}}
 
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
