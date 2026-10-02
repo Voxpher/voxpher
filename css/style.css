@@ -648,10 +648,6 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 #octoTilt{width:100%;height:100%;position:relative}
 #octoAnim{width:100%;height:100%}
 #octoAnim svg{display:block;width:100%;height:100%}
-.octo-eye{position:absolute;width:8%;aspect-ratio:.82;transform:translate(-50%,-50%);z-index:2}
-.octo-eye i{display:block;width:100%;height:100%;background:#fff;border-radius:50%;position:relative;overflow:hidden}
-.octo-eye i::after{content:"";position:absolute;left:50%;top:56%;width:44%;height:50%;
-  background:#0d0d0f;border-radius:50%;transform:translate(calc(-50% + var(--px,0px)),-50%)}
 #octoFx{position:fixed;inset:0;z-index:61;pointer-events:none;overflow:hidden}
 .d-fire{position:absolute;font-family:"Archivo Black",sans-serif;font-weight:900;color:#fff;
   text-shadow:-2px -2px 0 #0d0d0f,2px -2px 0 #0d0d0f,-2px 2px 0 #0d0d0f,2px 2px 0 #0d0d0f;

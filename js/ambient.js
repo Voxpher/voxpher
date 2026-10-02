@@ -74,8 +74,6 @@
     el.innerHTML =
       '<div id="octoFlip"><div id="octoTilt">' +
       '<div id="octoAnim"></div>' +
-      '<div class="octo-eye" style="left:56%;top:22%"><i></i></div>' +
-      '<div class="octo-eye" style="left:65%;top:24%"><i></i></div>' +
       "</div></div>";
     document.body.appendChild(el);
 
@@ -89,7 +87,7 @@
       flip: el.querySelector("#octoFlip"),
       tilt: el.querySelector("#octoTilt"),
       animBox: el.querySelector("#octoAnim"),
-      eyes: Array.prototype.slice.call(el.querySelectorAll(".octo-eye i")),
+      eyeGroups: null, /* injected into the Lottie SVG itself (can never detach) */
       fx: fx,
       // brain state
       x: -300, y: 140, tx: 0, ty: 0,
@@ -101,7 +99,7 @@
       nextSqueeze: 0,
       pendingTarget: null,
       eager: true,               // first swim heads straight for some text
-      nextRoar: Date.now() + 8000 + Math.random() * 4000,
+      nextRoar: Date.now() + 5000 + Math.random() * 3000,
       nextBlink: Date.now() + 2500,
       pausedUntil: 0,
       lastSweep: 0,
@@ -186,7 +184,8 @@
         d.animate(
           [
             { transform: "translate(" + sx.toFixed(1) + "px," + sy.toFixed(1) + "px) scale(.45) rotate(0deg)", opacity: 0 },
-            { opacity: 1, offset: 0.12 },
+            { opacity: 1, offset: 0.15 },
+            { opacity: 1, offset: 0.62 },
             {
               transform: "translate(" + (sx + dx).toFixed(1) + "px," + (sy + dy).toFixed(1) + "px) scale(1.12) rotate(" + rot.toFixed(1) + "deg)",
               opacity: 0
@@ -261,19 +260,45 @@
     }
   }
 
-  function blink() {
-    octo.eyes.forEach(function (e) {
-      try {
-        e.animate(
-          [
-            { transform: "scaleY(1)" },
-            { transform: "scaleY(.08)" },
-            { transform: "scaleY(1)" }
-          ],
-          { duration: 190, easing: "ease-in-out" }
-        );
-      } catch (err) {}
+  /* Eyes are injected INTO the Lottie SVG at viewBox coordinates, so they are
+     part of the octopus itself: they scale, flip and swim with it and can
+     never drift off as separate elements. */
+  function injectEyes() {
+    var svg = octo.animBox.querySelector("svg");
+    if (!svg) return;
+    var NS = "http://www.w3.org/2000/svg";
+    octo.eyeGroups = [];
+    [[1120, 540], [1300, 590]].forEach(function (pt) {
+      var g = document.createElementNS(NS, "g");
+      g.setAttribute("style", "transform-box:fill-box;transform-origin:center");
+      var e = document.createElementNS(NS, "ellipse");
+      e.setAttribute("cx", pt[0]); e.setAttribute("cy", pt[1]);
+      e.setAttribute("rx", 72); e.setAttribute("ry", 88);
+      e.setAttribute("fill", "#ffffff");
+      var p = document.createElementNS(NS, "circle");
+      p.setAttribute("cx", pt[0]); p.setAttribute("cy", pt[1] + 35);
+      p.setAttribute("r", 34); p.setAttribute("fill", "#0d0d0f");
+      g.appendChild(e); g.appendChild(p);
+      svg.appendChild(g);
+      octo.eyeGroups.push({ g: g, pupil: p, cx: pt[0] });
     });
+  }
+
+  function blink() {
+    if (octo.eyeGroups) {
+      octo.eyeGroups.forEach(function (o) {
+        try {
+          o.g.animate(
+            [
+              { transform: "scale(1,1)" },
+              { transform: "scale(1,0.08)" },
+              { transform: "scale(1,1)" }
+            ],
+            { duration: 190, easing: "ease-in-out" }
+          );
+        } catch (err) {}
+      });
+    }
     octo.nextBlink = Date.now() + 2600 + Math.random() * 3400;
   }
 
@@ -434,7 +459,13 @@
     octo.flip.style.transform =
       "scale(" + (octo.face * pulse).toFixed(3) + "," + pulse.toFixed(3) + ")";
     octo.tilt.style.transform = "rotate(" + (octo.tiltDeg * octo.face).toFixed(2) + "deg)";
-    octo.el.style.setProperty("--px", octo.face * 3 + "px");
+    /* pupils glance toward the travel direction (inside the octopus SVG) */
+    if (octo.eyeGroups) {
+      for (var gi = 0; gi < octo.eyeGroups.length; gi++) {
+        var eg = octo.eyeGroups[gi];
+        eg.pupil.setAttribute("cx", eg.cx + octo.face * 18);
+      }
+    }
   }
 
   function bootOcto() {
@@ -455,7 +486,11 @@
           path: "/js/octo-swim.json"
         });
         octo.lottie.addEventListener("DOMLoaded", function () {
-          if (octo) { octo.x = -size() - 40; octo.el.classList.add("ready"); }
+          if (octo) {
+            octo.x = -size() - 40;
+            octo.el.classList.add("ready");
+            injectEyes(); /* merge the eyes into the octopus SVG */
+          }
         });
         requestAnimationFrame(brain);
       })

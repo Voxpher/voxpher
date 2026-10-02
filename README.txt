@@ -1,3 +1,12 @@
+VOXPHER v7.6 — EYES MERGED INTO THE OCTOPUS (2026-10-02)
+- The eyes are no longer separate HTML elements: they are injected directly into the octopus's own SVG
+  (white ellipses + black pupils at the head's viewBox coordinates), so they scale, flip and swim with it and
+  can never appear detached from it. They still blink and the pupils still glance toward the swim direction.
+- D spray: smoother fade-in/out (letters hold fully visible mid-flight, no end-of-spray flicker).
+- First roar now comes 5-8s after load so the spray is seen right away.
+Deploy: replace repo contents, push, HARD REFRESH (Ctrl/Cmd+Shift+R). If the white boxes still show after that,
+they cannot be from this code — send a fresh screenshot.
+
 VOXPHER v7.5 — ROAR-WHILE-SWIMMING + ARM SYNC (2026-10-02)
 - The octopus no longer freezes mid-air while spraying: it keeps swimming and the D-fire trails from its moving mouth.
 - Spray distance is bigger (up to ~330px forward per letter).
