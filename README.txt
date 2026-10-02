@@ -1,3 +1,28 @@
+VOXPHER v7.9 — MUSIC FIRST-TAP FIX + GRAB-AND-SWING OCTOPUS (2026-10-02)
+MUSIC BUG — ROOT CAUSE FOUND AND FIXED:
+- Tapping a song after reaching the music page via the menu did nothing; reload fixed it.
+- Cause: only music.html loaded js/player.js. The seamless navigation swaps <main> but never <head>,
+  so arriving at Music from any other page left window.VoxpherInitMusicPage undefined and the 22 play
+  buttons were never wired (shell.js silently skipped binding). A full reload worked because music.html
+  itself includes the script. This was deterministic, not intermittent.
+- Fix: js/player.js is now included on ALL 12 pages (before shell.js, per the documented load order).
+  player.js is safe everywhere — it no-ops when there is no track list.
+- Also: shell.js boot is now guarded against double-initialization (no duplicate mini players).
+- Proven in jsdom: load homepage -> click MUSIC (seamless) -> tap first track -> plays on the FIRST tap,
+  audio.play() invoked, mini player appears.
+
+OCTOPUS — GRAB & SWING (replaces floating):
+- No more drifting. The octopus now LEAPS between your words on a ballistic arc (real projectile motion
+  with gravity), CATCHES the word with 3 string-tentacles, and HANGS below it swinging like a pendulum
+  (real physics: angular gravity + damping, swing starts from the landing momentum).
+- While hanging it squeezes the word once, sprays its D's DOWNWARD in a rain, then lets go and leaps
+  to the next word. It rides the word if you scroll.
+- Entrance: drops from the sky and catches its first word. After page changes it leaps at a new word.
+- Body language: stretches along the flight path mid-leap, squash-impact on catch, hanging stretch
+  while perched, lean into the swing. Arm speed: fast in flight, slow while hanging.
+- The D letters, colors, and cleanup are unchanged.
+
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v7.8 — NAV + MUSIC CLICK HARDENING (2026-10-02)
 - Menus: seamless navigation now aborts any in-flight page fetch when you tap another menu (a slow earlier fetch
   can no longer resolve late and clobber the page with stale content), plus a 10s fetch timeout that falls back to a

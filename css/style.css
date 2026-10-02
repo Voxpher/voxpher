@@ -649,15 +649,16 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 #octoAnim{width:100%;height:100%}
 #octoAnim svg{display:block;width:100%;height:100%}
 #octoFx{position:fixed;inset:0;z-index:61;pointer-events:none;overflow:hidden}
+#octoStrings{position:fixed;inset:0;width:100%;height:100%;z-index:59;pointer-events:none;overflow:hidden}
 .d-fire{position:absolute;font-family:"Archivo Black",sans-serif;font-weight:900;color:#fff;
   text-shadow:-2px -2px 0 #0d0d0f,2px -2px 0 #0d0d0f,-2px 2px 0 #0d0d0f,2px 2px 0 #0d0d0f;
   line-height:1;will-change:transform,opacity}
 .ink-puff{position:absolute;width:60px;height:60px;border-radius:50%;
   background:radial-gradient(circle,rgba(13,13,15,.85),rgba(13,13,15,0) 70%)}
-/* the hug: the octopus squeezes whatever text it lands on */
+/* the grab: the octopus squeezes whatever word it catches */
 .octo-hug{transform:scale(.92,.85)!important;transition:transform .22s ease}
 @media(max-width:640px){#octo{width:150px}}
-@media(prefers-reduced-motion:reduce){#octo,#octoFx{display:none}}
+@media(prefers-reduced-motion:reduce){#octo,#octoFx,#octoStrings{display:none}}
 
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
 body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor .t-play, body.has-cursor .track{cursor:none}

@@ -82,46 +82,224 @@
     fx.setAttribute("aria-hidden", "true");
     document.body.appendChild(fx);
 
+    /* string-tentacles: 3 lines the octopus hangs from when it grabs a word */
+    var svgNS = "http://www.w3.org/2000/svg";
+    var strings = document.createElementNS(svgNS, "svg");
+    strings.id = "octoStrings";
+    strings.setAttribute("aria-hidden", "true");
+    for (var si = 0; si < 3; si++) {
+      var pth = document.createElementNS(svgNS, "path");
+      pth.setAttribute("fill", "none");
+      pth.setAttribute("stroke", "#17171a");
+      pth.setAttribute("stroke-width", "3");
+      pth.setAttribute("stroke-linecap", "round");
+      strings.appendChild(pth);
+    }
+    strings.style.opacity = "0";
+    document.body.appendChild(strings);
+
     return {
       el: el,
       flip: el.querySelector("#octoFlip"),
       tilt: el.querySelector("#octoTilt"),
       animBox: el.querySelector("#octoAnim"),
       fx: fx,
-      // brain state
-      x: -300, y: 140, tx: 0, ty: 0,
-      vx: 0, vy: 0,               // momentum
-      state: "wander",
+      strings: strings,
+      // brain state: the octopus leaps between words and hangs swinging
+      x: -300, y: -400,
+      vx: 0, vy: 0,
+      state: "drop",            // drop | jump | perch
       face: 1,
-      tiltDeg: 0,
-      hugEl: null, hugUntil: 0,
-      nextSqueeze: 0,
-      pendingTarget: null,
-      eager: true,               // first swim heads straight for some text
-      nextRoar: Date.now() + 5000 + Math.random() * 3000,
+      jump: null,               // ballistic flight params
+      perch: null,              // pendulum hang params
       nextBlink: Date.now() + 2500,
-      pausedUntil: 0,
       lastSweep: 0,
       lottie: null,
-      last: 0
+      last: 0,
+      _lastSpd: 0
     };
   }
 
   function size() { return octo.el.offsetWidth || 240; }
 
-  function newWaypoint() {
-    var w = size(), vw = window.innerWidth, vh = window.innerHeight;
-    octo.tx = w * 0.4 + Math.random() * Math.max(60, vw - w * 1.1);
-    octo.ty = vh * 0.10 + Math.random() * Math.max(60, vh * 0.68);
+  /* ---------- grab & swing physics ----------
+     The octopus no longer drifts. It leaps from word to word on a ballistic
+     arc, catches the word with string-tentacles, and hangs below it swinging
+     like a pendulum (real physics: gravity + angular damping). While hanging
+     it sprays its D's downward, then lets go and leaps to the next word. */
+  var GRAV = 2400; /* px/s^2 — snappy but readable */
+
+  function setArmSpeed(s) {
+    if (!octo || !octo.lottie) return;
+    if (Math.abs(s - (octo._lastSpd || 0)) < 0.05) return;
+    octo._lastSpd = s;
+    try { if (octo.lottie.setSpeed) octo.lottie.setSpeed(s); } catch (e) {}
   }
 
-  function pickTarget() {
+  function anchorFor(el) {
+    var r = el.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.bottom - 2 };
+  }
+
+  function hangLen() { return size() * 1.05; }
+
+  /* ballistic leap from the current center to the word's hang point */
+  function startJump(el) {
+    if (!octo) return;
+    var w = size(), h = octo.el.offsetHeight || w * 1.25;
+    var cx = octo.x + w / 2, cy = octo.y + h / 2;
+    var a = anchorFor(el);
+    var L = hangLen();
+    var tx = a.x, ty = a.y + L;
+    tx = Math.max(w * 0.4, Math.min(window.innerWidth - w * 0.4, tx));
+    ty = Math.max(h * 0.5 + 20, Math.min(window.innerHeight - h * 0.4, ty));
+    var dx = tx - cx, dy = ty - cy;
+    var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    var T = Math.max(0.45, Math.min(1.05, dist / 1000));
+    octo.jump = {
+      el: el,
+      t: 0, T: T,
+      vx: dx / T,
+      vy: (dy - 0.5 * GRAV * T * T) / T
+    };
+    octo.perch = null;
+    octo.state = "jump";
+    octo.face = dx >= 0 ? 1 : -1;
+    hideStrings(180);
+    setArmSpeed(1.55); /* fast arm strokes while leaping */
+  }
+
+  /* catch the word: hang below it on strings, swinging from landing momentum */
+  function startPerch(el, landingVx) {
+    if (!octo) return;
+    var a = anchorFor(el);
+    var now = Date.now();
+    var dur = 2800 + Math.random() * 2200;
+    octo.perch = {
+      el: el,
+      ax: a.x, ay: a.y,
+      L: hangLen(),
+      theta: 0,
+      omega: (landingVx || 0) / hangLen(),
+      until: now + dur,
+      hardUntil: now + dur + 2500,
+      roarAt: now + dur * (0.35 + Math.random() * 0.25),
+      sprayed: false
+    };
+    octo.jump = null;
+    octo.state = "perch";
+    setArmSpeed(0.7); /* slow drift while hanging */
+    /* grab impact: squash the body, squeeze the word */
+    try {
+      octo.flip.animate(
+        [
+          { transform: "scale(" + octo.face + ",1)" },
+          { transform: "scale(" + (octo.face * 1.22) + ",0.74)" },
+          { transform: "scale(" + (octo.face * 0.94) + ",1.08)" }
+        ],
+        { duration: 380, easing: "ease-out" }
+      );
+    } catch (e) {}
+    setTimeout(function () {
+      if (octo && octo.perch && octo.perch.el === el) el.classList.add("octo-hug");
+    }, 120);
+    setTimeout(function () { el.classList.remove("octo-hug"); }, 900);
+  }
+
+  function releaseToNext() {
+    if (!octo) return;
+    if (octo.perch && octo.perch.el) {
+      try { octo.perch.el.classList.remove("octo-hug"); } catch (e) {}
+    }
+    var t = pickTarget(octo.perch ? octo.perch.el : null);
+    octo.perch = null;
+    if (t) startJump(t);
+    else { octo.state = "drop"; octo.vy = 0; hideStrings(150); }
+  }
+
+  function stepJump(dt) {
+    var j = octo.jump;
+    if (!j) { releaseToNext(); return; }
+    var w = size(), h = octo.el.offsetHeight || w * 1.25;
+    j.t += dt;
+    j.vy += GRAV * dt;
+    var cx = octo.x + w / 2 + j.vx * dt;
+    var cy = octo.y + h / 2 + j.vy * dt;
+    octo.x = cx - w / 2; octo.y = cy - h / 2;
+    /* stretch along the flight direction, lean into it */
+    var ang = Math.atan2(j.vy, j.vx * octo.face);
+    octo.tilt.style.transform = "rotate(" + (ang * 57.2958 * 0.45).toFixed(1) + "deg)";
+    octo.flip.style.transform = "scale(" + (octo.face * 1.14).toFixed(3) + ",0.88)";
+    if (j.t >= j.T) {
+      if (j.el && document.contains(j.el)) startPerch(j.el, j.vx);
+      else releaseToNext();
+    }
+  }
+
+  function stepPerch(dt) {
+    var p = octo.perch;
+    if (!p) { releaseToNext(); return; }
+    var el = p.el;
+    if (!document.contains(el)) { releaseToNext(); return; }
+    var r = el.getBoundingClientRect();
+    if (r.bottom < -80 || r.top > window.innerHeight + 80) { releaseToNext(); return; }
+    /* the anchor tracks the word, so scrolling carries the octopus along */
+    p.ax = r.left + r.width / 2;
+    p.ay = r.bottom - 2;
+    /* pendulum: angular accel = -(g/L) sin(theta) - damping * omega */
+    var acc = -(GRAV / p.L) * Math.sin(p.theta) - 1.15 * p.omega;
+    p.omega += acc * dt;
+    p.theta += p.omega * dt;
+    var w = size(), h = octo.el.offsetHeight || w * 1.25;
+    var cx = p.ax + p.L * Math.sin(p.theta);
+    var cy = p.ay + p.L * Math.cos(p.theta);
+    octo.x = cx - w / 2; octo.y = cy - h / 2;
+    if (Math.abs(p.omega) > 0.4) octo.face = p.omega > 0 ? 1 : -1;
+    /* lean with the swing, body stretched by the hang */
+    octo.tilt.style.transform = "rotate(" + (p.theta * 57.2958 * 0.45).toFixed(1) + "deg)";
+    octo.flip.style.transform = "scale(" + (octo.face * 0.94).toFixed(3) + ",1.08)";
+    drawStrings(p.ax, p.ay, cx, cy - h * 0.30);
+    var t = Date.now();
+    if (!p.sprayed && t > p.roarAt) { p.sprayed = true; roar(); }
+    if (t > p.hardUntil ||
+        (t > p.until && Math.abs(p.omega) < 1.6 && Math.abs(p.theta) < 0.45)) {
+      releaseToNext();
+    }
+  }
+
+  /* 3 string-tentacles from the head-top up to the grabbed word */
+  function drawStrings(ax, ay, cx, topY) {
+    var svg = octo.strings;
+    if (!svg) return;
+    svg.style.transition = "none";
+    svg.style.opacity = "1";
+    var w = size();
+    var offs = [-w * 0.16, 0, w * 0.16];
+    for (var i = 0; i < 3; i++) {
+      var sx = cx + offs[i];
+      var mx = (sx + ax) / 2, my = (topY + ay) / 2;
+      var bow = (i - 1) * 14;
+      svg.children[i].setAttribute("d",
+        "M" + sx.toFixed(1) + "," + topY.toFixed(1) +
+        " Q" + (mx + bow).toFixed(1) + "," + my.toFixed(1) +
+        " " + ax.toFixed(1) + "," + ay.toFixed(1));
+    }
+  }
+  function hideStrings(ms) {
+    var svg = octo.strings;
+    if (!svg) return;
+    svg.style.transition = "opacity " + (ms || 200) + "ms";
+    svg.style.opacity = "0";
+  }
+
+  function pickTarget(exclude) {
     var cands = document.querySelectorAll(
       "h1, .sec-title, .hero-tag, .nav-links a, .menu-links a, .btn, .logo, .track, .foot-brand"
     );
     var ok = [];
     for (var i = 0; i < cands.length; i++) {
       var c = cands[i];
+      if (c === exclude) continue;
       if (c.closest && c.closest("#miniPlayer,#scrollTop,#octo,#octoFx")) continue;
       var r = c.getBoundingClientRect();
       if (r.width < 6 || r.height < 6) continue;
@@ -134,7 +312,11 @@
 
   function mouthPos() {
     var w = size(), h = octo.el.offsetHeight || w * 1.25;
-    return { x: octo.x + w * 0.52, y: octo.y + h * 0.44 };
+    if (octo.state === "perch") {
+      /* hanging: breathe the D's downward from the low end of the body */
+      return { x: octo.x + w * 0.5, y: octo.y + h * 0.78, down: true };
+    }
+    return { x: octo.x + w * 0.52, y: octo.y + h * 0.44, down: false };
   }
 
   function outlineFor(o) {
@@ -148,7 +330,7 @@
 
   /* One D particle. Pure-pixel keyframes (no calc) so they can never
      mis-parse, and removal is guaranteed by timer, never by onfinish. */
-  function spawnD(x, y, i) {
+  function spawnD(x, y, i, down) {
     setTimeout(function () {
       if (!octo) return;
       var pal = D_COLORS[(Math.random() * D_COLORS.length) | 0];
@@ -173,9 +355,16 @@
       var fwd = octo.face === 1 ? 1 : -1;
       /* start offset ~ -50%,-50% of the glyph, in pure px */
       var sx = -fs * 0.36, sy = -fs * 0.5;
-      /* wide spray: mostly forward, generous spread, big distance */
-      var dx = (0.8 + Math.random() * 1.4) * 150 * fwd;
-      var dy = -40 + Math.random() * 160;
+      var dx, dy;
+      if (down) {
+        /* hanging spray: rain the D's downward in a wide fan */
+        dx = (Math.random() - 0.5) * 300;
+        dy = 80 + Math.random() * 240;
+      } else {
+        /* wide spray: mostly forward, generous spread, big distance */
+        dx = (0.8 + Math.random() * 1.4) * 150 * fwd;
+        dy = -40 + Math.random() * 160;
+      }
       var rot = (Math.random() - 0.5) * 90;
       var dur = 1800 + Math.random() * 900; /* long visible flight */
       var born = Date.now();
@@ -200,9 +389,9 @@
     }, i * 120);
   }
 
-  function sprayWave(x, y) {
+  function sprayWave(x, y, down) {
     var n = 6 + ((Math.random() * 3) | 0); /* 6-8 D's per wave */
-    for (var i = 0; i < n; i++) spawnD(x, y, i);
+    for (var i = 0; i < n; i++) spawnD(x, y, i, down);
   }
 
   function roar() {
@@ -225,13 +414,13 @@
       );
     } catch (e) {}
     setTimeout(function () { puff.remove(); }, 1400);
-    // one clean spray: 3 even waves, then silence until the next roar
+    // one clean spray: 3 even waves, then silence until the next perch
     for (var w = 0; w < 3; w++) {
       (function (ww) {
         setTimeout(function () {
           if (!octo) return;
           var mm = mouthPos();
-          sprayWave(mm.x, mm.y);
+          sprayWave(mm.x, mm.y, mm.down);
         }, ww * 550);
       })(w);
     }
@@ -246,10 +435,8 @@
         { duration: 620, easing: "ease-out" }
       );
     } catch (e) {}
-    /* no movement freeze: a real creature keeps swimming while it breathes fire.
-       The waves recompute the mouth position, so D's trail from the moving octopus. */
-    octo.pausedUntil = 0;
-    octo.nextRoar = Date.now() + 8000 + Math.random() * 5000;
+    /* no movement freeze and no fixed timer here: each perch schedules its
+       own spray mid-hang (see stepPerch). */
   }
 
   /* Sweeper: no particle may outlive its welcome, whatever happens. */
@@ -267,93 +454,7 @@
     octo.nextBlink = Date.now() + 2600 + Math.random() * 3400;
   }
 
-  function beginHug(target) {
-    var r = target.getBoundingClientRect();
-    var w = size(), h = octo.el.offsetHeight || w * 1.25;
-    octo.hugEl = target;
-    octo.state = "hug";
-    octo.tx = r.left + r.width / 2 - w / 2;
-    octo.ty = r.top + r.height / 2 - h / 2;
-    octo.hugUntil = Date.now() + 2600 + Math.random() * 1400; /* longer stays */
-    octo.nextSqueeze = Date.now() + 700;
-    // jump onto it
-    try {
-      octo.flip.animate(
-        [
-          { transform: "scale(" + octo.face + ",1)" },
-          { transform: "scale(" + octo.face * 1.22 + ",1.22)" },
-          { transform: "scale(" + octo.face + ",1)" }
-        ],
-        { duration: 480, easing: "cubic-bezier(.3,1.4,.5,1)" }
-      );
-    } catch (e) {}
-    // squeeze the text like a hug
-    setTimeout(function () {
-      if (octo && octo.hugEl === target) target.classList.add("octo-hug");
-    }, 320);
-  }
-
-  function squeezePulse() {
-    try {
-      octo.flip.animate(
-        [
-          { transform: "scale(" + octo.face + ",1)" },
-          { transform: "scale(" + octo.face * 1.1 + ",1.1)" },
-          { transform: "scale(" + octo.face + ",1)" }
-        ],
-        { duration: 520, easing: "ease-in-out" }
-      );
-    } catch (e) {}
-    octo.nextSqueeze = Date.now() + 900 + Math.random() * 500;
-  }
-
-  function endHug() {
-    if (octo.hugEl) octo.hugEl.classList.remove("octo-hug");
-    octo.hugEl = null;
-    octo.state = "wander";
-    // leap away
-    try {
-      octo.flip.animate(
-        [
-          { transform: "scale(" + octo.face + ",1)" },
-          { transform: "scale(" + octo.face * 1.18 + ",1.18)" },
-          { transform: "scale(" + octo.face + ",1)" }
-        ],
-        { duration: 420, easing: "cubic-bezier(.3,1.4,.5,1)" }
-      );
-    } catch (e) {}
-    newWaypoint();
-  }
-
-  function goForTarget(t) {
-    var r = t.getBoundingClientRect();
-    var w = size(), h = octo.el.offsetHeight || w * 1.25;
-    octo.state = "target";
-    octo.tx = r.left + r.width / 2 - w / 2;
-    octo.ty = r.top + r.height / 2 - h / 2;
-    octo.pendingTarget = t;
-  }
-
-  function arrive() {
-    if (octo.state === "wander") {
-      /* eager first swim + usually go hug some text */
-      if (octo.eager || Math.random() < 0.65) {
-        octo.eager = false;
-        var t = pickTarget();
-        if (t) { goForTarget(t); return; }
-      }
-      newWaypoint();
-    } else if (octo.state === "target") {
-      if (octo.pendingTarget && document.contains(octo.pendingTarget)) {
-        beginHug(octo.pendingTarget);
-      } else {
-        octo.state = "wander";
-        newWaypoint();
-      }
-      octo.pendingTarget = null;
-    }
-  }
-
+  /* ---------- the brain: leap, catch, hang, spray, release ---------- */
   function brain(now) {
     requestAnimationFrame(brain);
     if (document.hidden || !octo || !octo.lottie) return;
@@ -363,67 +464,32 @@
 
     sweepFx(t);
     if (t > octo.nextBlink) blink();
-    if (t > octo.nextRoar && octo.state === "wander" && t > octo.pausedUntil) {
-      roar();
-      return;
-    }
-    if (t < octo.pausedUntil) return;
 
-    // hugging: ride the element (follows scroll); squeeze it periodically
-    if (octo.state === "hug" && octo.hugEl) {
-      var r = octo.hugEl.getBoundingClientRect();
-      var w0 = size(), h0 = octo.el.offsetHeight || w0 * 1.25;
-      if (r.bottom < -60 || r.top > window.innerHeight + 60) { endHug(); return; }
-      octo.tx = r.left + r.width / 2 - w0 / 2;
-      octo.ty = r.top + r.height / 2 - h0 / 2;
-      if (t > octo.nextSqueeze) squeezePulse();
-      if (t > octo.hugUntil) { endHug(); return; }
-    }
-
-    /* --- momentum swimming: steer velocity toward the target --- */
-    var dx = octo.tx - octo.x, dy = octo.ty - octo.y;
-    var dist = Math.sqrt(dx * dx + dy * dy) || 1;
-    var maxSp = 170;
-    var desired = Math.min(maxSp, dist * 2.4); /* ease off near the target */
-    var ux = dx / dist, uy = dy / dist;
-    var k = Math.min(1, dt * 2.6); /* steering responsiveness */
-    octo.vx += (ux * desired - octo.vx) * k;
-    octo.vy += (uy * desired - octo.vy) * k;
-    octo.x += octo.vx * dt;
-    octo.y += octo.vy * dt;
-    var speed = Math.sqrt(octo.vx * octo.vx + octo.vy * octo.vy);
-    /* sync the arm-stroke speed to the swim speed: fast swim = fast arms,
-       hovering = slow drift. This is what makes the tentacles feel alive. */
-    var spd = 0.65 + Math.min(1, speed / 170);
-    if (!octo._lastSpd || Math.abs(spd - octo._lastSpd) > 0.12) {
-      octo._lastSpd = spd;
-      try { if (octo.lottie.setSpeed) octo.lottie.setSpeed(spd); } catch (e) {}
-    }
-    if (dist < Math.max(16, speed * dt * 1.4)) {
-      octo.x = octo.tx; octo.y = octo.ty;
-      octo.vx *= 0.2; octo.vy *= 0.2;
-      arrive();
+    if (octo.state === "jump") stepJump(dt);
+    else if (octo.state === "perch") stepPerch(dt);
+    else { /* drop: gravity fall until a word is in reach */
+      octo.vy += GRAV * dt;
+      octo.y += octo.vy * dt;
+      octo.tilt.style.transform = "rotate(0deg)";
+      octo.flip.style.transform = "scale(" + octo.face + ",1)";
+      if (octo.y > window.innerHeight + 120) {
+        var tg = pickTarget(null);
+        if (tg) {
+          var an = anchorFor(tg);
+          octo.x = an.x - size() / 2;
+          octo.y = -size() - 80;
+          startJump(tg);
+        } else {
+          octo.y = -size() - 80;
+          octo.vy = 0;
+        }
+      }
     }
 
-    // face travel direction (only when really moving)
-    if (speed > 20) {
-      if (octo.vx > 14) octo.face = 1;
-      else if (octo.vx < -14) octo.face = -1;
-    }
-    // bank into vertical motion, harder than before
-    var targetTilt = Math.max(-1, Math.min(1, octo.vy / 150)) * 18;
-    octo.tiltDeg += (targetTilt - octo.tiltDeg) * 0.09;
-
-    // swim bob scaled by speed + a slow stroke pulse so the body
-    // feels connected to the arm motion
-    var bob = Math.sin(now / 520) * (5 + Math.min(11, speed * 0.055));
-    var pulse = 1 + Math.sin(now / 610) * 0.045;
-
+    /* gentle idle sway while hanging so it never looks frozen */
+    var bob = octo.state === "perch" ? Math.sin(now / 700) * 3 : 0;
     octo.el.style.transform =
       "translate(" + octo.x.toFixed(1) + "px," + (octo.y + bob).toFixed(1) + "px)";
-    octo.flip.style.transform =
-      "scale(" + (octo.face * pulse).toFixed(3) + "," + pulse.toFixed(3) + ")";
-    octo.tilt.style.transform = "rotate(" + (octo.tiltDeg * octo.face).toFixed(2) + "deg)";
   }
 
   function bootOcto() {
@@ -431,8 +497,27 @@
     if (document.getElementById("octo")) return; /* persists across seamless nav */
     octo = buildOctoDom();
     window.__octoBrain = octo; /* debug/verify handle */
-    newWaypoint();
-    octo.y = window.innerHeight * (0.2 + Math.random() * 0.4);
+    /* entrance: drop from the sky and catch the first word */
+    var first = pickTarget(null);
+    if (first) {
+      var fa = anchorFor(first);
+      octo.x = Math.max(60, Math.min(window.innerWidth - 300, fa.x - size() / 2 + (Math.random() - 0.5) * 300));
+      octo.y = -size() - 80;
+      octo.state = "drop";
+      octo.vy = 0;
+      /* the drop handler converts into a proper leap once low enough;
+         but if a word is already close, leap straight at it */
+      setTimeout(function () {
+        if (octo && octo.state === "drop") {
+          var t2 = pickTarget(null);
+          if (t2) startJump(t2);
+        }
+      }, 700);
+    } else {
+      octo.y = -size() - 80;
+      octo.state = "drop";
+      octo.vy = 0;
+    }
     loadScript("/js/lottie.min.js")
       .then(function () {
         if (!window.lottie || !octo) return;
@@ -444,12 +529,12 @@
           path: "/js/octo-swim.json"
         });
         octo.lottie.addEventListener("DOMLoaded", function () {
-          if (octo) { octo.x = -size() - 40; octo.el.classList.add("ready"); }
+          if (octo) { octo.el.classList.add("ready"); }
         });
         requestAnimationFrame(brain);
       })
       .catch(function () {
-        if (octo) { octo.el.remove(); octo.fx.remove(); octo = null; }
+        if (octo) { octo.el.remove(); octo.fx.remove(); octo.strings.remove(); octo = null; }
       });
 
     document.addEventListener("visibilitychange", function () {
@@ -457,10 +542,17 @@
       if (document.hidden) octo.lottie.pause();
       else octo.lottie.play();
     });
+    /* after a seamless page change, leap at a word on the new page */
     document.addEventListener("nav:complete", function () {
       if (!octo) return;
-      if (octo.state === "hug") endHug();
-      else { octo.state = "wander"; newWaypoint(); }
+      if (octo.perch && octo.perch.el) {
+        try { octo.perch.el.classList.remove("octo-hug"); } catch (e) {}
+      }
+      octo.perch = null;
+      hideStrings(150);
+      var t = pickTarget(null);
+      if (t) startJump(t);
+      else { octo.state = "drop"; octo.vy = 0; }
     });
   }
 

@@ -120,6 +120,14 @@ window.__voxpherShellActive = true;
 
   var mp, mpArt, mpTitle, mpPlay;
   function buildMiniPlayer(){
+    var existing = document.getElementById("miniPlayer");
+    if (existing) {   /* already built (e.g. double init): re-hook and return */
+      mp = existing;
+      mpArt = mp.querySelector("#mpArt");
+      mpTitle = mp.querySelector("#mpTitle");
+      mpPlay = mp.querySelector("#mpPlay");
+      return;
+    }
     mp = document.createElement("div");
     mp.id = "miniPlayer";
     mp.setAttribute("role", "region");
@@ -221,6 +229,7 @@ window.__voxpherShellActive = true;
     window.scrollTo(0, 0);
     if (window.VoxpherInitContent) window.VoxpherInitContent();
     initMusicPage();
+    document.dispatchEvent(new Event("nav:complete"));
   }
   var navCtl = null;   /* in-flight seamless navigation, aborted when superseded */
   function navigate(url, isPop){
@@ -274,7 +283,10 @@ window.__voxpherShellActive = true;
   }
 
   /* ---------------- boot ---------------- */
+  var booted = false;
   document.addEventListener("DOMContentLoaded", function(){
+    if (booted) return;
+    booted = true;
     buildMiniPlayer();
     buildToTop();
     shell.subscribe(syncMiniPlayer);
