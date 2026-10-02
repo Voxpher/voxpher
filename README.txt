@@ -1,3 +1,15 @@
+VOXPHER v7.4 — OCTOPUS FX UPGRADE (2026-10-02)
+- Octopus is bigger: 190px -> 240px desktop, 128px -> 150px mobile.
+- Real swimming physics: velocity + steering instead of constant speed, so it accelerates, banks into turns (±18 deg),
+  eases off near targets, bobs harder when moving fast, and pulses its body on a slow stroke rhythm that matches the arm motion.
+- D-fire roar upgraded: 2-3 spray waves over 2-3 seconds (was one short burst), 6-8 bigger D letters per wave (26-46px),
+  in three brand colors — white, black, red — each with a contrasting outline, plus a stylish hollow-outline variant and glow.
+- Hugs your site more: 65% chance to go for text (was 45%), stays 2.6-4s, does little squeeze pulses while hugging,
+  and its first swim after loading heads straight for a heading or menu link.
+- Fixed the stuck white box: it was a D particle whose fade-away animation didn't finish, leaving it frozen on screen.
+  Particles now use parse-safe pixel keyframes, are removed by guaranteed timers, and a sweeper deletes any stragglers.
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v7.3 — OCTOPUS WITH A BRAIN + SQUARE MINI PLAYER + MOBILE COMFORT (2026-10-02)
 - Octopus upgraded: the old vector doodle is replaced by a real swimming octopus animation (Lottie, lazy-loaded after page render).
   It has a brain now: roams the whole screen on its own, turns to face where it swims, blinks its eyes every few seconds.

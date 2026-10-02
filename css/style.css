@@ -641,7 +641,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 }
 
 /* ---------- Ambient octopus: a Lottie swimmer with a brain ---------- */
-#octo{position:fixed;left:0;top:0;width:190px;aspect-ratio:2000/2500;z-index:60;
+#octo{position:fixed;left:0;top:0;width:240px;aspect-ratio:2000/2500;z-index:60;
   pointer-events:none;opacity:0;transition:opacity .6s;will-change:transform}
 #octo.ready{opacity:.94}
 #octoFlip{width:100%;height:100%}
@@ -660,7 +660,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   background:radial-gradient(circle,rgba(13,13,15,.85),rgba(13,13,15,0) 70%)}
 /* the hug: the octopus squeezes whatever text it lands on */
 .octo-hug{transform:scale(.92,.85)!important;transition:transform .22s ease}
-@media(max-width:640px){#octo{width:128px}}
+@media(max-width:640px){#octo{width:150px}}
 @media(prefers-reduced-motion:reduce){#octo,#octoFx{display:none}}
 
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */

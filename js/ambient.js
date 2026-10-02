@@ -2,7 +2,7 @@
    VOXPHER ambient layer
    - Custom square cursor (white dot, black ring)
    - Lottie swimming octopus with a brain:
-     roams on its own, hugs texts & menus, roars D-fire
+     momentum physics, hugs texts & menus, roars 3-color D-fire
    ============================================================ */
 (function () {
   "use strict";
@@ -50,6 +50,13 @@
   /* ---------------- Octopus ---------------- */
   var octo = null;
 
+  /* D-fire palette: white / black / red, each with a contrasting outline */
+  var D_COLORS = [
+    { c: "#ffffff", o: "#0d0d0f" },
+    { c: "#0d0d0f", o: "#ffffff" },
+    { c: "#E10600", o: "#0d0d0f" }
+  ];
+
   function loadScript(src) {
     return new Promise(function (resolve, reject) {
       var s = document.createElement("script");
@@ -85,22 +92,25 @@
       eyes: Array.prototype.slice.call(el.querySelectorAll(".octo-eye i")),
       fx: fx,
       // brain state
-      x: -260, y: 140, tx: 0, ty: 0,
+      x: -300, y: 140, tx: 0, ty: 0,
+      vx: 0, vy: 0,               // momentum
       state: "wander",
-      speed: 120,
       face: 1,
       tiltDeg: 0,
       hugEl: null, hugUntil: 0,
+      nextSqueeze: 0,
       pendingTarget: null,
-      nextRoar: Date.now() + 9000 + Math.random() * 4000,
+      eager: true,               // first swim heads straight for some text
+      nextRoar: Date.now() + 8000 + Math.random() * 4000,
       nextBlink: Date.now() + 2500,
       pausedUntil: 0,
+      lastSweep: 0,
       lottie: null,
       last: 0
     };
   }
 
-  function size() { return octo.el.offsetWidth || 190; }
+  function size() { return octo.el.offsetWidth || 240; }
 
   function newWaypoint() {
     var w = size(), vw = window.innerWidth, vh = window.innerHeight;
@@ -110,7 +120,7 @@
 
   function pickTarget() {
     var cands = document.querySelectorAll(
-      "h1, .sec-title, .nav-links a, .menu-links a, .btn, .logo, .track, .foot-brand"
+      "h1, .sec-title, .hero-tag, .nav-links a, .menu-links a, .btn, .logo, .track, .foot-brand"
     );
     var ok = [];
     for (var i = 0; i < cands.length; i++) {
@@ -130,79 +140,137 @@
     return { x: octo.x + w * 0.52, y: octo.y + h * 0.44 };
   }
 
+  function outlineFor(o) {
+    return (
+      "-" + 2 + "px -" + 2 + "px 0 " + o + "," +
+      "2px -2px 0 " + o + "," +
+      "-2px 2px 0 " + o + "," +
+      "2px 2px 0 " + o
+    );
+  }
+
+  /* One D particle. Pure-pixel keyframes (no calc) so they can never
+     mis-parse, and removal is guaranteed by timer, never by onfinish. */
   function spawnD(x, y, i) {
     setTimeout(function () {
       if (!octo) return;
+      var pal = D_COLORS[(Math.random() * D_COLORS.length) | 0];
       var d = document.createElement("span");
       d.className = "d-fire";
       d.textContent = "D";
-      var fs = 20 + Math.random() * 16;
+      var fs = 26 + Math.random() * 20; /* 26-46px: bigger */
       d.style.fontSize = fs + "px";
       d.style.left = x + "px";
       d.style.top = y + "px";
+      if (Math.random() < 0.32) {
+        /* stylish outline variant */
+        d.style.color = "transparent";
+        d.style.webkitTextStroke = "2px " + pal.c;
+        d.style.textShadow = "none";
+      } else {
+        d.style.color = pal.c;
+        d.style.textShadow = outlineFor(pal.o) + ", 0 0 22px " + pal.c + "66";
+      }
       octo.fx.appendChild(d);
       var fwd = octo.face === 1 ? 1 : -1;
-      // dragon-breath: forward and slightly down, with spread
-      var dx = (0.5 + Math.random() * 0.9) * 110 * fwd;
-      var dy = 20 + Math.random() * 70;
-      var rot = (Math.random() - 0.5) * 70;
-      var dur = 1050 + Math.random() * 550;
-      var a = d.animate(
-        [
-          { transform: "translate(-50%,-50%) scale(.5) rotate(0deg)", opacity: 0 },
-          { opacity: 1, offset: 0.18 },
-          {
-            transform: "translate(calc(-50% + " + dx + "px), calc(-50% + " + dy + "px)) scale(1.15) rotate(" + rot + "deg)",
-            opacity: 0
-          }
-        ],
-        { duration: dur, easing: "cubic-bezier(.2,.7,.3,1)" }
-      );
-      a.onfinish = function () { d.remove(); };
-    }, i * 95);
+      /* start offset ~ -50%,-50% of the glyph, in pure px */
+      var sx = -fs * 0.36, sy = -fs * 0.5;
+      /* wide spray: mostly forward, generous spread */
+      var dx = (0.6 + Math.random() * 1.1) * 130 * fwd;
+      var dy = -30 + Math.random() * 130;
+      var rot = (Math.random() - 0.5) * 90;
+      var dur = 1800 + Math.random() * 900; /* long visible flight */
+      var born = Date.now();
+      d._born = born;
+      try {
+        d.animate(
+          [
+            { transform: "translate(" + sx.toFixed(1) + "px," + sy.toFixed(1) + "px) scale(.45) rotate(0deg)", opacity: 0 },
+            { opacity: 1, offset: 0.12 },
+            {
+              transform: "translate(" + (sx + dx).toFixed(1) + "px," + (sy + dy).toFixed(1) + "px) scale(1.12) rotate(" + rot.toFixed(1) + "deg)",
+              opacity: 0
+            }
+          ],
+          { duration: dur, easing: "cubic-bezier(.16,.7,.3,1)" }
+        );
+      } catch (e) { /* if animation can't run, the timer below still cleans up */ }
+      setTimeout(function () { d.remove(); }, dur + 400);
+    }, i * 120);
+  }
+
+  function sprayWave(x, y) {
+    var n = 6 + ((Math.random() * 3) | 0); /* 6-8 D's per wave */
+    for (var i = 0; i < n; i++) spawnD(x, y, i);
   }
 
   function roar() {
     var m = mouthPos();
-    // ink puff
+    // ink puff, bigger
     var puff = document.createElement("div");
     puff.className = "ink-puff";
     puff.style.left = m.x + "px";
     puff.style.top = m.y + "px";
+    puff._born = Date.now();
     octo.fx.appendChild(puff);
-    var pa = puff.animate(
-      [
-        { transform: "translate(-50%,-50%) scale(.25)", opacity: 0.6 },
-        { transform: "translate(-50%,-50%) scale(2.4)", opacity: 0 }
-      ],
-      { duration: 750, easing: "ease-out" }
-    );
-    pa.onfinish = function () { puff.remove(); };
-    // D-fire breath
-    for (var i = 0; i < 8; i++) spawnD(m.x, m.y, i);
+    try {
+      puff.animate(
+        [
+          { transform: "translate(-50%,-50%) scale(.3)", opacity: 0.65 },
+          { transform: "translate(-50%,-50%) scale(3)", opacity: 0 }
+        ],
+        { duration: 900, easing: "ease-out" }
+      );
+    } catch (e) {}
+    setTimeout(function () { puff.remove(); }, 1400);
+    // 2-3 spray waves: the roar lasts 2-3 seconds
+    var waves = 2 + (Math.random() < 0.5 ? 1 : 0);
+    for (var w = 0; w < waves; w++) {
+      (function (ww) {
+        setTimeout(function () {
+          if (!octo) return;
+          var mm = mouthPos();
+          sprayWave(mm.x, mm.y);
+        }, ww * 650);
+      })(w);
+    }
     // recoil pop
-    octo.flip.animate(
-      [
-        { transform: "scale(" + octo.face + ",1)" },
-        { transform: "scale(" + octo.face * 1.14 + ",1.14)" },
-        { transform: "scale(" + octo.face + ",1)" }
-      ],
-      { duration: 620, easing: "ease-out" }
-    );
-    octo.pausedUntil = Date.now() + 1150;
+    try {
+      octo.flip.animate(
+        [
+          { transform: "scale(" + octo.face + ",1)" },
+          { transform: "scale(" + octo.face * 1.14 + ",1.14)" },
+          { transform: "scale(" + octo.face + ",1)" }
+        ],
+        { duration: 620, easing: "ease-out" }
+      );
+    } catch (e) {}
+    octo.pausedUntil = Date.now() + 2800;
     octo.nextRoar = Date.now() + 10000 + Math.random() * 5000;
+  }
+
+  /* Sweeper: no particle may outlive its welcome, whatever happens. */
+  function sweepFx(t) {
+    if (t - octo.lastSweep < 2000) return;
+    octo.lastSweep = t;
+    var olds = octo.fx.querySelectorAll(".d-fire,.ink-puff");
+    for (var i = 0; i < olds.length; i++) {
+      if (t - (olds[i]._born || t) > 4500) olds[i].remove();
+    }
   }
 
   function blink() {
     octo.eyes.forEach(function (e) {
-      e.animate(
-        [
-          { transform: "scaleY(1)" },
-          { transform: "scaleY(.08)" },
-          { transform: "scaleY(1)" }
-        ],
-        { duration: 190, easing: "ease-in-out" }
-      );
+      try {
+        e.animate(
+          [
+            { transform: "scaleY(1)" },
+            { transform: "scaleY(.08)" },
+            { transform: "scaleY(1)" }
+          ],
+          { duration: 190, easing: "ease-in-out" }
+        );
+      } catch (err) {}
     });
     octo.nextBlink = Date.now() + 2600 + Math.random() * 3400;
   }
@@ -214,20 +282,37 @@
     octo.state = "hug";
     octo.tx = r.left + r.width / 2 - w / 2;
     octo.ty = r.top + r.height / 2 - h / 2;
-    octo.hugUntil = Date.now() + 2000 + Math.random() * 1200;
+    octo.hugUntil = Date.now() + 2600 + Math.random() * 1400; /* longer stays */
+    octo.nextSqueeze = Date.now() + 700;
     // jump onto it
-    octo.flip.animate(
-      [
-        { transform: "scale(" + octo.face + ",1)" },
-        { transform: "scale(" + octo.face * 1.22 + ",1.22)" },
-        { transform: "scale(" + octo.face + ",1)" }
-      ],
-      { duration: 480, easing: "cubic-bezier(.3,1.4,.5,1)" }
-    );
+    try {
+      octo.flip.animate(
+        [
+          { transform: "scale(" + octo.face + ",1)" },
+          { transform: "scale(" + octo.face * 1.22 + ",1.22)" },
+          { transform: "scale(" + octo.face + ",1)" }
+        ],
+        { duration: 480, easing: "cubic-bezier(.3,1.4,.5,1)" }
+      );
+    } catch (e) {}
     // squeeze the text like a hug
     setTimeout(function () {
       if (octo && octo.hugEl === target) target.classList.add("octo-hug");
     }, 320);
+  }
+
+  function squeezePulse() {
+    try {
+      octo.flip.animate(
+        [
+          { transform: "scale(" + octo.face + ",1)" },
+          { transform: "scale(" + octo.face * 1.1 + ",1.1)" },
+          { transform: "scale(" + octo.face + ",1)" }
+        ],
+        { duration: 520, easing: "ease-in-out" }
+      );
+    } catch (e) {}
+    octo.nextSqueeze = Date.now() + 900 + Math.random() * 500;
   }
 
   function endHug() {
@@ -235,30 +320,35 @@
     octo.hugEl = null;
     octo.state = "wander";
     // leap away
-    octo.flip.animate(
-      [
-        { transform: "scale(" + octo.face + ",1)" },
-        { transform: "scale(" + octo.face * 1.18 + ",1.18)" },
-        { transform: "scale(" + octo.face + ",1)" }
-      ],
-      { duration: 420, easing: "cubic-bezier(.3,1.4,.5,1)" }
-    );
+    try {
+      octo.flip.animate(
+        [
+          { transform: "scale(" + octo.face + ",1)" },
+          { transform: "scale(" + octo.face * 1.18 + ",1.18)" },
+          { transform: "scale(" + octo.face + ",1)" }
+        ],
+        { duration: 420, easing: "cubic-bezier(.3,1.4,.5,1)" }
+      );
+    } catch (e) {}
     newWaypoint();
+  }
+
+  function goForTarget(t) {
+    var r = t.getBoundingClientRect();
+    var w = size(), h = octo.el.offsetHeight || w * 1.25;
+    octo.state = "target";
+    octo.tx = r.left + r.width / 2 - w / 2;
+    octo.ty = r.top + r.height / 2 - h / 2;
+    octo.pendingTarget = t;
   }
 
   function arrive() {
     if (octo.state === "wander") {
-      if (Math.random() < 0.45) {
+      /* eager first swim + usually go hug some text */
+      if (octo.eager || Math.random() < 0.65) {
+        octo.eager = false;
         var t = pickTarget();
-        if (t) {
-          var r = t.getBoundingClientRect();
-          var w = size(), h = octo.el.offsetHeight || w * 1.25;
-          octo.state = "target";
-          octo.tx = r.left + r.width / 2 - w / 2;
-          octo.ty = r.top + r.height / 2 - h / 2;
-          octo.pendingTarget = t;
-          return;
-        }
+        if (t) { goForTarget(t); return; }
       }
       newWaypoint();
     } else if (octo.state === "target") {
@@ -279,51 +369,62 @@
     var dt = Math.min(0.05, (now - octo.last) / 1000 || 0.016);
     octo.last = now;
 
-    // blink on its own schedule
+    sweepFx(t);
     if (t > octo.nextBlink) blink();
-    // roar every 10-15s while wandering
     if (t > octo.nextRoar && octo.state === "wander" && t > octo.pausedUntil) {
       roar();
       return;
     }
     if (t < octo.pausedUntil) return;
 
-    // if hugging, ride the element (follows scroll); bail if it scrolled away
+    // hugging: ride the element (follows scroll); squeeze it periodically
     if (octo.state === "hug" && octo.hugEl) {
       var r = octo.hugEl.getBoundingClientRect();
       var w0 = size(), h0 = octo.el.offsetHeight || w0 * 1.25;
       if (r.bottom < -60 || r.top > window.innerHeight + 60) { endHug(); return; }
       octo.tx = r.left + r.width / 2 - w0 / 2;
       octo.ty = r.top + r.height / 2 - h0 / 2;
+      if (t > octo.nextSqueeze) squeezePulse();
       if (t > octo.hugUntil) { endHug(); return; }
     }
 
+    /* --- momentum swimming: steer velocity toward the target --- */
     var dx = octo.tx - octo.x, dy = octo.ty - octo.y;
-    var dist = Math.sqrt(dx * dx + dy * dy);
-    var step = octo.speed * dt;
-    if (dist < Math.max(10, step)) {
+    var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    var maxSp = 170;
+    var desired = Math.min(maxSp, dist * 2.4); /* ease off near the target */
+    var ux = dx / dist, uy = dy / dist;
+    var k = Math.min(1, dt * 2.6); /* steering responsiveness */
+    octo.vx += (ux * desired - octo.vx) * k;
+    octo.vy += (uy * desired - octo.vy) * k;
+    octo.x += octo.vx * dt;
+    octo.y += octo.vy * dt;
+    var speed = Math.sqrt(octo.vx * octo.vx + octo.vy * octo.vy);
+    if (dist < Math.max(16, speed * dt * 1.4)) {
       octo.x = octo.tx; octo.y = octo.ty;
+      octo.vx *= 0.2; octo.vy *= 0.2;
       arrive();
-    } else {
-      octo.x += (dx / dist) * step;
-      octo.y += (dy / dist) * step;
     }
 
-    // face travel direction
-    if (dx > 10) octo.face = 1;
-    else if (dx < -10) octo.face = -1;
-    // tilt with vertical motion
-    var targetTilt = Math.max(-1, Math.min(1, dy / Math.max(60, dist))) * 13;
-    octo.tiltDeg += (targetTilt - octo.tiltDeg) * 0.08;
+    // face travel direction (only when really moving)
+    if (speed > 20) {
+      if (octo.vx > 14) octo.face = 1;
+      else if (octo.vx < -14) octo.face = -1;
+    }
+    // bank into vertical motion, harder than before
+    var targetTilt = Math.max(-1, Math.min(1, octo.vy / 150)) * 18;
+    octo.tiltDeg += (targetTilt - octo.tiltDeg) * 0.09;
 
-    // gentle swim bob
-    var bob = Math.sin(now / 480) * 7;
+    // swim bob scaled by speed + a slow stroke pulse so the body
+    // feels connected to the arm motion
+    var bob = Math.sin(now / 520) * (5 + Math.min(11, speed * 0.055));
+    var pulse = 1 + Math.sin(now / 610) * 0.045;
 
     octo.el.style.transform =
-      "translate(" + octo.x + "px," + (octo.y + bob) + "px)";
-    octo.flip.style.transform = "scaleX(" + octo.face + ")";
-    octo.tilt.style.transform = "rotate(" + octo.tiltDeg * octo.face + "deg)";
-    // pupils glance toward travel direction
+      "translate(" + octo.x.toFixed(1) + "px," + (octo.y + bob).toFixed(1) + "px)";
+    octo.flip.style.transform =
+      "scale(" + (octo.face * pulse).toFixed(3) + "," + pulse.toFixed(3) + ")";
+    octo.tilt.style.transform = "rotate(" + (octo.tiltDeg * octo.face).toFixed(2) + "deg)";
     octo.el.style.setProperty("--px", octo.face * 3 + "px");
   }
 
@@ -333,7 +434,6 @@
     octo = buildOctoDom();
     window.__octoBrain = octo; /* debug/verify handle */
     newWaypoint();
-    // start off-screen left, swim in
     octo.y = window.innerHeight * (0.2 + Math.random() * 0.4);
     loadScript("/js/lottie.min.js")
       .then(function () {
@@ -359,7 +459,6 @@
       if (document.hidden) octo.lottie.pause();
       else octo.lottie.play();
     });
-    // after seamless navigation, wander somewhere fresh
     document.addEventListener("nav:complete", function () {
       if (!octo) return;
       if (octo.state === "hug") endHug();
