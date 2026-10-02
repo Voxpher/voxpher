@@ -1,3 +1,10 @@
+VOXPHER v8.6 — SQUASHABLE ANTS (2026-10-02)
+- Removed: the word-eating behavior and all feast particles (didn't look great).
+- Ants are just normal ants again: 5 solid-black top-down ants roaming the entire page —
+  header, footer, corners, middle — legs stepping in sync with walking speed.
+- NEW: click/tap an ant to SQUASH it. It flips belly-up, legs kick, a "D" pops out in
+  header-menu type style — and 5 seconds later it flips back over and walks on.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v8.5 — ANTS HUNT WORDS + FEAST (2026-10-02)
 - Ants now HUNT real words: header nav links (Home, Build...), footer menu links, headings,
   buttons. They walk to the word, EAT it for 4-5 seconds, then wander on.

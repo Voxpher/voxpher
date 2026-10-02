@@ -54,22 +54,20 @@
 
 
   /* ---------------- Walking ants: proper black, top-down ----------------
-     5 solid-black top-view ants roam the ENTIRE page — header menu bar,
-     footer menu bar, four corners, middle, anywhere. Each ant is drawn as
-     inline SVG from real ant anatomy: teardrop gaster, petiole waist nodes,
+     5 solid-black top-view ants roam the ENTIRE page — header, footer,
+     corners, middle, anywhere — in any direction. Drawn as inline SVG
+     from real ant anatomy: teardrop gaster, petiole waist nodes,
      segmented mesosoma, head with mandibles, elbowed antennae, 6 thin
      3-segment legs.
      PHYSICS: legs are phase-driven by DISTANCE TRAVELED — one step cycle
      per stride length — so legs always step exactly in sync with walking
      speed. Alternating tripod gait like real ants.
-     FEAST: ants hunt real words — header nav links (Home, Build...),
-     footer menu links, headings, buttons. They walk to the word, eat it
-     for 4-5 seconds, and while eating, "D" letters pop out in the same
-     Space Mono bold uppercase style as the header menus, with dust
-     particles. Then they wander on. */
+     KILLABLE: click/tap an ant to squash it — it flips belly-up, legs
+     twitch, a "D" pops out (header-menu type style), and 5 seconds later
+     it flips back over and walks on. */
   var ANT_COUNT = 5;
   var ants = [];
-  var parts = []; /* D letters + dust particles */
+  var parts = []; /* death D's */
   var SVGNS = "http://www.w3.org/2000/svg";
   var ANT_BLACK = "#0B0B0D";
   var STRIDE = 15;
@@ -143,7 +141,6 @@
     return { svg: svg, legs: legs, antennae: [a1, a2] };
   }
 
-  /* fx layer for D letters + dust */
   var fx = null;
   function fxLayer() {
     if (fx) return fx;
@@ -153,10 +150,9 @@
     return fx;
   }
 
-  /* spawn a "D" in header-menu style (Space Mono bold uppercase) + dust */
-  function spawnFeast(x, y) {
+  /* single "D" pops out when an ant is squashed (header-menu type style) */
+  function spawnDeathD(x, y) {
     var layer = fxLayer();
-    /* D letter */
     var d = document.createElement("div");
     d.className = "feast-d";
     d.textContent = "D";
@@ -169,35 +165,15 @@
     d.style.textShadow =
       "-1.5px -1.5px 0 " + palette.o + ",1.5px -1.5px 0 " + palette.o +
       ",-1.5px 1.5px 0 " + palette.o + ",1.5px 1.5px 0 " + palette.o;
-    d.style.left = x + "px";
-    d.style.top = y + "px";
     layer.appendChild(d);
-    var ang = -Math.PI / 2 + (Math.random() - 0.5) * 1.6;
-    var sp = 60 + Math.random() * 120;
+    var ang = -Math.PI / 2 + (Math.random() - 0.5) * 1.2;
+    var sp = 90 + Math.random() * 90;
     parts.push({
-      el: d, x: x, y: y,
-      vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 40,
-      life: 0, max: 1.4 + Math.random() * 0.6, grav: 160, kind: "d"
+      el: d, x: x, y: y - 6,
+      vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp,
+      life: 0, max: 1.6, grav: 200
     });
-    /* dust puff: 5-8 specks */
-    for (var i = 0; i < 6; i++) {
-      var s = document.createElement("div");
-      s.className = "feast-dust";
-      var sz = 2 + Math.random() * 4;
-      s.style.width = sz + "px"; s.style.height = sz + "px";
-      s.style.left = x + "px"; s.style.top = y + "px";
-      s.style.background = Math.random() < 0.5 ? "#0B0B0D" : "#fff";
-      layer.appendChild(s);
-      var a2 = Math.random() * Math.PI * 2;
-      var sp2 = 30 + Math.random() * 90;
-      parts.push({
-        el: s, x: x, y: y,
-        vx: Math.cos(a2) * sp2, vy: Math.sin(a2) * sp2 - 50,
-        life: 0, max: 0.9 + Math.random() * 0.7, grav: 220, kind: "dust"
-      });
-    }
-    /* cap */
-    while (parts.length > 90) {
+    while (parts.length > 30) {
       var old = parts.shift();
       if (old.el.parentNode) old.el.parentNode.removeChild(old.el);
     }
@@ -213,12 +189,13 @@
         continue;
       }
       p.vy += p.grav * dt;
-      p.vx *= (1 - 1.6 * dt);
+      p.vx *= (1 - 1.4 * dt);
       p.x += p.vx * dt; p.y += p.vy * dt;
       var k = p.life / p.max;
       p.el.style.transform =
         "translate(" + p.x.toFixed(1) + "px," + p.y.toFixed(1) + "px)" +
-        (p.kind === "d" ? " rotate(" + (k * 160).toFixed(0) + "deg) scale(" + (1 - k * 0.3).toFixed(2) + ")" : "");
+        " rotate(" + (k * 200 - 100).toFixed(0) + "deg)" +
+        " scale(" + (0.6 + 0.4 * Math.sin(Math.min(1, p.life * 4) * Math.PI / 2)).toFixed(2) + ")";
       p.el.style.opacity = (1 - k * k).toFixed(2);
     }
   }
@@ -229,27 +206,6 @@
 
     var isMobile = window.innerWidth <= 640;
     var n = isMobile ? 3 : ANT_COUNT;
-
-    /* edible words: header nav, footer menu, headings, buttons */
-    function wordTargets() {
-      var els = document.querySelectorAll(
-        ".site-nav a, .site-foot nav a, .mobile-menu nav a, h1, h2, .btn"
-      );
-      var out = [];
-      for (var i = 0; i < els.length; i++) {
-        var r = els[i].getBoundingClientRect();
-        if (r.width > 8 && r.height > 4 &&
-            r.bottom > 40 && r.top < window.innerHeight - 40 &&
-            r.right > 0 && r.left < window.innerWidth) {
-          out.push({
-            x: r.left + r.width / 2,
-            y: r.top + r.height / 2,
-            label: (els[i].textContent || "").trim().slice(0, 12)
-          });
-        }
-      }
-      return out;
-    }
 
     function zones() {
       var w = window.innerWidth, h = window.innerHeight;
@@ -273,6 +229,8 @@
       var el = document.createElement("div");
       el.className = "ant";
       el.setAttribute("aria-hidden", "true");
+      el.setAttribute("role", "button");
+      el.setAttribute("title", "Squash the ant!");
       var built = buildAnt();
       el.appendChild(built.svg);
       document.body.appendChild(el);
@@ -281,14 +239,14 @@
       el.style.width = size.toFixed(0) + "px";
 
       var a = {
-        el: el, legs: built.legs, antennae: built.antennae,
+        el: el, svg: built.svg, legs: built.legs, antennae: built.antennae,
         x: 0, y: 0, tx: 0, ty: 0,
         angle: Math.random() * Math.PI * 2,
         speed: 0,
         baseSpeed: 55 + Math.random() * 35,
         pause: 0,
-        state: "roam",   /* roam | seek | eat */
-        eatT: 0, eatDur: 0, feastTick: 0,
+        dead: 0,        /* >0 while squashed; counts down to revive */
+        twitch: 0,      /* leg-twitch timer right after squash */
         t: Math.random() * 10,
         phase: Math.random() * Math.PI * 2,
         wob: Math.random() * Math.PI * 2,
@@ -297,24 +255,26 @@
       var zs = zones();
       var start = pointIn(zs[i % zs.length]);
       a.x = start.x; a.y = start.y;
-      pickNext(a);
+      pickWaypoint(a);
       ants.push(a);
+
+      /* click / tap to squash */
+      (function (ant) {
+        ant.el.addEventListener("pointerdown", function (e) {
+          e.preventDefault();
+          squash(ant);
+        });
+      })(a);
     }
 
-    /* 55% hunt a word (menus/headings), 45% roam a random zone */
-    function pickNext(a) {
-      a.state = "roam";
-      a.pause = 0;
-      if (Math.random() < 0.55) {
-        var words = wordTargets();
-        if (words.length) {
-          var t = words[(Math.random() * words.length) | 0];
-          a.tx = t.x; a.ty = t.y;
-          a.state = "seek";
-          a.speed = a.baseSpeed * (0.95 + Math.random() * 0.25);
-          return;
-        }
-      }
+    function squash(a) {
+      if (a.dead > 0) return;
+      a.dead = 5;          /* revive in 5 seconds */
+      a.twitch = 0.7;      /* legs kick briefly */
+      spawnDeathD(a.x, a.y);
+    }
+
+    function pickWaypoint(a) {
       var zs = zones();
       var p = pointIn(zs[(Math.random() * zs.length) | 0]);
       var tries = 0;
@@ -322,6 +282,7 @@
         p = pointIn(zs[(Math.random() * zs.length) | 0]);
       }
       a.tx = p.x; a.ty = p.y;
+      a.pause = 0;
       a.speed = a.baseSpeed * (0.9 + Math.random() * 0.2);
     }
 
@@ -350,25 +311,29 @@
         var a = ants[i];
         a.t += dt;
 
-        /* ---- EATING: 4-5s feast on the word ---- */
-        if (a.state === "eat") {
-          a.eatT += dt;
-          /* nibble: tiny forward-back shuffle, legs stepping slowly */
-          a.phase += (14 / STRIDE) * Math.PI * 2 * dt * 2;
-          moveLegs(a, 9);
-          var nib = Math.sin(a.t * 14) * 2.2;
-          var degE = a.angle * 180 / Math.PI;
-          a.el.style.transform =
-            "translate3d(" + (a.x + Math.cos(a.angle) * nib).toFixed(1) + "px," +
-            (a.y + Math.sin(a.angle) * nib).toFixed(1) + "px,0)" +
-            " rotate(" + degE.toFixed(2) + "deg)";
-          /* D + dust fountain while eating */
-          a.feastTick -= dt;
-          if (a.feastTick <= 0) {
-            spawnFeast(a.x + (Math.random() - 0.5) * 26, a.y - 8 - Math.random() * 14);
-            a.feastTick = 0.28 + Math.random() * 0.3;
+        /* ---- SQUASHED: belly-up, twitch, then revive after 5s ---- */
+        if (a.dead > 0) {
+          a.dead -= dt;
+          if (a.twitch > 0) {
+            a.twitch -= dt;
+            a.phase += dt * 30;
+            moveLegs(a, 22);
+          } else {
+            moveLegs(a, 2);
           }
-          if (a.eatT >= a.eatDur) pickNext(a);
+          /* belly-up: inner svg flipped 180deg, slight fade */
+          var fade = a.dead < 0.6 ? (a.dead / 0.6) : 1; /* fade back in on revive */
+          a.svg.style.transform = "rotate(180deg)";
+          a.svg.style.opacity = (0.55 + 0.45 * fade).toFixed(2);
+          var degD = a.angle * 180 / Math.PI;
+          a.el.style.transform =
+            "translate3d(" + a.x.toFixed(1) + "px," + a.y.toFixed(1) + "px,0)" +
+            " rotate(" + degD.toFixed(2) + "deg)";
+          if (a.dead <= 0) {
+            a.svg.style.transform = "";
+            a.svg.style.opacity = "1";
+            pickWaypoint(a);
+          }
           continue;
         }
 
@@ -384,24 +349,15 @@
           a.el.style.transform =
             "translate3d(" + a.x.toFixed(1) + "px," + a.y.toFixed(1) + "px,0)" +
             " rotate(" + (a.angle * 180 / Math.PI + idleWob).toFixed(2) + "deg)";
-          if (a.pause <= 0) pickNext(a);
+          if (a.pause <= 0) pickWaypoint(a);
           continue;
         }
 
         var dx = a.tx - a.x, dy = a.ty - a.y;
         var dist = Math.hypot(dx, dy);
-        if (dist < 12) {
-          if (a.state === "seek") {
-            /* arrived at the word: EAT for 4-5 seconds */
-            a.state = "eat";
-            a.eatT = 0;
-            a.eatDur = 4 + Math.random() * 1;
-            a.feastTick = 0;
-          } else if (Math.random() < 0.3) {
-            a.pause = 0.25 + Math.random() * 0.6;
-          } else {
-            pickNext(a);
-          }
+        if (dist < 10) {
+          if (Math.random() < 0.3) a.pause = 0.25 + Math.random() * 0.6;
+          else pickWaypoint(a);
           continue;
         }
         turnTo(a, Math.atan2(dy, dx), dt * 5);
@@ -427,7 +383,7 @@
     }
 
     document.addEventListener("nav:complete", function () {
-      for (var i = 0; i < ants.length; i++) pickNext(ants[i]);
+      for (var i = 0; i < ants.length; i++) pickWaypoint(ants[i]);
     });
     window.addEventListener("resize", function () {
       for (var i = 0; i < ants.length; i++) {
@@ -443,6 +399,14 @@
   /* ---------------- init ---------------- */
   document.addEventListener("DOMContentLoaded", function () {
     initCursor();
+    /* let the custom cursor ring grow over ants (they're clickable) */
+    document.addEventListener("mouseover", function (e) {
+      var t = e.target;
+      if (t && t.closest && t.closest(".ant")) {
+        var ring = document.getElementById("cursorRing");
+        if (ring) ring.classList.add("big");
+      }
+    });
     if (document.readyState === "complete") setTimeout(bootAnts, 600);
     else window.addEventListener("load", function () { setTimeout(bootAnts, 600); });
   });

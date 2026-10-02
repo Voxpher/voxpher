@@ -641,18 +641,17 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 }
 
 /* ---------- Ambient walking ants: proper black, top-down (inline SVG) ---------- */
-.ant{position:fixed;left:0;top:0;z-index:1500;
-  pointer-events:none;will-change:transform}
+.ant{position:fixed;left:0;top:0;z-index:1500;cursor:pointer;
+  pointer-events:auto;will-change:transform;touch-action:manipulation}
 .antSvg{display:block;width:100%;height:auto;overflow:visible;
   filter:drop-shadow(0 0 2px rgba(255,255,255,.7))}
 @media(prefers-reduced-motion:reduce){.ant{display:none}}
 
-/* ---------- Ant feast: D letters + dust (header-menu type style) ---------- */
+/* ---------- Ant squash: D pops out (header-menu type style) ---------- */
 #antFx{position:fixed;inset:0;z-index:1490;pointer-events:none;overflow:hidden}
 .feast-d{position:absolute;font-family:'Space Mono',ui-monospace,monospace;
-  font-weight:700;font-size:22px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;font-size:26px;letter-spacing:.14em;text-transform:uppercase;
   line-height:1;will-change:transform,opacity}
-.feast-dust{position:absolute;border-radius:50%;will-change:transform,opacity}
 @media(prefers-reduced-motion:reduce){#antFx{display:none}}
 
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
