@@ -42,6 +42,13 @@ window.__voxpherShellActive = true;
       if (audio.paused) audio.play().catch(function(){});
       else audio.pause();
     },
+    stop: function(){   /* close button: halt playback and dismiss the player */
+      try { audio.pause(); } catch (e){}
+      audio.removeAttribute("src");
+      try { audio.load(); } catch (e){}
+      shell.index = -1;
+      shell._emit();
+    },
     next: function(){
       if (!tracks.length) return;
       shell.play((shell.index + 1 + tracks.length) % tracks.length);
@@ -109,6 +116,7 @@ window.__voxpherShellActive = true;
   var SVG_NEXT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3v16h-3zM4 4l11 8-11 8z"/></svg>';
   var SVG_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>';
   var SVG_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+  var SVG_X = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="square"/></svg>';
 
   var mp, mpArt, mpTitle, mpPlay;
   function buildMiniPlayer(){
@@ -123,6 +131,7 @@ window.__voxpherShellActive = true;
       '<button class="mp-btn" id="mpPrev" aria-label="Previous track">' + SVG_PREV + "</button>" +
       '<button class="mp-btn mp-main" id="mpPlay" aria-label="Play">' + SVG_PLAY + "</button>" +
       '<button class="mp-btn" id="mpNext" aria-label="Next track">' + SVG_NEXT + "</button>" +
+      '<button class="mp-btn mp-x" id="mpClose" aria-label="Close player">' + SVG_X + "</button>" +
       "</div>";
     document.body.appendChild(mp);
     mpArt = mp.querySelector("#mpArt");
@@ -131,6 +140,7 @@ window.__voxpherShellActive = true;
     mp.querySelector("#mpPrev").addEventListener("click", function(){ shell.ensureAnalyser(); shell.prev(); });
     mp.querySelector("#mpNext").addEventListener("click", function(){ shell.ensureAnalyser(); shell.next(); });
     mpPlay.addEventListener("click", function(){ shell.ensureAnalyser(); shell.toggle(); });
+    mp.querySelector("#mpClose").addEventListener("click", function(){ shell.stop(); });
   }
   function syncMiniPlayer(){
     if (!mp) return;
