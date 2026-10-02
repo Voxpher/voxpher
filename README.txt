@@ -1,3 +1,10 @@
+VOXPHER v8.7 — ANTS ENTER FROM EDGES (2026-10-02)
+- Ants now ENTER from the four screen sides (left/right/top/bottom) and walk in —
+  never popping in from the center. Looks natural.
+- Squashing changed: the ant is REMOVED (gone) instead of flipping belly-up. A "D"
+  pops out as the smash animation. After 5 seconds the ant walks back in from a
+  random screen edge.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v8.6 — SQUASHABLE ANTS (2026-10-02)
 - Removed: the word-eating behavior and all feast particles (didn't look great).
 - Ants are just normal ants again: 5 solid-black top-down ants roaming the entire page —

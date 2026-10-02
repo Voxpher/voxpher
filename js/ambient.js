@@ -62,9 +62,10 @@
      PHYSICS: legs are phase-driven by DISTANCE TRAVELED — one step cycle
      per stride length — so legs always step exactly in sync with walking
      speed. Alternating tripod gait like real ants.
-     KILLABLE: click/tap an ant to squash it — it flips belly-up, legs
-     twitch, a "D" pops out (header-menu type style), and 5 seconds later
-     it flips back over and walks on. */
+     KILLABLE: click/tap an ant to squash it — it vanishes, a "D" pops
+     out (header-menu type style), and 5 seconds later it walks back in
+     from a screen edge. Ants always enter from the four sides, never
+     popping in from the center. */
   var ANT_COUNT = 5;
   var ants = [];
   var parts = []; /* death D's */
@@ -245,17 +246,14 @@
         speed: 0,
         baseSpeed: 55 + Math.random() * 35,
         pause: 0,
-        dead: 0,        /* >0 while squashed; counts down to revive */
-        twitch: 0,      /* leg-twitch timer right after squash */
+        dead: 0,        /* >0 while squashed (hidden); counts down to re-enter */
         t: Math.random() * 10,
         phase: Math.random() * Math.PI * 2,
         wob: Math.random() * Math.PI * 2,
         size: size
       };
       var zs = zones();
-      var start = pointIn(zs[i % zs.length]);
-      a.x = start.x; a.y = start.y;
-      pickWaypoint(a);
+      enterFromEdge(a);   /* walk in from off-screen, not pop in center */
       ants.push(a);
 
       /* click / tap to squash */
@@ -267,10 +265,22 @@
       })(a);
     }
 
+    /* place ant just off-screen at a random edge; it walks in */
+    function enterFromEdge(a) {
+      var w = window.innerWidth, h = window.innerHeight, m = a.size + 8;
+      var edge = (Math.random() * 4) | 0;
+      if (edge === 0) { a.x = -m; a.y = 80 + Math.random() * (h - 160); }        /* left */
+      else if (edge === 1) { a.x = w + m; a.y = 80 + Math.random() * (h - 160); } /* right */
+      else if (edge === 2) { a.y = -m; a.x = 60 + Math.random() * (w - 120); }    /* top */
+      else { a.y = h + m; a.x = 60 + Math.random() * (w - 120); }                 /* bottom */
+      a.el.style.display = "";
+      pickWaypoint(a);
+    }
+
     function squash(a) {
       if (a.dead > 0) return;
-      a.dead = 5;          /* revive in 5 seconds */
-      a.twitch = 0.7;      /* legs kick briefly */
+      a.dead = 5;                    /* gone for 5 seconds */
+      a.el.style.display = "none";   /* removed, not flipped */
       spawnDeathD(a.x, a.y);
     }
 
@@ -311,29 +321,10 @@
         var a = ants[i];
         a.t += dt;
 
-        /* ---- SQUASHED: belly-up, twitch, then revive after 5s ---- */
+        /* ---- SQUASHED: gone for 5s, then walks back in from an edge ---- */
         if (a.dead > 0) {
           a.dead -= dt;
-          if (a.twitch > 0) {
-            a.twitch -= dt;
-            a.phase += dt * 30;
-            moveLegs(a, 22);
-          } else {
-            moveLegs(a, 2);
-          }
-          /* belly-up: inner svg flipped 180deg, slight fade */
-          var fade = a.dead < 0.6 ? (a.dead / 0.6) : 1; /* fade back in on revive */
-          a.svg.style.transform = "rotate(180deg)";
-          a.svg.style.opacity = (0.55 + 0.45 * fade).toFixed(2);
-          var degD = a.angle * 180 / Math.PI;
-          a.el.style.transform =
-            "translate3d(" + a.x.toFixed(1) + "px," + a.y.toFixed(1) + "px,0)" +
-            " rotate(" + degD.toFixed(2) + "deg)";
-          if (a.dead <= 0) {
-            a.svg.style.transform = "";
-            a.svg.style.opacity = "1";
-            pickWaypoint(a);
-          }
+          if (a.dead <= 0) enterFromEdge(a);
           continue;
         }
 
