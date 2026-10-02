@@ -126,7 +126,7 @@ window.__voxpherShellActive = true;
     mp.setAttribute("aria-label", "Mini music player");
     mp.innerHTML =
       '<img id="mpArt" alt="">' +
-      '<div class="mp-meta"><p id="mpTitle">—</p><p class="mp-sub">Voxpher</p></div>' +
+      '<div class="mp-info"><p id="mpTitle">—</p><p class="mp-sub">Voxpher</p></div>' +
       '<div class="mp-btns">' +
       '<button class="mp-btn" id="mpPrev" aria-label="Previous track">' + SVG_PREV + "</button>" +
       '<button class="mp-btn mp-main" id="mpPlay" aria-label="Play">' + SVG_PLAY + "</button>" +
@@ -141,6 +141,29 @@ window.__voxpherShellActive = true;
     mp.querySelector("#mpNext").addEventListener("click", function(){ shell.ensureAnalyser(); shell.next(); });
     mpPlay.addEventListener("click", function(){ shell.ensureAnalyser(); shell.toggle(); });
     mp.querySelector("#mpClose").addEventListener("click", function(){ shell.stop(); });
+    /* mobile: tap the square to expand / collapse */
+    mp.addEventListener("click", function(e){
+      if (window.innerWidth >= 640) return;
+      if (e.target.closest("button")) return;
+      mp.classList.toggle("mp-open");
+    });
+    /* mobile: swipe left/right on the square = next/previous */
+    var tx0 = 0, ty0 = 0;
+    mp.addEventListener("touchstart", function(e){
+      var t = e.changedTouches[0]; tx0 = t.clientX; ty0 = t.clientY;
+    }, {passive:true});
+    mp.addEventListener("touchend", function(e){
+      if (window.innerWidth >= 640) return;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - tx0, dy = t.clientY - ty0;
+      if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+        shell.ensureAnalyser();
+        if (dx < 0) shell.next(); else shell.prev();
+      }
+    }, {passive:true});
+    window.addEventListener("resize", function(){
+      if (window.innerWidth >= 640) mp.classList.remove("mp-open");
+    });
   }
   function syncMiniPlayer(){
     if (!mp) return;

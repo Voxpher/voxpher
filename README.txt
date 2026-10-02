@@ -1,3 +1,18 @@
+VOXPHER v7.3 — OCTOPUS WITH A BRAIN + SQUARE MINI PLAYER + MOBILE COMFORT (2026-10-02)
+- Octopus upgraded: the old vector doodle is replaced by a real swimming octopus animation (Lottie, lazy-loaded after page render).
+  It has a brain now: roams the whole screen on its own, turns to face where it swims, blinks its eyes every few seconds.
+  Every so often it swims up to a heading, menu link, button or track, lands on it for 2-3 seconds and "hugs" it (the text
+  squishes like it's being squeezed), then leaps off somewhere unpredictable. Every 10-15 seconds it roars: an ink puff and
+  a spray of the letter D burst from its mouth like dragon fire, drifting and fading. Clicks pass straight through it, and it
+  stays off when the visitor prefers reduced motion.
+- Mini player is now a square card on desktop (artwork on top, title, prev/play/next, corner X badge). On mobile it is a
+  compact 76px square: tap to expand the full row, swipe left/right for next/previous track, X still closes it.
+- Mobile comfort pass: safe-area clearance for the fixed controls on notched phones, bigger tap targets (platform icons,
+  player buttons, track play buttons), roomier track rows, readable legal text, footer links easier to tap.
+- Cursor fix: the native cursor is properly hidden again on fine pointers (the has-cursor class is on body, as the JS sets it).
+- Email is contact@voxpher.com site-wide.
+Deploy: replace repo contents, push, hard-refresh.
+
 VOXPHER v6.1 — WORK + BUILD MERGED (2026-10-01)
 - DELETED work.html. The Build page now holds everything: hero, 9-box toolbox, honesty note, then the full Selected-work grid (5 cards, working filters, empty-state) + CTA.
 - Nav is now 7 items on every page: Home, About, Services, Music, Build, Education, Contact (mobile menu renumbered 01-07, footer cleaned, sitemap dropped /work).
