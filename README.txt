@@ -1,3 +1,15 @@
+VOXPHER v8.1 — WALKING ANT REPLACES THE SPIDER (2026-10-02)
+- Removed: the entire web-shooter spider (all spider JS, silk, D spray, #spider/#silk/#spiderFx CSS).
+  Zero spider/silk/lottie/octo references remain (grep-verified).
+- New: ONE walking ant that roams your entire website. It walks — never floats — across the whole
+  page: header zone, content, footer, everywhere. Real ant behavior: it scurries in bursts, pauses
+  like a real ant, then wanders on; bobs and rocks subtly as it walks; turns to face its direction.
+- The ant is a real generated ant image (images/ant.png, local file, transparent, 70KB) — no libraries,
+  no network. Subtle white outline so it stays visible on black sections too.
+- It never blocks clicks (pointer-events:none), sits above the header but below your cursor, hides
+  under prefers-reduced-motion, and shrinks on mobile. One ant only — it keeps walking across
+  seamless page changes without duplicating.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v8.0 — WEB-SHOOTER SPIDER REPLACES THE OCTOPUS (2026-10-02)
 - Removed: js/lottie.min.js, js/octo-swim.json (deleted), all #octo/#octoFx/#octoStrings/.octo-hug CSS,
   and every line of octopus code in js/ambient.js. Zero references to lottie or octo remain (grep-verified).

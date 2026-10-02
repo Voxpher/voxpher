@@ -640,19 +640,13 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   #toTop{right:10px;bottom:10px;width:44px;height:44px}
 }
 
-/* ---------- Ambient web-shooter spider (inline SVG, no libraries) ---------- */
-#spider{position:fixed;left:0;top:0;width:130px;aspect-ratio:200/160;z-index:60;
-  pointer-events:none;opacity:0;transition:opacity .6s;will-change:transform}
-#spiderSvg{display:block;width:100%;height:100%;overflow:visible}
-#spiderFx{position:fixed;inset:0;z-index:61;pointer-events:none;overflow:hidden}
-#silk{position:fixed;inset:0;width:100%;height:100%;z-index:59;pointer-events:none}
-.d-fire{position:absolute;font-family:var(--font-d),sans-serif;font-weight:900;color:#fff;
-  text-shadow:-2px -2px 0 #0d0d0f,2px -2px 0 #0d0d0f,-2px 2px 0 #0d0d0f,2px 2px 0 #0d0d0f;
-  line-height:1;will-change:transform,opacity}
-.ink-puff{position:absolute;width:60px;height:60px;border-radius:50%;
-  background:radial-gradient(circle,rgba(13,13,15,.85),rgba(13,13,15,0) 70%)}
-@media(max-width:640px){#spider{width:84px}}
-@media(prefers-reduced-motion:reduce){#spider,#spiderFx,#silk{display:none}}
+/* ---------- Ambient walking ant (local image, no libraries) ---------- */
+#ant{position:fixed;left:0;top:0;width:58px;z-index:1500;
+  pointer-events:none;will-change:transform}
+#ant img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none;
+  filter:drop-shadow(0 0 2px rgba(255,255,255,.7));will-change:transform}
+@media(max-width:640px){#ant{width:38px}}
+@media(prefers-reduced-motion:reduce){#ant{display:none}}
 
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
 body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor .t-play, body.has-cursor .track{cursor:none}
