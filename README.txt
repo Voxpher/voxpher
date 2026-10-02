@@ -1,3 +1,12 @@
+VOXPHER v7.5 — ROAR-WHILE-SWIMMING + ARM SYNC (2026-10-02)
+- The octopus no longer freezes mid-air while spraying: it keeps swimming and the D-fire trails from its moving mouth.
+- Spray distance is bigger (up to ~330px forward per letter).
+- Tentacle sync: the arm-stroke animation speed now follows the swim speed (fast swim = fast arms, hovering = slow drift),
+  so the body and arms read as one creature. (The arm shapes themselves are baked into the animation file and can't be redrawn.)
+- Roars come a little more often (every 8-13s).
+Deploy: replace repo contents, push, then HARD REFRESH the site (the white-box D bug died in v7.4, but browsers cache
+the old ambient.js — without a hard refresh you'll keep seeing the old behavior).
+
 VOXPHER v7.4 — OCTOPUS FX UPGRADE (2026-10-02)
 - Octopus is bigger: 190px -> 240px desktop, 128px -> 150px mobile.
 - Real swimming physics: velocity + steering instead of constant speed, so it accelerates, banks into turns (±18 deg),

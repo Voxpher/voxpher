@@ -175,9 +175,9 @@
       var fwd = octo.face === 1 ? 1 : -1;
       /* start offset ~ -50%,-50% of the glyph, in pure px */
       var sx = -fs * 0.36, sy = -fs * 0.5;
-      /* wide spray: mostly forward, generous spread */
-      var dx = (0.6 + Math.random() * 1.1) * 130 * fwd;
-      var dy = -30 + Math.random() * 130;
+      /* wide spray: mostly forward, generous spread, big distance */
+      var dx = (0.8 + Math.random() * 1.4) * 150 * fwd;
+      var dy = -40 + Math.random() * 160;
       var rot = (Math.random() - 0.5) * 90;
       var dur = 1800 + Math.random() * 900; /* long visible flight */
       var born = Date.now();
@@ -245,8 +245,10 @@
         { duration: 620, easing: "ease-out" }
       );
     } catch (e) {}
-    octo.pausedUntil = Date.now() + 2800;
-    octo.nextRoar = Date.now() + 10000 + Math.random() * 5000;
+    /* no movement freeze: a real creature keeps swimming while it breathes fire.
+       The waves recompute the mouth position, so D's trail from the moving octopus. */
+    octo.pausedUntil = 0;
+    octo.nextRoar = Date.now() + 8000 + Math.random() * 5000;
   }
 
   /* Sweeper: no particle may outlive its welcome, whatever happens. */
@@ -400,6 +402,13 @@
     octo.x += octo.vx * dt;
     octo.y += octo.vy * dt;
     var speed = Math.sqrt(octo.vx * octo.vx + octo.vy * octo.vy);
+    /* sync the arm-stroke speed to the swim speed: fast swim = fast arms,
+       hovering = slow drift. This is what makes the tentacles feel alive. */
+    var spd = 0.65 + Math.min(1, speed / 170);
+    if (!octo._lastSpd || Math.abs(spd - octo._lastSpd) > 0.12) {
+      octo._lastSpd = spd;
+      try { if (octo.lottie.setSpeed) octo.lottie.setSpeed(spd); } catch (e) {}
+    }
     if (dist < Math.max(16, speed * dt * 1.4)) {
       octo.x = octo.tx; octo.y = octo.ty;
       octo.vx *= 0.2; octo.vy *= 0.2;
