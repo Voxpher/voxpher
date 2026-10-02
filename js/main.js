@@ -39,6 +39,7 @@
     var s = CFG.socials || {};
     for (var m = 0; m < mounts.length; m++){
       var box = mounts[m];
+      if (box.dataset.socialsDone) continue;   /* already hydrated (persistent footer) */
       SOCIAL_ORDER.forEach(function(k){
         var url = s[k];
         var a = document.createElement("a");
@@ -49,6 +50,7 @@
         a.setAttribute("aria-label", label + (url ? " (opens in new tab)" : " (link not set yet)"));
         box.appendChild(a);
       });
+      box.dataset.socialsDone = "1";
     }
   }
 
@@ -250,13 +252,17 @@ function homeMotion(){
   if (reduce) return;
 
   /* Rotating badge: the text ring spins with scroll + gentle idle spin (arrow stays still) */
-  if (badge){
-    var ring = badge.querySelector("svg");
+  if (!window.__voxpherBadgeLoop){
+    window.__voxpherBadgeLoop = true;
     var angle = 0, last = performance.now();
     (function loop(t){
       var dt = Math.min(60, t - last); last = t;
-      angle += dt * 0.018;                       /* idle spin */
-      ring.style.transform = "rotate(" + (angle + window.scrollY * 0.28) + "deg)";
+      var b = document.querySelector(".spin-badge");   /* re-query: content swaps on seamless nav */
+      if (b){
+        var ring = b.querySelector("svg");
+        angle += dt * 0.018;                       /* idle spin */
+        if (ring) ring.style.transform = "rotate(" + (angle + window.scrollY * 0.28) + "deg)";
+      }
       requestAnimationFrame(loop);
     })(last);
   }
@@ -336,18 +342,26 @@ function tiltAndMagnetic(){
       var href = links[i].getAttribute("href");
       if (!href || href.charAt(0) !== "/") continue;
       var h = href.length > 1 ? href.replace(/\/$/, "") : "/";
-      if (h === path || (h !== "/" && path.indexOf(h + "/") === 0)){
-        links[i].classList.add("active");
-        links[i].setAttribute("aria-current", "page");
-      }
+      var on = (h === path || (h !== "/" && path.indexOf(h + "/") === 0));
+      links[i].classList.toggle("active", on);
+      if (on) links[i].setAttribute("aria-current", "page");
+      else links[i].removeAttribute("aria-current");
     }
   }
 
-/* ---------- Boot ---------- */
-  document.addEventListener("DOMContentLoaded", function(){
+/* ---------- Boot ----------
+   Split so the persistent shell can re-run content init after a seamless
+   page transition. Chrome (header/menu) binds once; content re-runs. */
+  window.VoxpherInitChrome = function(){ menu(); };
+  window.VoxpherInitContent = function(){
     hydrateImages();
-    homeMotion(); years(); socials(); menu(); activeNav();
+    homeMotion(); years(); socials(); activeNav();
     tiltAndMagnetic();
     reveals(); filters(); accordion(); contactForm();
+  };
+  document.addEventListener("DOMContentLoaded", function(){
+    if (window.__voxpherShellActive) return;   /* shell.js drives init */
+    window.VoxpherInitChrome();
+    window.VoxpherInitContent();
   });
 })();
