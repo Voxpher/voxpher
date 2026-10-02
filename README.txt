@@ -1,3 +1,13 @@
+VOXPHER v7.7 — EYES REMOVED + SPRAY REAPPEARANCE BUG FIXED (2026-10-02)
+- Eyes removed entirely per Akash: the octopus swims as a clean black silhouette, as in the animation he picked.
+- FIXED the real bug behind "D letters reappearing where the spray happened": when a letter's flight animation
+  finished, the browser snapped it back to its natural style (fully visible, no transform) for ~400ms before the
+  removal timer fired — so every letter briefly popped back into existence at its spray point, looking like the spray
+  stuttering back to life. Letters now use fill:forwards (they hold their final invisible keyframe) and start with
+  opacity:0, so they can never flash back. Same fix applied to the ink puff.
+- Spray is now one clean event: exactly 3 even waves, then silence until the next roar.
+Deploy: replace repo contents, push, HARD REFRESH.
+
 VOXPHER v7.6 — EYES MERGED INTO THE OCTOPUS (2026-10-02)
 - The eyes are no longer separate HTML elements: they are injected directly into the octopus's own SVG
   (white ellipses + black pupils at the head's viewBox coordinates), so they scale, flip and swim with it and

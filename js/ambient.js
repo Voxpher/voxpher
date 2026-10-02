@@ -87,7 +87,6 @@
       flip: el.querySelector("#octoFlip"),
       tilt: el.querySelector("#octoTilt"),
       animBox: el.querySelector("#octoAnim"),
-      eyeGroups: null, /* injected into the Lottie SVG itself (can never detach) */
       fx: fx,
       // brain state
       x: -300, y: 140, tx: 0, ty: 0,
@@ -160,6 +159,7 @@
       d.style.fontSize = fs + "px";
       d.style.left = x + "px";
       d.style.top = y + "px";
+      d.style.opacity = "0"; /* base state: invisible, so it can never pop back visible */
       if (Math.random() < 0.32) {
         /* stylish outline variant */
         d.style.color = "transparent";
@@ -181,6 +181,8 @@
       var born = Date.now();
       d._born = born;
       try {
+        /* fill:forwards holds the final (invisible) keyframe after the flight,
+           so the letter can never snap back visible before removal. */
         d.animate(
           [
             { transform: "translate(" + sx.toFixed(1) + "px," + sy.toFixed(1) + "px) scale(.45) rotate(0deg)", opacity: 0 },
@@ -191,7 +193,7 @@
               opacity: 0
             }
           ],
-          { duration: dur, easing: "cubic-bezier(.16,.7,.3,1)" }
+          { duration: dur, easing: "cubic-bezier(.16,.7,.3,1)", fill: "forwards" }
         );
       } catch (e) { /* if animation can't run, the timer below still cleans up */ }
       setTimeout(function () { d.remove(); }, dur + 400);
@@ -210,6 +212,7 @@
     puff.className = "ink-puff";
     puff.style.left = m.x + "px";
     puff.style.top = m.y + "px";
+    puff.style.opacity = "0";
     puff._born = Date.now();
     octo.fx.appendChild(puff);
     try {
@@ -218,19 +221,18 @@
           { transform: "translate(-50%,-50%) scale(.3)", opacity: 0.65 },
           { transform: "translate(-50%,-50%) scale(3)", opacity: 0 }
         ],
-        { duration: 900, easing: "ease-out" }
+        { duration: 900, easing: "ease-out", fill: "forwards" }
       );
     } catch (e) {}
     setTimeout(function () { puff.remove(); }, 1400);
-    // 2-3 spray waves: the roar lasts 2-3 seconds
-    var waves = 2 + (Math.random() < 0.5 ? 1 : 0);
-    for (var w = 0; w < waves; w++) {
+    // one clean spray: 3 even waves, then silence until the next roar
+    for (var w = 0; w < 3; w++) {
       (function (ww) {
         setTimeout(function () {
           if (!octo) return;
           var mm = mouthPos();
           sprayWave(mm.x, mm.y);
-        }, ww * 650);
+        }, ww * 550);
       })(w);
     }
     // recoil pop
@@ -260,45 +262,8 @@
     }
   }
 
-  /* Eyes are injected INTO the Lottie SVG at viewBox coordinates, so they are
-     part of the octopus itself: they scale, flip and swim with it and can
-     never drift off as separate elements. */
-  function injectEyes() {
-    var svg = octo.animBox.querySelector("svg");
-    if (!svg) return;
-    var NS = "http://www.w3.org/2000/svg";
-    octo.eyeGroups = [];
-    [[1120, 540], [1300, 590]].forEach(function (pt) {
-      var g = document.createElementNS(NS, "g");
-      g.setAttribute("style", "transform-box:fill-box;transform-origin:center");
-      var e = document.createElementNS(NS, "ellipse");
-      e.setAttribute("cx", pt[0]); e.setAttribute("cy", pt[1]);
-      e.setAttribute("rx", 72); e.setAttribute("ry", 88);
-      e.setAttribute("fill", "#ffffff");
-      var p = document.createElementNS(NS, "circle");
-      p.setAttribute("cx", pt[0]); p.setAttribute("cy", pt[1] + 35);
-      p.setAttribute("r", 34); p.setAttribute("fill", "#0d0d0f");
-      g.appendChild(e); g.appendChild(p);
-      svg.appendChild(g);
-      octo.eyeGroups.push({ g: g, pupil: p, cx: pt[0] });
-    });
-  }
-
   function blink() {
-    if (octo.eyeGroups) {
-      octo.eyeGroups.forEach(function (o) {
-        try {
-          o.g.animate(
-            [
-              { transform: "scale(1,1)" },
-              { transform: "scale(1,0.08)" },
-              { transform: "scale(1,1)" }
-            ],
-            { duration: 190, easing: "ease-in-out" }
-          );
-        } catch (err) {}
-      });
-    }
+    /* eyes removed per Akash's call — the silhouette swims clean. */
     octo.nextBlink = Date.now() + 2600 + Math.random() * 3400;
   }
 
@@ -459,13 +424,6 @@
     octo.flip.style.transform =
       "scale(" + (octo.face * pulse).toFixed(3) + "," + pulse.toFixed(3) + ")";
     octo.tilt.style.transform = "rotate(" + (octo.tiltDeg * octo.face).toFixed(2) + "deg)";
-    /* pupils glance toward the travel direction (inside the octopus SVG) */
-    if (octo.eyeGroups) {
-      for (var gi = 0; gi < octo.eyeGroups.length; gi++) {
-        var eg = octo.eyeGroups[gi];
-        eg.pupil.setAttribute("cx", eg.cx + octo.face * 18);
-      }
-    }
   }
 
   function bootOcto() {
@@ -486,11 +444,7 @@
           path: "/js/octo-swim.json"
         });
         octo.lottie.addEventListener("DOMLoaded", function () {
-          if (octo) {
-            octo.x = -size() - 40;
-            octo.el.classList.add("ready");
-            injectEyes(); /* merge the eyes into the octopus SVG */
-          }
+          if (octo) { octo.x = -size() - 40; octo.el.classList.add("ready"); }
         });
         requestAnimationFrame(brain);
       })
