@@ -2,15 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://voxpher.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://voxpher.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://voxpher.com/build/indoride</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://voxpher.com/build/hubator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://voxpher.com/build/facebengal</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://voxpher.com/music</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://voxpher.com/music</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://voxpher.com/visuals</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://voxpher.com/build</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://voxpher.com/services</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://voxpher.com/education</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://voxpher.com/contact</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://voxpher.com/studio</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://voxpher.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://voxpher.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

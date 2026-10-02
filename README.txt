@@ -1,3 +1,15 @@
+VOXPHER v8.8 — SEO PASS (2026-10-02)
+- Structured data now feeds the Knowledge Panel properly: YouTube (@VoxpherOfficial) added
+  to sameAs on the homepage MusicGroup and the about-page Person schema, alongside
+  Instagram and ffm.bio. This is how Google connects "Voxpher" = "Papan Sutradhar" =
+  your profiles.
+- sitemap.xml fixed: removed 3 dead /build/* URLs that 404'd, added the studio page,
+  music page bumped to weekly/0.9. All 11 URLs now resolve to real pages.
+- Titles, descriptions, OG/Twitter cards were already unique per page — left intact.
+NOTE: no one can guarantee #1 on Google — that is their algorithm. What this does is
+give Google everything it needs: clean metadata, valid structured data, and a sitemap
+with no dead ends. After deploy, request indexing in Google Search Console.
+Deploy: replace repo contents, push, hard refresh.
 VOXPHER v8.7 — ANTS ENTER FROM EDGES (2026-10-02)
 - Ants now ENTER from the four screen sides (left/right/top/bottom) and walk in —
   never popping in from the center. Looks natural.
