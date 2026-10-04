@@ -32,10 +32,10 @@ var VOXPHER_CONFIG = {
     logoImg: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png", // website logo: header + footer signature
     portrait: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/papa.png",
     /* ---------- HOME ---------- */
-    worldMusic:   "https://picsum.photos/seed/voxmusic/800/1000",    // tall 4:5 card
-    worldVisuals: "https://picsum.photos/seed/voxvisual/800/1000",  // tall 4:5 card
-    worldCode:    "https://picsum.photos/seed/voxcode/800/1000",     // tall 4:5 card
-    worldBrands:  "https://picsum.photos/seed/voxbrands/800/1000",  // tall 4:5 card
+    worldMusic:   "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791130390/Musics.jpg",
+    worldVisuals: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791130458/cod.png",
+    worldCode:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791130976/pexels-code-1839406.jpg",
+    worldBrands:  "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791131159/rupong_man_stand_black.jpg",
 
     /* ---------- WORK CARDS (wide 4:3) ---------- */
     workIndoride:   "https://picsum.photos/seed/voxindoride/800/600",

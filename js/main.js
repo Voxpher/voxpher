@@ -13,6 +13,31 @@
     }
   }
 
+  /* ---------- Image safety net: no broken-image boxes, ever ----------
+     If any image fails to load (bad URL, blocked host, offline), swap in
+     a branded red placeholder with the image's label instead of the ugly
+     broken-image icon. */
+  function guardImages(){
+    var els = document.querySelectorAll("img");
+    for (var i = 0; i < els.length; i++){
+      (function(img){
+        function onErr(){
+          img.removeEventListener("error", onErr);
+          var label = (img.getAttribute("alt") || "Voxpher").slice(0, 42);
+          label = label.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='1000'>" +
+            "<rect width='800' height='1000' fill='#E10600'/>" +
+            "<text x='400' y='490' font-family='monospace' font-size='30' font-weight='bold' fill='#ffffff' text-anchor='middle'>" +
+            label + "</text>" +
+            "<text x='400' y='540' font-family='monospace' font-size='20' fill='rgba(255,255,255,.7)' text-anchor='middle'>VOXPHER</text></svg>";
+          img.src = "data:image/svg+xml," + encodeURIComponent(svg);
+        }
+        img.addEventListener("error", onErr);
+        if (img.complete && img.naturalWidth === 0 && img.getAttribute("src")) onErr();
+      })(els[i]);
+    }
+  }
+
   /* ---------- Footer year ---------- */
   function years(){
     var els = document.querySelectorAll("[data-year]");
@@ -354,7 +379,7 @@ function tiltAndMagnetic(){
    page transition. Chrome (header/menu) binds once; content re-runs. */
   window.VoxpherInitChrome = function(){ menu(); };
   window.VoxpherInitContent = function(){
-    hydrateImages();
+    hydrateImages(); guardImages();
     homeMotion(); years(); socials(); activeNav();
     tiltAndMagnetic();
     reveals(); filters(); accordion(); contactForm();
