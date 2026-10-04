@@ -28,14 +28,17 @@ var VOXPHER_CONFIG = {
   },
 
   images: {
+    /* HOW TO ADD YOUR IMAGES: paste your Cloudinary URL between the quotes.
+       That's it — the site auto-optimizes it (right size, best format).
+       You never need to resize anything yourself. */
     /* ---------- BRAND ---------- */
-    logoImg: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png", // website logo: header + footer signature
-    portrait: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/papa.png",
+    logoImg: "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1790700990/SIgnn1.png", // website logo: header + footer signature
+    portrait: "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1790700990/papa.png",
     /* ---------- HOME ---------- */
-    worldMusic:   "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791130390/Musics.jpg",
-    worldVisuals: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791130458/cod.png",
-    worldCode:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791130976/pexels-code-1839406.jpg",
-    worldBrands:  "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791131159/rupong_man_stand_black.jpg",
+    worldMusic:   "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791130390/Musics.jpg",
+    worldVisuals: "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791130458/cod.png",
+    worldCode:    "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791130976/pexels-code-1839406.jpg",
+    worldBrands:  "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791131159/rupong_man_stand_black.jpg",
 
     /* ---------- WORK CARDS (wide 4:3) ---------- */
     workIndoride:   "https://picsum.photos/seed/voxindoride/800/600",

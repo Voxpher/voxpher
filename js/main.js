@@ -4,12 +4,39 @@
   var CFG = window.VOXPHER_CONFIG || {};
   var IMG = CFG.images || {};
 
-  /* ---------- Image hydration (data-img keys -> config URLs) ---------- */
+  /* ---------- Image hydration (data-img keys -> config URLs) ----------
+     Cloudinary URLs are auto-optimized: w_1200 keeps them crisp on retina
+     screens, q_auto picks the best quality-per-byte, f_auto serves WebP/AVIF
+     where supported. This is why huge uploads never slow the site down. */
+  function optimizeCloudinary(url){
+    if (url.indexOf("res.cloudinary.com") > 0 && url.indexOf("/image/upload/") > 0 &&
+        url.indexOf("/image/upload/w_") < 0){
+      return url.replace("/image/upload/", "/image/upload/w_1200,q_auto,f_auto/");
+    }
+    return url;
+  }
   function hydrateImages(){
     var els = document.querySelectorAll("[data-img]");
     for (var i = 0; i < els.length; i++){
       var key = els[i].getAttribute("data-img");
-      if (IMG[key]) els[i].setAttribute("src", IMG[key]);
+      if (IMG[key]){
+        els[i].setAttribute("src", optimizeCloudinary(IMG[key]));
+        els[i].setAttribute("decoding", "async");
+      }
+    }
+  }
+
+  /* ---------- Site-wide image optimization ----------
+     Covers EVERY <img> on EVERY page — data-img config images AND hardcoded
+     ones (like the music page album covers). Any Cloudinary URL gets
+     right-sized automatically; others are left untouched. */
+  function optimizeAllImages(){
+    var els = document.querySelectorAll("img");
+    for (var i = 0; i < els.length; i++){
+      var src = els[i].getAttribute("src") || "";
+      var opt = optimizeCloudinary(src);
+      if (opt !== src) els[i].setAttribute("src", opt);
+      if (!els[i].getAttribute("decoding")) els[i].setAttribute("decoding", "async");
     }
   }
 
@@ -393,7 +420,7 @@ function tiltAndMagnetic(){
    page transition. Chrome (header/menu) binds once; content re-runs. */
   window.VoxpherInitChrome = function(){ menu(); };
   window.VoxpherInitContent = function(){
-    hydrateImages(); guardImages();
+    hydrateImages(); optimizeAllImages(); guardImages();
     homeMotion(); years(); socials(); activeNav();
     tiltAndMagnetic();
     reveals(); filters(); accordion(); contactForm();
