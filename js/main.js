@@ -327,18 +327,32 @@ function tiltAndMagnetic(){
   var fine = window.matchMedia("(pointer: fine)").matches;
   if (reduce || !fine) return;
 
-  /* 3D tilt */
+  /* 3D tilt on cards — smooth, rAF-throttled, no jank.
+     Updates run at most once per frame (not per mousemove event), the card
+     rect is measured once per frame (not per event), angles stay subtle, and
+     the layer is promoted on hover-enter so images don't re-rasterize harshly. */
   var cards = document.querySelectorAll(".work-card, .world, .music-card");
   for (var i = 0; i < cards.length; i++){
     (function(card){
-      card.classList.add("tilt");
-      card.addEventListener("mousemove", function(e){
+      var raf = 0, tx = 0, ty = 0, cx = 0, cy = 0;
+      function apply(){
+        raf = 0;
         var r = card.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = "perspective(900px) rotateX(" + (-y * 7).toFixed(2) + "deg) rotateY(" + (x * 9).toFixed(2) + "deg) translate(-3px,-3px)";
+        var x = (cx - r.left) / r.width - 0.5;
+        var y = (cy - r.top) / r.height - 0.5;
+        tx = x * 6; ty = -y * 5;
+        card.style.transform = "perspective(900px) rotateX(" + ty.toFixed(2) + "deg) rotateY(" + tx.toFixed(2) + "deg) translate(-3px,-3px)";
+      }
+      card.addEventListener("mouseenter", function(){ card.style.willChange = "transform"; });
+      card.addEventListener("mousemove", function(e){
+        cx = e.clientX; cy = e.clientY;
+        if (!raf) raf = requestAnimationFrame(apply);
       });
-      card.addEventListener("mouseleave", function(){ card.style.transform = ""; });
+      card.addEventListener("mouseleave", function(){
+        if (raf){ cancelAnimationFrame(raf); raf = 0; }
+        card.style.willChange = "";
+        card.style.transform = "";
+      });
     })(cards[i]);
   }
 
