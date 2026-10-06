@@ -43,7 +43,7 @@ var VOXPHER_CONFIG = {
     /* ---------- WORK CARDS (wide 4:3) ---------- */
     workIndoride:   "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261984/Indoride_cover.png",
     workHubator:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261982/Hubator_cover.png",
-    workFacebengal: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261982/Hubator_cover.png",
+    workFacebengal: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261982/facebengal_cover.png",
     workPhoto:      "https://picsum.photos/seed/voxphoto/800/600",
 
     /* ---------- CASE STUDIES ---------- */
