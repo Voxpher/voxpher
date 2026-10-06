@@ -19,12 +19,12 @@ var VOXPHER_CONFIG = {
   formspreeEndpoint: "", // e.g. "https://formspree.io/f/abcdwxyz"
 
   socials: {
-    facebook:  "", // <-- paste your Facebook profile URL between the quotes
+    facebook:  "https://www.facebook.com/voxpher/", // <-- paste your Facebook profile URL between the quotes
     instagram: "https://www.instagram.com/voxpher/",
-    x:         "", // <-- paste your X profile URL between the quotes
+    x:         "https://www.x.com/voxpher", // <-- paste your X profile URL between the quotes
     youtube:   "https://www.youtube.com/@VoxpherOfficial",
-    github:    "", // <-- paste your GitHub profile URL between the quotes
-    linkedin:  ""  // <-- paste your LinkedIn profile URL between the quotes
+    github:    "https://www.github.com/voxpher", // <-- paste your GitHub profile URL between the quotes
+    linkedin:  "https://www.linkedin.com/in/voxpher"  // <-- paste your LinkedIn profile URL between the quotes
   },
 
   images: {
@@ -36,7 +36,7 @@ var VOXPHER_CONFIG = {
     portrait: "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1790700990/papa.png",
     /* ---------- HOME ---------- */
     worldMusic:   "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791130390/Musics.jpg",
-    worldVisuals: "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791130458/cod.png",
+    worldVisuals: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791132694/visualimage.jpg",
     worldCode:    "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791130976/pexels-code-1839406.jpg",
     worldBrands:  "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791131159/rupong_man_stand_black.jpg",
 
