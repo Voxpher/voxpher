@@ -236,7 +236,7 @@
       el.appendChild(built.svg);
       document.body.appendChild(el);
 
-      var size = isMobile ? 36 + Math.random() * 12 : 48 + Math.random() * 26;
+      var size = isMobile ? 48 + Math.random() * 12 : 64 + Math.random() * 24;
       el.style.width = size.toFixed(0) + "px";
 
       var a = {

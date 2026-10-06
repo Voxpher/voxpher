@@ -362,8 +362,18 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .masonry{columns:3;column-gap:var(--sp-4);margin-top:2.4rem}
 .masonry figure{background:var(--paper);border:2px solid var(--ink);padding:.6rem;margin:0 0 1.4rem;break-inside:avoid;box-shadow:var(--shadow-sm);transition:transform .35s var(--ease)}
 .masonry figure:hover{transform:translate(-3px,-3px) rotate(-.5deg)}
-.masonry img{width:100%;height:auto;display:block}
-.masonry video{width:100%;height:auto;display:block;background:#000}
+.masonry img,.masonry video{width:100%;object-fit:cover;display:block;background:#000}
+/* Varied masonry rhythm (big, small, big…): each frame keeps its own ratio,
+   images cover the frame without stretching */
+.masonry figure:nth-child(1) :is(img,video){aspect-ratio:800/1000}
+.masonry figure:nth-child(2) :is(img,video){aspect-ratio:800/600}
+.masonry figure:nth-child(3) :is(img,video){aspect-ratio:800/1200}
+.masonry figure:nth-child(4) :is(img,video){aspect-ratio:800/800}
+.masonry figure:nth-child(5) :is(img,video){aspect-ratio:800/1000}
+.masonry figure:nth-child(6) :is(img,video){aspect-ratio:800/650}
+.masonry figure:nth-child(7) :is(img,video){aspect-ratio:800/1100}
+.masonry figure:nth-child(8) :is(img,video){aspect-ratio:800/750}
+.masonry figure:nth-child(9) :is(img,video){aspect-ratio:800/1000}
 .masonry figcaption{font-family:var(--font-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);padding:.7rem .4rem .3rem}
 
 /* ---------- Services ---------- */
