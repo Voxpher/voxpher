@@ -41,9 +41,9 @@ var VOXPHER_CONFIG = {
     worldBrands:  "https://res.cloudinary.com/hsv6zyuu/image/upload/w_1200,q_auto,f_auto/v1791131159/rupong_man_stand_black.jpg",
 
     /* ---------- WORK CARDS (wide 4:3) ---------- */
-    workIndoride:   "https://picsum.photos/seed/voxindoride/800/600",
-    workHubator:    "https://picsum.photos/seed/voxhubator/800/600",
-    workFacebengal: "https://picsum.photos/seed/voxface/800/600",
+    workIndoride:   "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261984/Indoride_cover.png",
+    workHubator:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261982/Hubator_cover.png",
+    workFacebengal: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261982/Hubator_cover.png",
     workPhoto:      "https://picsum.photos/seed/voxphoto/800/600",
 
     /* ---------- CASE STUDIES ---------- */
