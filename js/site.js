@@ -70,9 +70,9 @@ var VOXPHER_CONFIG = {
     /* ---------- VISUALS GALLERY (mixed ratios, masonry) ----------
        Paste an image OR a video URL (.mp4/.webm/.mov) — videos autoplay muted.
        Every item shows at its natural ratio, never stretched. */
-    vis1: "https://picsum.photos/seed/voxvis1/800/1000",
-    vis2: "https://picsum.photos/seed/voxvis2/800/600",
-    vis3: "https://picsum.photos/seed/voxvis3/800/1200",
+    vis1: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791264057/Ant_Thanks_to_skyviksigni_Clicked_with_75mm_macro_lense---Click_and_editing_by_voxpher---.jpg",
+    vis2: "https://res.cloudinary.com/hsv6zyuu/video/upload/v1791264060/The_flowers_are_blooming_the_preparations_have_begun_October_filling_the_air._%EF%B8%8F-_Durga_Puja.mp4",
+    vis3: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791264058/Found_beauty_in_the_calm_-_stones_that_hold_stories_streets_that_hold_memories._Some_places_ju.webp",
     vis4: "https://picsum.photos/seed/voxvis4/800/800",
     vis5: "https://picsum.photos/seed/voxvis5/800/1000",
     vis6: "https://picsum.photos/seed/voxvis6/800/650",
