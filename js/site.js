@@ -67,7 +67,9 @@ var VOXPHER_CONFIG = {
     musicHero:  "https://picsum.photos/seed/voxmusicher/800/1000",  // tall 4:5
     musicStage: "https://picsum.photos/seed/voxstage/1600/900",     // wide 16:9
 
-    /* ---------- VISUALS GALLERY (mixed ratios, masonry) ---------- */
+    /* ---------- VISUALS GALLERY (mixed ratios, masonry) ----------
+       Paste an image OR a video URL (.mp4/.webm/.mov) — videos autoplay muted.
+       Every item shows at its natural ratio, never stretched. */
     vis1: "https://picsum.photos/seed/voxvis1/800/1000",
     vis2: "https://picsum.photos/seed/voxvis2/800/600",
     vis3: "https://picsum.photos/seed/voxvis3/800/1200",

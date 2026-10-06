@@ -9,11 +9,15 @@
      screens, q_auto picks the best quality-per-byte, f_auto serves WebP/AVIF
      where supported. This is why huge uploads never slow the site down. */
   function optimizeCloudinary(url){
+    if (isVideoUrl(url)) return url;   /* never touch videos */
     if (url.indexOf("res.cloudinary.com") > 0 && url.indexOf("/image/upload/") > 0 &&
         url.indexOf("/image/upload/w_") < 0){
       return url.replace("/image/upload/", "/image/upload/w_1200,q_auto,f_auto/");
     }
     return url;
+  }
+  function isVideoUrl(url){
+    return /\.(mp4|webm|mov)(\?|#|$)/i.test(url || "");
   }
   function hydrateImages(){
     var els = document.querySelectorAll("[data-img]");
@@ -23,6 +27,32 @@
         els[i].setAttribute("src", optimizeCloudinary(IMG[key]));
         els[i].setAttribute("decoding", "async");
       }
+    }
+  }
+
+  /* ---------- Visuals gallery: video support ----------
+     If a gallery URL is a video (mp4/webm/mov), swap the <img> for an
+     autoplaying muted looping <video>. He just pastes the video URL in
+     js/site.js — no other change needed. */
+  function hydrateVisualsMedia(){
+    var els = document.querySelectorAll(".masonry [data-img]");
+    for (var i = 0; i < els.length; i++){
+      var img = els[i];
+      var src = img.getAttribute("src") || "";
+      if (!isVideoUrl(src)) continue;
+      var v = document.createElement("video");
+      v.setAttribute("src", src);
+      v.setAttribute("autoplay", "");
+      v.setAttribute("muted", "");
+      v.setAttribute("loop", "");
+      v.setAttribute("playsinline", "");
+      v.setAttribute("preload", "metadata");
+      v.muted = true;
+      var label = img.getAttribute("alt") || "Video";
+      v.setAttribute("aria-label", label);
+      img.parentNode.replaceChild(v, img);
+      var play = v.play ? v.play() : null;
+      if (play && play.catch) play.catch(function(){});
     }
   }
 
@@ -420,7 +450,7 @@ function tiltAndMagnetic(){
    page transition. Chrome (header/menu) binds once; content re-runs. */
   window.VoxpherInitChrome = function(){ menu(); };
   window.VoxpherInitContent = function(){
-    hydrateImages(); optimizeAllImages(); guardImages();
+    hydrateImages(); hydrateVisualsMedia(); optimizeAllImages(); guardImages();
     homeMotion(); years(); socials(); activeNav();
     tiltAndMagnetic();
     reveals(); filters(); accordion(); contactForm();

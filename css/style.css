@@ -362,7 +362,8 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .masonry{columns:3;column-gap:var(--sp-4);margin-top:2.4rem}
 .masonry figure{background:var(--paper);border:2px solid var(--ink);padding:.6rem;margin:0 0 1.4rem;break-inside:avoid;box-shadow:var(--shadow-sm);transition:transform .35s var(--ease)}
 .masonry figure:hover{transform:translate(-3px,-3px) rotate(-.5deg)}
-.masonry img{width:100%}
+.masonry img{width:100%;height:auto;display:block}
+.masonry video{width:100%;height:auto;display:block;background:#000}
 .masonry figcaption{font-family:var(--font-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);padding:.7rem .4rem .3rem}
 
 /* ---------- Services ---------- */

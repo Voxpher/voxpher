@@ -66,7 +66,7 @@
      out (header-menu type style), and 5 seconds later it walks back in
      from a screen edge. Ants always enter from the four sides, never
      popping in from the center. */
-  var ANT_COUNT = 5;
+  var ANT_COUNT = 1;
   var ants = [];
   var parts = []; /* death D's */
   var SVGNS = "http://www.w3.org/2000/svg";
@@ -206,7 +206,7 @@
     if (document.querySelector(".ant")) return;
 
     var isMobile = window.innerWidth <= 640;
-    var n = isMobile ? 3 : ANT_COUNT;
+    var n = ANT_COUNT;   /* single ant on all devices */
 
     function zones() {
       var w = window.innerWidth, h = window.innerHeight;
@@ -265,7 +265,9 @@
       })(a);
     }
 
-    /* place ant just off-screen at a random edge; it walks in */
+    /* place ant just off-screen at a random edge; it walks in.
+       Position the element FIRST, then show it — otherwise it flashes
+       one frame at its old (death) spot before jumping off-screen. */
     function enterFromEdge(a) {
       var w = window.innerWidth, h = window.innerHeight, m = a.size + 8;
       var edge = (Math.random() * 4) | 0;
@@ -273,6 +275,9 @@
       else if (edge === 1) { a.x = w + m; a.y = 80 + Math.random() * (h - 160); } /* right */
       else if (edge === 2) { a.y = -m; a.x = 60 + Math.random() * (w - 120); }    /* top */
       else { a.y = h + m; a.x = 60 + Math.random() * (w - 120); }                 /* bottom */
+      a.el.style.transform =
+        "translate3d(" + a.x.toFixed(1) + "px," + a.y.toFixed(1) + "px,0)" +
+        " rotate(" + (a.angle * 180 / Math.PI).toFixed(2) + "deg)";
       a.el.style.display = "";
       pickWaypoint(a);
     }
