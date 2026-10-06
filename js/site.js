@@ -76,9 +76,9 @@ var VOXPHER_CONFIG = {
     vis4: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791264058/Found_beauty_in_the_calm_-_stones_that_hold_stories_streets_that_hold_memories._Some_places_ju_2.webp",
     vis5: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791264057/Bachpan_Jab_Zimmedari_Uthata_Hai_--_voxpher--_NA_NA_MAI_NAI_HU_responsibility_love_life.webp",
     vis6: "https://res.cloudinary.com/hsv6zyuu/video/upload/v1791264554/Kalipujashot.mp4",
-    vis7: "https://picsum.photos/seed/voxvis7/800/1100",
-    vis8: "https://picsum.photos/seed/voxvis8/800/750",
-    vis9: "https://picsum.photos/seed/voxvis9/800/1000",
+    vis7: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791267268/Eyes_that_hold_a_thousand_untold_stories._Sometimes_the_quietest_moments_speak_the_loudest._-.webp",
+    vis8: "https://res.cloudinary.com/hsv6zyuu/video/upload/v1791267567/deepexvideo.mp4",
+    vis9: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791264057/%E0%A6%98%E0%A6%B0%E0%A7%87_%E0%A6%AB%E0%A7%87%E0%A6%B0%E0%A6%BE_%E0%A6%A4%E0%A7%8B%E0%A6%AE%E0%A6%BE%E0%A6%B0_%E0%A6%85%E0%A6%AD%E0%A7%8D%E0%A6%AF%E0%A7%87%E0%A6%B8_%E0%A6%A8%E0%A7%87%E0%A6%87_%EF%B8%8F--_voxpher--_warm_love_beautiful_sun_sky_sunset_hot_voxphe.webp",
 
     /* ---------- ABOUT ---------- */
   }
