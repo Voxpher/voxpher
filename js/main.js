@@ -4,6 +4,43 @@
   var CFG = window.VOXPHER_CONFIG || {};
   var IMG = CFG.images || {};
 
+  /* Reveal decoded pixels, not partially painted downloads. Safe on page swaps. */
+  function mediaEntrance(){
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.querySelectorAll("img").forEach(function(img){
+      if (img.dataset.revealBound) return;
+      img.dataset.revealBound = "1";
+      if (!img.complete && !reduce) img.classList.add("image-pending");
+      var generation = 0;
+      function reveal(){
+        var ticket = ++generation;
+        var ready = img.decode ? img.decode() : Promise.resolve();
+        ready.then(function(){
+          img.classList.remove("image-pending");
+          if (!img.isConnected || ticket !== generation || !img.naturalWidth || reduce) return;
+          if (img._mediaAnimation) img._mediaAnimation.cancel();
+          img._mediaAnimation = img.animate([
+            {filter:"blur(10px)",opacity:.25},
+            {filter:"blur(0px)",opacity:1}
+          ],{duration:650,easing:"ease-out"});
+        }).catch(function(){ img.classList.remove("image-pending"); });
+      }
+      img.addEventListener("load",reveal);
+      img.addEventListener("error",function(){ img.classList.remove("image-pending"); });
+      if (img.complete && img.naturalWidth) reveal();
+    });
+    var hero = document.querySelector("main .hero");
+    if (!hero || hero.dataset.mediaBound) return;
+    hero.dataset.mediaBound = "1";
+    var photo = new Image();
+    function show(){ if (hero.isConnected) hero.classList.add("media-ready"); }
+    photo.onload = function(){
+      if (photo.decode) photo.decode().then(show,show); else show();
+    };
+    photo.onerror = show;
+    photo.src = "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791457024/Homeme.jpg";
+  }
+
   /* ---------- Image hydration (data-img keys -> config URLs) ----------
      Cloudinary URLs are auto-optimized: w_1200 keeps them crisp on retina
      screens, q_auto picks the best quality-per-byte, f_auto serves WebP/AVIF
@@ -451,7 +488,7 @@ function tiltAndMagnetic(){
    page transition. Chrome (header/menu) binds once; content re-runs. */
   window.VoxpherInitChrome = function(){ menu(); };
   window.VoxpherInitContent = function(){
-    hydrateImages(); hydrateVisualsMedia(); optimizeAllImages(); guardImages();
+    hydrateImages(); hydrateVisualsMedia(); optimizeAllImages(); guardImages(); mediaEntrance();
     homeMotion(); years(); socials(); activeNav();
     tiltAndMagnetic();
     reveals(); filters(); accordion(); contactForm();

@@ -158,7 +158,15 @@ a{color:inherit}
 .mobile-menu.open .menu-mail{transition:opacity .4s ease .55s}
 
 /* ---------- Hero ---------- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:8.5rem 0 4rem;background:#0C0C0E url("https://res.cloudinary.com/hsv6zyuu/image/upload/v1791457024/Homeme.jpg") center center/cover no-repeat}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:8.5rem 0 4rem;background:#0C0C0E;isolation:isolate}
+.hero::after{content:"";position:absolute;inset:0;z-index:-2;background:url("https://res.cloudinary.com/hsv6zyuu/image/upload/v1791457024/Homeme.jpg") center/cover no-repeat;opacity:0;transition:opacity .9s ease}
+.hero.media-ready::after{opacity:1}
+.hero::before{z-index:-1}
+.hero .rv{opacity:1;transform:none;transition:none}
+.hero.media-ready .hero-content{animation:hero-arrive .8s ease both}
+@keyframes hero-arrive{from{opacity:.35}to{opacity:1}}
+img.image-pending{filter:blur(10px);opacity:.25}
+@media(prefers-reduced-motion:reduce){.hero::after{transition:none}.hero.media-ready .hero-content{animation:none}}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,12,14,.78) 0%,rgba(12,12,14,.52) 46%,rgba(12,12,14,.12) 100%);pointer-events:none}
 .hero .wrap{position:relative;z-index:1;width:100%}
 .hero-content{min-width:0;max-width:39rem;display:flex;flex-direction:column;align-items:flex-start}
@@ -176,11 +184,13 @@ a{color:inherit}
 .hero-content .hero-meta small{color:rgba(255,255,255,.65);font-size:.6rem}
 .hero-content .hero-meta strong{color:#fff;font-size:.78rem;line-height:1.6;display:block}
 /* The home header follows the current main content, including seamless navigation. */
-body:has(main .hero) .site-head{background:rgba(12,12,14,.32);border-bottom:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-body:has(main .hero) .site-nav a.active,body:has(main .hero) .site-nav a:hover{background:rgba(255,255,255,.15)}
-body:has(main .hero) .nav-cta{background:transparent!important;border-color:rgba(255,255,255,.65);box-shadow:none}
-body:has(main .hero) .nav-cta:hover{background:#fff!important}
-body:has(main .hero) .nav-toggle span{background:#fff}
+.site-head{background:rgba(12,12,14,.55);border-bottom:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.site-nav a.active,.site-nav a:hover{background:rgba(255,255,255,.15)}
+.nav-cta{background:transparent!important;border-color:rgba(255,255,255,.65);box-shadow:none}
+.nav-cta:hover{background:#fff!important}
+.nav-toggle span{background:#fff}
+.mobile-menu{background:rgba(12,12,14,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.mobile-menu nav a,.mobile-menu nav a small{color:#fff}
 .hero .spin-badge text{fill:#fff}
 .hero .spin-center{color:#fff;background:rgba(12,12,14,.3);border:1px solid rgba(255,255,255,.7)}
 .hero .spin-badge:focus-visible{outline:2px solid #fff;outline-offset:6px}
