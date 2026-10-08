@@ -308,13 +308,13 @@
     });
   }
 
-  /* ---------- Home motion: 3D hero letters, scroll badge, parallax ---------- */
+  /* ---------- Home motion: scroll badge + optional legacy wordmark parallax ---------- */
 function homeMotion(){
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var badge = document.querySelector(".spin-badge");
   var wm = document.getElementById("heroWord");
 
-  /* Split the hero wordmark into 3D-animated letters */
+  /* Keep this safe for inner templates that still use a hero wordmark. */
   if (wm && !wm.querySelector(".ch") && !reduce){
     var text = wm.textContent; wm.textContent = "";
     for (var i = 0; i < text.length; i++){
@@ -325,11 +325,12 @@ function homeMotion(){
       wrap.appendChild(ch); wm.appendChild(wrap);
     }
   }
-  /* Trigger the letter animation on the next frame so the
-     transition runs from the initial 3D state */
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){ document.body.classList.add("hero-anim"); });
-  });
+  /* Trigger the letter animation only when a wordmark is actually present. */
+  if (wm){
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ document.body.classList.add("hero-anim"); });
+    });
+  }
 
   if (reduce) return;
 
