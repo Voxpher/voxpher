@@ -525,7 +525,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   .masonry{columns:2;column-gap:1rem}
   .foot-grid{grid-template-columns:1fr;gap:2rem}
   /* Leave a photo-only area below the fixed header before the introduction. */
-  .hero{min-height:100svh;padding:calc(6rem + clamp(140px,25svh,240px)) 0 3.5rem}
+  .hero{min-height:100svh;padding:calc(6rem + clamp(64px,12svh,112px)) 0 3.5rem}
   /* Meet the hero flush: the rotated marquee used to expose a red wedge. */
   .hero + .marquee{margin-top:0;transform:none}
   .hero::before{background:linear-gradient(0deg,rgba(12,12,14,.86) 0%,rgba(12,12,14,.5) 55%,rgba(12,12,14,.14) 100%)}
