@@ -73,20 +73,22 @@
           <p class="foot-label mt20">Elsewhere</p>
           <p>Social profiles appear here once their links are verified and added. For now, email is the fastest way to reach me.</p>
         </div>
-        <form class="form rv" id="contactForm" novalidate>
+        <form class="form rv" id="contactForm" action="https://formsubmit.co/contact@voxpher.com" method="POST">
+          <input type="hidden" name="_subject" value="New Voxpher enquiry">
+          <input type="hidden" name="_template" value="table">
           <div class="field" id="f-name">
             <label for="fName">Your name</label>
-            <input type="text" id="fName" name="name" autocomplete="name" maxlength="80" placeholder="Jane Doe">
+            <input type="text" id="fName" name="name" autocomplete="name" required minlength="2" maxlength="80" placeholder="Jane Doe">
             <p class="err">Please enter your name.</p>
           </div>
           <div class="field" id="f-email">
             <label for="fEmail">Email</label>
-            <input type="email" id="fEmail" name="email" autocomplete="email" maxlength="120" placeholder="jane@example.com">
+            <input type="email" id="fEmail" name="email" autocomplete="email" required maxlength="120" placeholder="jane@example.com">
             <p class="err">Please enter a valid email address.</p>
           </div>
           <div class="field" id="f-type">
             <label for="fType">Project type</label>
-            <select id="fType" name="projectType">
+            <select id="fType" name="projectType" required>
               <option value="">Select one…</option>
               <option>Music / beats</option>
               <option>Brand / design</option>
@@ -110,12 +112,12 @@
           </div>
           <div class="field" id="f-msg">
             <label for="fMsg">Your message</label>
-            <textarea id="fMsg" name="message" maxlength="3000" placeholder="Tell me about your project: what, why, and when."></textarea>
+            <textarea id="fMsg" name="message" required minlength="10" maxlength="3000" placeholder="Tell me about your project: what, why, and when."></textarea>
             <p class="err">Please write at least a sentence or two (10+ characters).</p>
           </div>
           <div class="hp" aria-hidden="true">
             <label for="fCompany">Company (leave blank)</label>
-            <input type="text" id="fCompany" name="company" tabindex="-1" autocomplete="off">
+            <input type="text" id="fCompany" name="_honey" tabindex="-1" autocomplete="off">
           </div>
           <button type="submit" class="btn wide">Send message</button>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>

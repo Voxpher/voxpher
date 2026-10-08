@@ -277,7 +277,9 @@
   /* ---------- Contact form ---------- */
   function contactForm(){
     var form = document.getElementById("contactForm");
-    if (!form) return;
+    if (!form || form.dataset.submitBound) return;
+    form.dataset.submitBound = "1";
+    var sending = false;
     var status = document.getElementById("formStatus");
     function setInvalid(id, bad){
       var wrap = document.getElementById("f-" + id);
@@ -286,6 +288,7 @@
     }
     form.addEventListener("submit", function(e){
       e.preventDefault();
+      if (sending) return;
       var name = document.getElementById("fName").value.trim();
       var email = document.getElementById("fEmail").value.trim();
       var type = document.getElementById("fType").value;
@@ -302,38 +305,37 @@
         status.textContent = "Please fix the highlighted fields and try again.";
         return;
       }
-      var endpoint = CFG.formspreeEndpoint;
-      if (!endpoint){
-        // No backend configured yet: hand off to the visitor's email app.
-        var subject = encodeURIComponent("[Voxpher] " + type + ": " + name);
-        var body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\nProject type: " + type +
-          "\nBudget: " + (document.getElementById("fBudget").value || "not specified") +
-          "\n\n" + msg);
-        window.location.href = "mailto:" + CFG.email + "?subject=" + subject + "&body=" + body;
-        status.className = "form-status ok";
-        status.textContent = "Opening your email app. Your message is addressed to " + CFG.email + ".";
-        return;
-      }
+      var endpoint = "https://formsubmit.co/ajax/contact@voxpher.com";
+      var button = form.querySelector('button[type="submit"]');
+      sending = true;
+      button.disabled = true;
+      button.textContent = "Sending…";
+      form.setAttribute("aria-busy", "true");
       status.className = "form-status";
       status.textContent = "Sending…";
       var data = { name: name, email: email, projectType: type,
-        budget: document.getElementById("fBudget").value, message: msg };
+        budget: document.getElementById("fBudget").value || "Not specified", message: msg,
+        _subject: "Voxpher enquiry: " + type, _replyto: email, _template: "table", _honey: honey };
       fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(data)
       }).then(function(r){
-        if (r.ok){
-          status.className = "form-status ok";
-          status.textContent = "Message sent. I read everything personally. Thank you.";
-          form.reset();
-        } else {
-          status.className = "form-status bad";
-          status.textContent = "Something went wrong sending. Please email me directly at " + CFG.email + ".";
-        }
+        if (!r.ok) throw new Error("Submission failed");
+        return r.json();
+      }).then(function(result){
+        if (result.success !== true && result.success !== "true") throw new Error("Submission rejected");
+        status.className = "form-status ok";
+        status.textContent = "Thank you. Your message has been submitted.";
+        form.reset();
       }).catch(function(){
         status.className = "form-status bad";
         status.textContent = "Couldn't reach the mail service. Please email me directly at " + CFG.email + ".";
+      }).finally(function(){
+        sending = false;
+        button.disabled = false;
+        button.textContent = "Send message";
+        form.removeAttribute("aria-busy");
       });
     });
     // live re-validation
