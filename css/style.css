@@ -524,10 +524,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
   .principles{grid-template-columns:1fr}
   .masonry{columns:2;column-gap:1rem}
   .foot-grid{grid-template-columns:1fr;gap:2rem}
-  /* Leave a photo-only area below the fixed header before the introduction. */
-  .hero{min-height:100svh;padding:calc(6rem + clamp(64px,12svh,112px)) 0 3.5rem}
-  /* Meet the hero flush: the rotated marquee used to expose a red wedge. */
-  .hero + .marquee{margin-top:0;transform:none}
+  .hero{min-height:auto;padding:6.6rem 0 3.5rem}
   .hero::before{background:linear-gradient(0deg,rgba(12,12,14,.86) 0%,rgba(12,12,14,.5) 55%,rgba(12,12,14,.14) 100%)}
   .hero-photo{width:4.2rem;height:4.2rem}
   .spin-badge{width:5.4rem;height:5.4rem;top:6rem}
@@ -736,4 +733,5 @@ body.has-cursor input, body.has-cursor textarea, body.has-cursor select{cursor:a
 @media(max-width:400px){
   .track{grid-template-columns:auto 1fr}
   .t-art{max-width:150px}
+  .hero{padding-top:6rem}
 }
