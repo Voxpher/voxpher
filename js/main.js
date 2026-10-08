@@ -161,6 +161,7 @@
       if (box.dataset.socialsDone) continue;   /* already hydrated (persistent footer) */
       SOCIAL_ORDER.forEach(function(k){
         var url = s[k];
+        if (!url) return;
         var a = document.createElement("a");
         if (url){ a.href = url; a.target = "_blank"; a.rel = "noopener"; }
         else { a.href = "#"; a.title = "Paste your " + k + " URL in js/site.js"; }

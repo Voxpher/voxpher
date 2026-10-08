@@ -79,7 +79,7 @@
       <div class="cs-body">
         <div class="cs-main">
           <h2>The problem</h2>
-          <p>People need a simple, local ride-booking experience: passengers finding drivers nearby, drivers managing their availability, and an operator keeping the whole system honest. A pretty UI alone doesn't solve that; the system behind it does.</p>
+          <p>The platform connects passengers with nearby drivers, lets drivers manage their availability, and gives operators tools to oversee bookings.</p>
           <h2>The approach</h2>
           <p>Build the complete system, not a prototype. That meant three surfaces talking to one backend: a customer app for booking, a driver app for accepting rides and managing status, and admin functionality overseeing it all, with real authentication, real location data and a real database from day one.</p>
           <h2>The product</h2>
@@ -90,7 +90,7 @@
             <li><strong>Authentication</strong>: email OTP login with role-based access separating customers, drivers and admins.</li>
           </ul>
           <h2>The engineering</h2>
-          <p>The architecture is deliberately simple and honest: each layer does one job:</p>
+          <p>The system is organised into three layers:</p>
           <div class="arch rv">
             <div class="arch-flow">
               <div class="arch-node">Flutter App<small>Customer + driver · Dart</small></div><div class="arch-arrow">→</div>

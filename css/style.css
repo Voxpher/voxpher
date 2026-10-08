@@ -488,7 +488,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .site-foot nav a{color:rgba(255,255,255,.78);text-decoration:none;font-weight:500;transition:color .25s,padding .3s var(--ease)}
 .site-foot nav a:hover{color:#fff;padding-left:.4rem}
 .foot-mail{font-family:var(--font-d);font-size:1.25rem;color:#fff;text-decoration:none;border-bottom:3px solid var(--red)}
-.foot-socials{display:flex;gap:.8rem;margin-top:1.2rem}
+.foot-socials{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.2rem}
 .foot-socials a{width:2.7rem;height:2.7rem;border:2px solid rgba(255,255,255,.35);display:grid;place-items:center;transition:border .25s,background .25s,transform .3s var(--ease)}
 .foot-socials a:hover{border-color:#fff;background:rgba(255,255,255,.1);transform:translateY(-3px)}
 .foot-socials svg{width:1.15rem;height:1.15rem;fill:#fff}
@@ -736,7 +736,17 @@ body.has-cursor input, body.has-cursor textarea, body.has-cursor select{cursor:a
   /* section rhythm */
   .page-hero .wordmark{font-size:clamp(2.4rem,11vw,4rem)}
   /* footer links easier to tap */
-  .foot-grid a{display:inline-block;padding:.35rem 0}
+  .foot-grid nav a{display:inline-block;padding:.35rem 0}
+  .foot-grid{padding-inline:0;min-width:0}
+  .foot-grid>div{min-width:0}
+  .foot-grid .foot-socials a{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;padding:0}
+  .foot-socials svg{display:block}
+  .foot-mail{font-size:clamp(.9rem,4.5vw,1.25rem);overflow-wrap:anywhere}
+  .foot-base{padding-inline:0;padding-bottom:4.5rem}
+  .wrap.legal{width:calc(100% - 2 * var(--pad));padding:1.25rem;box-shadow:4px 4px 0 var(--ink);overflow-wrap:anywhere}
+  .legal ul{padding-left:1.2rem}
+  .legal li+li{margin-top:.6rem}
+  .work-grid>*,.principles>*,.music-grid>*,.contact-grid>*,.cs-body>*{min-width:0}
   /* legal text stays readable */
   .legal{font-size:.95rem;line-height:1.65}
 }
