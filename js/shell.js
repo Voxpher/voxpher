@@ -225,6 +225,9 @@ window.__voxpherShellActive = true;
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
   }
   function afterSwap(){
+    /* Match mobile browser chrome to the current page after seamless swaps. */
+    var theme = document.querySelector('meta[name="theme-color"]');
+    if (theme) theme.setAttribute("content", document.querySelector("main .hero") ? "#0C0C0E" : "#E10600");
     closeMenu();
     window.scrollTo(0, 0);
     if (window.VoxpherInitContent) window.VoxpherInitContent();
