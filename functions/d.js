@@ -17,7 +17,7 @@ async function same(a, b) {
 }
 async function passwordHash(password, salt) {
   const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
-  const bytes = new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2', hash:'SHA-256', salt:encoder.encode(salt), iterations:600000}, key, 256));
+  const bytes = new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2', hash:'SHA-256', salt:encoder.encode(salt), iterations:100000}, key, 256));
   return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
 }
 function response(body, status = 200, extra = {}) {
