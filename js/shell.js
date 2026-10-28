@@ -215,6 +215,7 @@ window.__voxpherShellActive = true;
     try { url = new URL(a.getAttribute("href"), location.href); }
     catch (err){ return; }
     if (!sameOrigin(url)) return;
+    if (url.pathname === '/d' || url.pathname === '/d/') return;
     if (url.protocol === "mailto:" || url.protocol === "tel:") return;
     if (url.pathname === location.pathname && url.search === location.search) return; /* same page */
     e.preventDefault();
