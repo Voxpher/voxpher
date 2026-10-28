@@ -201,21 +201,37 @@
     var form = dialog.querySelector('form');
     var status = dialog.querySelector('.d-dialog-status');
     var submit = dialog.querySelector('.d-dialog-submit');
+    var messages = ["Hmm... who are you?", "If you know, you know. ♡", "Not quite... try again?", "This little door has a secret.", "Almost? Give it another try."];
+    var lastMessage = -1;
+    var pending = null;
     dialog.querySelector('.d-dialog-close').addEventListener('click', function(){ dialog.close(); });
     dialog.addEventListener('click', function(e){ if (e.target === dialog) dialog.close(); });
-    dialog.addEventListener('close', function(){ dialog.remove(); if (previous && previous.isConnected) previous.focus(); });
+    dialog.addEventListener('close', function(){
+      if (pending) pending.abort();
+      document.body.classList.remove('d-dialog-open');
+      dialog.remove();
+      if (previous && previous.isConnected && previous.offsetParent !== null) previous.focus();
+    });
     form.addEventListener('submit', function(e){
       e.preventDefault();
       submit.disabled = true;
       status.textContent = 'Opening…';
-      fetch('/d', {method:'POST', body:new FormData(form), credentials:'same-origin'})
+      pending = new AbortController();
+      fetch('/d', {method:'POST', body:new FormData(form), credentials:'same-origin', signal:pending.signal})
         .then(function(r){
           if (r.redirected && r.ok) { window.location.assign('/d'); return; }
-          status.textContent = r.status === 401 ? 'That password isn’t right. Please try again.' : 'Unable to open this space. Please try again.';
+          if (r.status === 401) {
+            var pick = Math.floor(Math.random() * (lastMessage < 0 ? messages.length : messages.length - 1));
+            if (lastMessage >= 0 && pick >= lastMessage) pick++;
+            lastMessage = pick;
+            status.textContent = messages[pick];
+          } else status.textContent = 'Something went wrong. Try again in a moment.';
           submit.disabled = false;
-        }).catch(function(){ status.textContent = 'Connection problem. Please try again.'; submit.disabled = false; });
+          pending = null;
+        }).catch(function(err){ if (err.name !== 'AbortError') { status.textContent = 'Connection problem. Please try again.'; submit.disabled = false; } pending = null; });
     });
     dialog.showModal();
+    document.body.classList.add('d-dialog-open');
     dialog.querySelector('input').focus();
   }
 

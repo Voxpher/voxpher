@@ -713,7 +713,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .d-dialog::backdrop{background:rgba(21,9,17,.72);backdrop-filter:blur(8px)}
 .d-dialog[open]{animation:d-door-in .5s cubic-bezier(.2,.8,.2,1) both}
 .d-dialog-form{position:relative;padding:clamp(1.7rem,6vw,3rem);font-family:Georgia,serif}
-.d-dialog-close{position:absolute;right:1rem;top:.75rem;border:0;background:none;color:#704754;font-size:1.7rem;cursor:pointer}
+.d-dialog-close{position:absolute;right:.5rem;top:.5rem;width:44px;height:44px;display:grid;place-items:center;padding:0;border:0;background:none;color:#704754;font-size:1.7rem;cursor:pointer;touch-action:manipulation}
 .d-dialog-mark{display:grid;place-items:center;width:3.5rem;height:3.5rem;background:#f6dde2;color:#9a596b;font:italic 2rem Georgia,serif}
 .d-dialog-kicker{margin:1.5rem 0 .8rem;color:#9d6574;font:700 .62rem var(--font-m);letter-spacing:.18em}
 .d-dialog h2{margin:0;font:400 clamp(2.2rem,8vw,3.1rem)/1.05 Georgia,serif;letter-spacing:-.04em}
@@ -728,6 +728,9 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
 body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor .t-play, body.has-cursor .track{cursor:none}
 body.has-cursor input, body.has-cursor textarea, body.has-cursor select{cursor:auto}
+body.has-cursor.d-dialog-open, body.has-cursor.d-dialog-open .d-dialog{cursor:auto}
+body.has-cursor.d-dialog-open .d-dialog button{cursor:pointer}
+body.d-dialog-open #cursorDot,body.d-dialog-open #cursorRing{visibility:hidden}
 #cursorDot,#cursorRing{position:fixed;left:0;top:0;pointer-events:none;z-index:2000;transform:translate(-50%,-50%)}
 #cursorDot{width:8px;height:8px;background:#fff;border:2px solid #111}
 #cursorRing{width:34px;height:34px;border:2px solid #111;transition:width .18s,height .18s,background-color .18s,opacity .18s}
