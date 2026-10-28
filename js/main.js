@@ -489,22 +489,7 @@ function tiltAndMagnetic(){
 /* ---------- Boot ----------
    Split so the persistent shell can re-run content init after a seamless
    page transition. Chrome (header/menu) binds once; content re-runs. */
-  window.VoxpherInitChrome = function(){
-    document.querySelectorAll('.site-nav, .mobile-menu nav').forEach(function(nav){
-      if (nav.querySelector('a[href="/d"]')) return;
-      var link = document.createElement('a');
-      link.href = '/d';
-      link.textContent = 'D';
-      if (nav.closest('.mobile-menu')) {
-        var number = document.createElement('small');
-        number.textContent = '08';
-        link.appendChild(number);
-      }
-      var contact = nav.querySelector('a[href="/contact"]');
-      nav.insertBefore(link, contact || null);
-    });
-    menu();
-  };
+  window.VoxpherInitChrome = function(){ menu(); };
   window.VoxpherInitContent = function(){
     hydrateImages(); hydrateVisualsMedia(); optimizeAllImages(); guardImages(); mediaEntrance();
     homeMotion(); years(); socials(); activeNav();

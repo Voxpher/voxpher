@@ -180,6 +180,45 @@
     }
   }
 
+  function openPrivateSpace() {
+    if (document.getElementById('dDialog')) return;
+    var previous = document.activeElement;
+    var dialog = document.createElement('dialog');
+    dialog.id = 'dDialog';
+    dialog.className = 'd-dialog';
+    dialog.setAttribute('aria-labelledby', 'dDialogTitle');
+    dialog.innerHTML = '<form method="post" action="/d" class="d-dialog-form">' +
+      '<button class="d-dialog-close" type="button" aria-label="Close">×</button>' +
+      '<span class="d-dialog-mark" aria-hidden="true">D</span>' +
+      '<p class="d-dialog-kicker">A LITTLE SOMETHING FOR YOU</p>' +
+      '<h2 id="dDialogTitle">A secret space.</h2>' +
+      '<p class="d-dialog-copy">Enter the password to come inside.</p>' +
+      '<label for="dDialogPassword">PASSWORD</label>' +
+      '<input id="dDialogPassword" type="password" name="password" autocomplete="current-password" maxlength="256" required>' +
+      '<p class="d-dialog-status" role="status" aria-live="polite"></p>' +
+      '<button class="d-dialog-submit" type="submit">OPEN THE DOOR <span aria-hidden="true">↗</span></button></form>';
+    document.body.appendChild(dialog);
+    var form = dialog.querySelector('form');
+    var status = dialog.querySelector('.d-dialog-status');
+    var submit = dialog.querySelector('.d-dialog-submit');
+    dialog.querySelector('.d-dialog-close').addEventListener('click', function(){ dialog.close(); });
+    dialog.addEventListener('click', function(e){ if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', function(){ dialog.remove(); if (previous && previous.isConnected) previous.focus(); });
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      submit.disabled = true;
+      status.textContent = 'Opening…';
+      fetch('/d', {method:'POST', body:new FormData(form), credentials:'same-origin'})
+        .then(function(r){
+          if (r.redirected && r.ok) { window.location.assign('/d'); return; }
+          status.textContent = r.status === 401 ? 'That password isn’t right. Please try again.' : 'Unable to open this space. Please try again.';
+          submit.disabled = false;
+        }).catch(function(){ status.textContent = 'Connection problem. Please try again.'; submit.disabled = false; });
+    });
+    dialog.showModal();
+    dialog.querySelector('input').focus();
+  }
+
   function stepParts(dt) {
     for (var i = parts.length - 1; i >= 0; i--) {
       var p = parts[i];
@@ -229,9 +268,10 @@
     for (var i = 0; i < n; i++) {
       var el = document.createElement("div");
       el.className = "ant";
-      el.setAttribute("aria-hidden", "true");
       el.setAttribute("role", "button");
-      el.setAttribute("title", "Squash the ant!");
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("aria-label", "Discover a secret");
+      el.setAttribute("title", "Discover a secret");
       var built = buildAnt();
       el.appendChild(built.svg);
       document.body.appendChild(el);
@@ -262,6 +302,9 @@
           e.preventDefault();
           squash(ant);
         });
+        ant.el.addEventListener("keydown", function(e){
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); squash(ant); }
+        });
       })(a);
     }
 
@@ -287,6 +330,7 @@
       a.dead = 5;                    /* gone for 5 seconds */
       a.el.style.display = "none";   /* removed, not flipped */
       spawnDeathD(a.x, a.y);
+      window.setTimeout(openPrivateSpace, 650);
     }
 
     function pickWaypoint(a) {
