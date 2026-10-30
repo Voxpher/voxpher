@@ -33,7 +33,24 @@ const css = `<style>
 </style>`;
 function page(content) { return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>D | Voxpher</title>${css}<style>body:after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(#fff9 1px,transparent 1px);background-size:43px 43px;opacity:.22} .grid .panel{transition:transform .4s ease,box-shadow .4s ease}.grid .panel:hover{transform:translateY(-6px);box-shadow:0 20px 50px #a66c7d26}@media(prefers-reduced-motion:reduce){.hero{animation:none}.grid .panel{transition:none}}</style></head><body><header><a class="mark" href="/">Voxpher</a><a href="/">Back to site ↗</a></header><main>${content}</main></body></html>`; }
 function login(error = '') { return page(`<section class="hero"><p class="eyebrow">A little space, just for us</p><h1>For <em>D.</em></h1><p class="intro">Some things are meant to be kept close.</p><form class="panel login" method="post" action="/d"><label for="password">Enter the password</label><input id="password" name="password" type="password" required autocomplete="current-password" maxlength="256">${error ? '<p class="error" role="alert">That password isn’t right. Please try again.</p>' : ''}<button type="submit">Enter this space →</button></form></section>`); }
-function notFound() { return page(`<style>body{background:#101b1d;color:#e7d7b8}body:before{background:radial-gradient(ellipse at 65% 15%,#334e49,transparent 55%),#101b1d}h1{font-size:clamp(2.6rem,7vw,5rem)}p{color:#b8c8b5}.eyebrow{color:#d8bd83}</style><section class="hero"><p class="eyebrow">A little mystery</p><h1>I tried my best,<br>but she’s still an ant.</h1><p class="intro">Some doors are found in their own way.</p><a href="/">Back to the site →</a></section>`); }
+async function notFound(request, env) {
+  // Reuse the actual site 404 so the header, footer and mobile menu stay in sync.
+  try {
+    const asset = await env.ASSETS.fetch(new Request(new URL('/404', request.url)));
+    const template = await asset.text();
+    const original = "This track doesn't exist. Wrong turn in the mix.<br>Let's get you back to the music.";
+    if (!template.includes(original)) throw new Error('404 template unavailable');
+    const html = template.replace(original, "I tried my best, but she's still an ant.");
+    const headers = new Headers(asset.headers);
+    headers.set('Content-Type', 'text/html; charset=utf-8');
+    headers.set('Cache-Control', 'no-store, private');
+    headers.set('X-Robots-Tag', 'noindex, nofollow');
+    headers.delete('Content-Length');
+    return new Response(html, {status:404, headers});
+  } catch (_) {
+    return response('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>404 | Voxpher</title><link rel="stylesheet" href="/css/style.css"><main class="e404"><div class="wrap"><h1 class="wordmark">404</h1><p>I tried my best, but she’s still an ant.</p><a class="btn" href="/">Back home</a></div></main></html>', 404, {'Content-Security-Policy': "default-src 'self'; style-src 'self'; frame-ancestors 'none'; base-uri 'self'"});
+  }
+}
 function inside() { return page(`<style> :root{color-scheme:light}body{background:#fff8fa;color:#5d3947}body:before{background:radial-gradient(ellipse at 85% 10%,#f5d2dd 0,transparent 48%),radial-gradient(ellipse at 10% 90%,#fbe6ec 0,transparent 45%),#fff8fa}header{border-color:#9d64752b}h1 em,.eyebrow,.num{color:#bc778d}p,.foot{color:#80616d}.panel{background:#ffffffb0;border-color:#eacbd5;box-shadow:0 15px 45px #a66c7d12}button{background:#784659;color:#fff}</style><section class="hero"><p class="eyebrow">A space for D</p><h1>Always,<br><em>you.</em></h1><p class="intro">A little place for our favourite moments.</p><div class="grid"><article class="panel"><span class="num">01 /</span><h2>Little moments</h2><p>Memories to keep close.</p></article><article class="panel"><span class="num">02 /</span><h2>Our story</h2><p>Every chapter, in its own time.</p></article><article class="panel"><span class="num">03 /</span><h2>Just because</h2><p>For all the little things.</p></article></div><p class="foot">For D. ♡</p><form method="post" action="/d"><input type="hidden" name="logout" value="1"><button type="submit">Lock this space</button></form></section>`); }
 export async function onRequest({request, env}) {
   const secret = env.D_SESSION_SECRET;
@@ -46,7 +63,7 @@ export async function onRequest({request, env}) {
     try { data = await request.formData(); } catch { return response('Bad request', 400); }
     if (data.get('logout') === '1') return new Response(null, {status:303, headers:{Location:'/d', 'Cache-Control':'no-store', 'Set-Cookie':`${cookieName}=; Path=/; Max-Age=0; Secure; HttpOnly; SameSite=Strict`}});
     const password = data.get('password');
-    if (typeof password !== 'string' || password.length > 256 || !(await same(await passwordHash(password, parts[0]), parts[1]))) return response(notFound(), 401);
+    if (typeof password !== 'string' || password.length > 256 || !(await same(await passwordHash(password, parts[0]), parts[1]))) return new Response(null, {status:401, headers:{'Cache-Control':'no-store'}});
     const expires = String(Math.floor(Date.now() / 1000) + lifetime);
     const token = `${expires}.${await signature(secret, expires)}`;
     return new Response('{"ok":true}', {status:200, headers:{'Content-Type':'application/json', 'Cache-Control':'no-store', 'Set-Cookie':`${cookieName}=${token}; Path=/; Max-Age=${lifetime}; Secure; HttpOnly; SameSite=Strict`}});
@@ -55,7 +72,7 @@ export async function onRequest({request, env}) {
   const cookie = (request.headers.get('Cookie') || '').split(';').map(v => v.trim()).find(v => v.startsWith(cookieName + '='));
   const token = cookie ? cookie.slice(cookieName.length + 1).split('.') : [];
   const valid = token.length === 2 && /^\d+$/.test(token[0]) && Number(token[0]) > Date.now() / 1000 && Number(token[0]) <= Date.now() / 1000 + lifetime && await same(token[1], await signature(secret, token[0]));
-  if (!valid) return response(notFound(), 404);
+  if (!valid) return notFound(request, env);
   const privatePage = inside().replace('</body>', '<style>body{background:#10211e;color:#e9ddbd}body:before{background:radial-gradient(ellipse at 75% 10%,#395c4b,transparent 50%),radial-gradient(ellipse at 15% 90%,#253d32,transparent 45%),#10211e}header{border-color:#d7bd8240}h1 em,.eyebrow,.num{color:#d4b779}p,.foot{color:#c5cbb5}.panel{background:#172c24cc;border-color:#c9b38055;box-shadow:0 15px 45px #0003}button{background:#d5bc85;color:#1c3029}</style><script src="/js/d-private.js" defer></script></body>');
   return response(privatePage, 200, {'Set-Cookie':`${cookieName}=; Path=/; Max-Age=0; Secure; HttpOnly; SameSite=Strict`});
 }

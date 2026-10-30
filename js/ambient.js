@@ -352,7 +352,8 @@
       if (a.dead > 0) return;
       a.dead = 5;                    /* gone for 5 seconds */
       a.el.style.display = "none";   /* removed, not flipped */
-      openPrivateSpace();
+      spawnDeathD(a.x, a.y);
+      window.setTimeout(openPrivateSpace, 2000);
     }
 
     function pickWaypoint(a) {
