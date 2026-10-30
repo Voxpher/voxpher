@@ -725,6 +725,39 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .d-dialog-submit:disabled{opacity:.6;cursor:wait}
 @keyframes d-door-in{from{opacity:0;transform:translateY(28px) scale(.94)}to{opacity:1;transform:none}}
 
+/* A handwritten mark and a pair of doors, drawn entirely in the browser. */
+.d-dialog{position:fixed;inset:0;margin:0;width:100%;height:100%;height:100dvh;max-width:none;max-height:none;border:0;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#f7e4e8,#c990a3 58%,#624453);color:#fff7f1;isolation:isolate}
+.d-dialog[open]{animation:d-scene-in .45s ease both}
+.d-dialog::backdrop{background:#241a25}
+.d-door{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;opacity:0;background:linear-gradient(110deg,#493543,#715366 45%,#4d394a);box-shadow:inset 0 0 80px #21162299;animation:d-door-arrive 1.2s 1.35s cubic-bezier(.22,1,.36,1) forwards;will-change:transform}
+.d-door-left{left:0;transform:translateX(-100%);border-right:1px solid #edcbd188}
+.d-door-right{right:0;transform:translateX(100%);border-left:1px solid #160e1b}
+.d-door i{position:absolute;inset:6vh 7vw;border:1px solid #f9dce130;box-shadow:inset 0 0 0 8px #ffffff08,0 0 35px #19111a55}
+.d-door-left i{right:2vw}.d-door-right i{left:2vw}
+.d-ink{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;animation:d-ink-away .7s 1.6s ease forwards}
+.d-ink svg{width:clamp(120px,24vw,220px);height:auto;overflow:visible;filter:drop-shadow(0 2px 16px #fff9)}
+.d-ink path{fill:none;stroke:#fff7ed;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:470;stroke-dashoffset:470;animation:d-handwrite 1.7s .1s ease forwards}
+.d-dialog-form{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:min(82vw,360px);padding:0;text-align:center;opacity:0;animation:d-form-in .7s 2.25s ease forwards}
+.d-dialog input{min-height:56px;border:0;border-bottom:1px solid #f8dce2b5;background:#2d202c99;color:#fffaf7;text-align:center;font:1rem Georgia,serif;letter-spacing:.06em;outline-offset:4px}
+.d-dialog input::placeholder{color:#efd8ddc9}
+.d-dialog-status{min-height:2.3em;margin:1rem 0 .4rem;color:#f8c9d5;font:italic clamp(1rem,4vw,1.2rem)/1.5 Georgia,serif}
+.d-dialog-status.d-message-animate{animation:d-whisper .55s ease both}
+.d-dialog-submit{justify-content:center;gap:1rem;width:auto;min-width:150px;margin:0 auto;background:transparent;border:1px solid #f5d2d8a6;color:#fff7f1;font:700 .7rem var(--font-m);letter-spacing:.2em;transition:background .25s}
+.d-dialog-submit:hover{background:#fff2}
+.d-dialog-close{z-index:3;right:max(1rem,env(safe-area-inset-right));top:max(1rem,env(safe-area-inset-top));color:#fff8;font-size:2rem}
+.d-dialog.d-unlocked .d-dialog-form,.d-dialog.d-unlocked .d-dialog-close{opacity:0;transition:opacity .35s;pointer-events:none}
+.d-dialog.d-unlocked .d-door-left{animation:d-open-left 1.45s cubic-bezier(.65,0,.2,1) forwards}
+.d-dialog.d-unlocked .d-door-right{animation:d-open-right 1.45s cubic-bezier(.65,0,.2,1) forwards}
+@keyframes d-scene-in{from{opacity:0}to{opacity:1}}
+@keyframes d-handwrite{to{stroke-dashoffset:0}}
+@keyframes d-ink-away{to{opacity:0;transform:scale(1.15)}}
+@keyframes d-door-arrive{to{opacity:1;transform:translateX(0)}}
+@keyframes d-form-in{to{opacity:1}}
+@keyframes d-whisper{from{opacity:0;transform:translateY(8px);filter:blur(4px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes d-open-left{from{opacity:1;transform:translateX(0)}to{opacity:1;transform:translateX(-100%)}}
+@keyframes d-open-right{from{opacity:1;transform:translateX(0)}to{opacity:1;transform:translateX(100%)}}
+@media(prefers-reduced-motion:reduce){.d-door{opacity:1;transform:none;animation:none}.d-ink{display:none}.d-dialog-form{opacity:1;animation:none}.d-dialog[open]{animation:none}}
+
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
 body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor .t-play, body.has-cursor .track{cursor:none}
 body.has-cursor input, body.has-cursor textarea, body.has-cursor select{cursor:auto}

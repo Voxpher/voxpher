@@ -187,16 +187,15 @@
     dialog.id = 'dDialog';
     dialog.className = 'd-dialog';
     dialog.setAttribute('aria-labelledby', 'dDialogTitle');
-    dialog.innerHTML = '<form method="post" action="/d" class="d-dialog-form">' +
+    dialog.innerHTML = '<div class="d-door d-door-left" aria-hidden="true"><i></i></div><div class="d-door d-door-right" aria-hidden="true"><i></i></div>' +
+      '<div class="d-ink" aria-hidden="true"><svg viewBox="0 0 180 220"><path d="M57 28 C45 80 38 137 31 188 M42 36 C88 7 161 20 154 91 C149 151 101 192 31 188" /></svg></div>' +
       '<button class="d-dialog-close" type="button" aria-label="Close">×</button>' +
-      '<span class="d-dialog-mark" aria-hidden="true">D</span>' +
-      '<p class="d-dialog-kicker">A LITTLE SOMETHING FOR YOU</p>' +
-      '<h2 id="dDialogTitle">A secret space.</h2>' +
-      '<p class="d-dialog-copy">Enter the password to come inside.</p>' +
-      '<label for="dDialogPassword">PASSWORD</label>' +
-      '<input id="dDialogPassword" type="password" name="password" autocomplete="current-password" maxlength="256" required>' +
+      '<form method="post" action="/d" class="d-dialog-form">' +
+      '<h2 id="dDialogTitle" class="visually-hidden">Enter the secret password</h2>' +
+      '<label for="dDialogPassword" class="visually-hidden">Password</label>' +
+      '<input id="dDialogPassword" type="password" name="password" placeholder="The secret word…" autocomplete="current-password" maxlength="256" required>' +
       '<p class="d-dialog-status" role="status" aria-live="polite"></p>' +
-      '<button class="d-dialog-submit" type="submit">OPEN THE DOOR <span aria-hidden="true">↗</span></button></form>';
+      '<button class="d-dialog-submit" type="submit">ENTER <span aria-hidden="true">→</span></button></form>';
     document.body.appendChild(dialog);
     var form = dialog.querySelector('form');
     var status = dialog.querySelector('.d-dialog-status');
@@ -219,12 +218,20 @@
       pending = new AbortController();
       fetch('/d', {method:'POST', body:new FormData(form), credentials:'same-origin', signal:pending.signal})
         .then(function(r){
-          if (r.redirected && r.ok) { window.location.assign('/d'); return; }
+          if (r.redirected && r.ok) {
+            pending = null;
+            dialog.classList.add('d-unlocked');
+            window.setTimeout(function(){ window.location.assign('/d'); }, reduceMotion ? 0 : 1550);
+            return;
+          }
           if (r.status === 401) {
             var pick = Math.floor(Math.random() * (lastMessage < 0 ? messages.length : messages.length - 1));
             if (lastMessage >= 0 && pick >= lastMessage) pick++;
             lastMessage = pick;
             status.textContent = messages[pick];
+            status.classList.remove('d-message-animate');
+            void status.offsetWidth;
+            status.classList.add('d-message-animate');
           } else status.textContent = 'Something went wrong. Try again in a moment.';
           submit.disabled = false;
           pending = null;
@@ -232,7 +239,7 @@
     });
     dialog.showModal();
     document.body.classList.add('d-dialog-open');
-    dialog.querySelector('input').focus();
+    if (window.matchMedia('(pointer: fine)').matches) window.setTimeout(function(){ if (dialog.open) dialog.querySelector('input').focus(); }, reduceMotion ? 0 : 2400);
   }
 
   function stepParts(dt) {
@@ -345,8 +352,7 @@
       if (a.dead > 0) return;
       a.dead = 5;                    /* gone for 5 seconds */
       a.el.style.display = "none";   /* removed, not flipped */
-      spawnDeathD(a.x, a.y);
-      window.setTimeout(openPrivateSpace, 650);
+      openPrivateSpace();
     }
 
     function pickWaypoint(a) {
