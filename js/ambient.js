@@ -218,7 +218,7 @@
       pending = new AbortController();
       fetch('/d', {method:'POST', body:new FormData(form), credentials:'same-origin', signal:pending.signal})
         .then(function(r){
-          if (r.redirected && r.ok) {
+          if (r.ok) {
             pending = null;
             dialog.classList.add('d-unlocked');
             window.setTimeout(function(){ window.location.assign('/d'); }, reduceMotion ? 0 : 1550);
