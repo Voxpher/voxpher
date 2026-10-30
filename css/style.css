@@ -771,6 +771,20 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 @keyframes d-mark-float{0%{transform:scale(.8) rotate(-5deg);opacity:0}20%{opacity:1}100%{transform:scale(1.06) rotate(2deg);opacity:1}}
 @keyframes d-ink-glow{0%,100%{stroke-width:2}50%{stroke-width:3.4}}
 
+/* D entrance: the site's red and black, softened for the private space. */
+.d-dialog{background:radial-gradient(ellipse at 50% 45%,#5c2025,#24171b 56%,#0d0d10);color:#f1eee9}
+.d-door{background:linear-gradient(110deg,#101012,#242124 48%,#131315);box-shadow:inset 0 0 90px #000b}
+.d-door-left{border-color:#b4444180}.d-door-right{border-color:#090909}
+.d-door i{border-color:#e8ded321;box-shadow:inset 0 0 0 8px #fff008,0 0 45px #0007}
+.d-ink path{stroke:#e9e1d7}.d-ink svg{filter:drop-shadow(0 0 16px #db524a88)}
+.d-dialog input{background:#111114d9;color:#f7f3ee;border-color:#d3bab5a0}
+.d-dialog input::placeholder{color:#c8b9b8ba}.d-dialog-status{color:#e5c7c2}
+.d-dialog-submit{border-color:#c85650;color:#f7f3ee}.d-dialog-close{color:#eee6df}
+.d-gate-brand{position:absolute;z-index:3;top:max(1.1rem,env(safe-area-inset-top));left:max(1.2rem,env(safe-area-inset-left));opacity:0;animation:d-form-in .8s 2.2s ease forwards}
+.d-gate-brand img{display:block;width:clamp(86px,8vw,110px);height:auto}
+.d-dialog.d-unlocked .d-gate-brand{opacity:0;transition:opacity .35s}
+@media(prefers-reduced-motion:reduce){.d-gate-brand{opacity:1;animation:none}}
+
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
 body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor .t-play, body.has-cursor .track{cursor:none}
 body.has-cursor input, body.has-cursor textarea, body.has-cursor select{cursor:auto}

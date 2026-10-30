@@ -189,6 +189,7 @@
     dialog.setAttribute('aria-labelledby', 'dDialogTitle');
     dialog.innerHTML = '<div class="d-door d-door-left" aria-hidden="true"><i></i></div><div class="d-door d-door-right" aria-hidden="true"><i></i></div>' +
       '<div class="d-ink" aria-hidden="true"><svg viewBox="0 0 180 220"><path d="M57 28 C45 80 38 137 31 188 M42 36 C88 7 161 20 154 91 C149 151 101 192 31 188" /></svg></div>' +
+      '<div class="d-gate-brand"><img src="https://res.cloudinary.com/hsv6zyuu/image/upload/v1790700990/SIgnn1.png" alt="Voxpher"></div>' +
       '<button class="d-dialog-close" type="button" aria-label="Close">×</button>' +
       '<form method="post" action="/d" class="d-dialog-form">' +
       '<h2 id="dDialogTitle" class="visually-hidden">Enter the secret password</h2>' +
