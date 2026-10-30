@@ -785,6 +785,26 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 .d-dialog.d-unlocked .d-gate-brand{opacity:0;transition:opacity .35s}
 @media(prefers-reduced-motion:reduce){.d-gate-brand{opacity:1;animation:none}}
 
+/* A quiet, architectural entrance in parchment and ink. */
+.d-dialog{background:radial-gradient(ellipse at 50% 43%,#faf7ef 0%,#eae5da 64%,#d5cec1 100%);color:#272622}
+.d-dialog::backdrop{background:#292723}
+.d-door{background:linear-gradient(100deg,#e3ded3 0%,#f5f1e8 43%,#e9e4d9 100%);box-shadow:inset 0 0 75px #6d60520e,0 0 45px #51473916}
+.d-door-left{border-right:1px solid #bcb2a2}.d-door-right{border-left:1px solid #faf8f2}
+.d-door i{inset:10vh 8vw;border:1px solid #a99e8c70;box-shadow:inset 0 0 0 5px #fff7ee50,0 0 0 1px #fff7ee55}
+.d-door i::after{content:'';position:absolute;inset:9px;border:1px solid #c9bfae75}
+.d-door-left i{right:3vw}.d-door-right i{left:3vw}
+.d-ink path{stroke:#3b3732}.d-ink svg{filter:drop-shadow(0 8px 14px #7b6d5e30)}
+.d-gate-brand img{filter:brightness(0);opacity:.85}
+.d-dialog-form{width:min(82vw,350px);padding:clamp(1.35rem,3vw,2.2rem);background:#f8f5edeb;border:1px solid #c4b9a980;box-shadow:0 14px 50px #5147391c;backdrop-filter:blur(14px)}
+.d-dialog input{min-height:54px;background:#fffdf8;color:#282622;border:1px solid #bbb1a2;text-align:center;font:1rem Georgia,serif;letter-spacing:.04em}
+.d-dialog input::placeholder{color:#7b746b;opacity:1}
+.d-dialog-status{color:#6d6258;font-size:1rem}
+.d-dialog-submit{min-width:145px;min-height:48px;background:#292826;color:#f8f5ee;border:1px solid #292826;letter-spacing:.17em}
+.d-dialog-submit:hover{background:#4b4640}
+.d-dialog-close{color:#393631;background:#faf7f0a8;border:1px solid #aaa09380;font-size:1.7rem}
+body.has-cursor.d-dialog-open .d-dialog button:focus-visible,.d-dialog input:focus-visible{outline:2px solid #393631!important;outline-offset:3px;box-shadow:none!important}
+@media(max-width:640px){.d-door i{inset:14vh 5vw}.d-door-left i{right:3vw}.d-door-right i{left:3vw}.d-dialog-form{width:min(86vw,350px)}.d-gate-brand img{width:88px}}
+
 /* ---------- Custom square cursor (fine pointers only; enabled via JS) ---------- */
 body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor .t-play, body.has-cursor .track{cursor:none}
 body.has-cursor input, body.has-cursor textarea, body.has-cursor select{cursor:auto}
