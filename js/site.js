@@ -50,7 +50,7 @@ var VOXPHER_CONFIG = {
     indorideHero:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261984/Indoride_cover.png",
     indorideGal1:   "https://picsum.photos/seed/csindoride1/800/500",  // wide 16:10
     indorideGal2:   "https://picsum.photos/seed/csindoride2/800/500",
-    hubatorHero:    "https://picsum.photos/seed/cshubator/1680/720",
+    hubatorHero:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261982/Hubator_cover.png",
     hubatorGal1:    "https://picsum.photos/seed/cshubator1/800/500",
     hubatorGal2:    "https://picsum.photos/seed/cshubator2/800/500",
     namasteHero:    "https://picsum.photos/seed/csnamaste/1680/720",
@@ -59,7 +59,7 @@ var VOXPHER_CONFIG = {
     deepexHero:     "https://picsum.photos/seed/csdeepex/1680/720",
     deepexGal1:     "https://picsum.photos/seed/csdeepex1/800/500",
     deepexGal2:     "https://picsum.photos/seed/csdeepex2/800/500",
-    facebengalHero: "https://picsum.photos/seed/csface/1680/720",
+    facebengalHero: "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261982/facebengal_cover.png",
     facebengalGal1: "https://picsum.photos/seed/csface1/800/500",
     facebengalGal2: "https://picsum.photos/seed/csface2/800/500",
 
