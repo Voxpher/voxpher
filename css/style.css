@@ -630,7 +630,7 @@ body.hero-anim .ch{transform:translateY(0) rotateX(0)}
 @media(max-width:640px){
   #viz{height:150px}
   .track{grid-template-columns:auto 1fr;row-gap:.9rem}
-  .t-art{width:100%;max-width:220px}
+  .t-art{width:min(150px,100%);height:auto;aspect-ratio:16/9;object-fit:cover;justify-self:end}
   .t-links{grid-column:1/-1;justify-content:flex-start}
   .p-controls{flex-wrap:wrap}
   .plat-grid{grid-template-columns:1fr}
@@ -832,7 +832,6 @@ body.d-dialog-open #cursorDot,body.d-dialog-open #cursorRing{visibility:hidden}
   .p-btn.p-main{width:68px;height:68px}
   /* track rows breathe on narrow screens */
   .track{padding:.7rem .8rem;gap:.8rem}
-  .t-art{max-width:180px}
   .t-play{width:48px;height:48px}
   /* section rhythm */
   .page-hero .wordmark{font-size:clamp(2.4rem,11vw,4rem)}
@@ -853,6 +852,5 @@ body.d-dialog-open #cursorDot,body.d-dialog-open #cursorRing{visibility:hidden}
 }
 @media(max-width:400px){
   .track{grid-template-columns:auto 1fr}
-  .t-art{max-width:150px}
   .hero{padding-top:6rem}
 }
