@@ -47,7 +47,7 @@ var VOXPHER_CONFIG = {
     workPhoto:      "https://picsum.photos/seed/voxphoto/800/600",
 
     /* ---------- CASE STUDIES ---------- */
-    indorideHero:    "https://picsum.photos/seed/csindoride/1680/720",  // wide 21:9
+    indorideHero:    "https://res.cloudinary.com/hsv6zyuu/image/upload/v1791261984/Indoride_cover.png",
     indorideGal1:   "https://picsum.photos/seed/csindoride1/800/500",  // wide 16:10
     indorideGal2:   "https://picsum.photos/seed/csindoride2/800/500",
     hubatorHero:    "https://picsum.photos/seed/cshubator/1680/720",
